@@ -3,7 +3,7 @@
 package gvc
 
 import (
-	"gitlab.com/controlplane/controlplane/go-libs/schema/query"
+	"github.com/controlplane-com/types-go/query"
 )
 import "github.com/controlplane-com/types-go/tracing"
 import "github.com/controlplane-com/types-go/env"
