@@ -2,7 +2,7 @@
 
 package envoyAccessLog
 
-import "github.com/controlplane-com/types-go/envoyCommon"
+import "github.com/controlplane-com/types-go/pkg/envoyCommon"
 
 type AccessLogName string
 

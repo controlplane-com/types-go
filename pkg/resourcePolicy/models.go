@@ -2,7 +2,7 @@
 
 package resourcePolicy
 
-import "github.com/controlplane-com/types-go/base"
+import "github.com/controlplane-com/types-go/pkg/base"
 
 type ResourcePolicyBindings struct {
 	Permissions    []string `json:"permissions,omitempty"`

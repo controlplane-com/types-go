@@ -2,7 +2,7 @@
 
 package auditctx
 
-import "github.com/controlplane-com/types-go/base"
+import "github.com/controlplane-com/types-go/pkg/base"
 
 type AuditContextStatus map[string]any
 

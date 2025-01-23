@@ -2,11 +2,11 @@
 
 package envoy
 
-import "github.com/controlplane-com/types-go/envoyAccessLog"
-import "github.com/controlplane-com/types-go/envoyCluster"
-import "github.com/controlplane-com/types-go/envoyExcExtAuth"
-import "github.com/controlplane-com/types-go/envoyHttp"
-import "github.com/controlplane-com/types-go/volumeSpec"
+import "github.com/controlplane-com/types-go/pkg/envoyAccessLog"
+import "github.com/controlplane-com/types-go/pkg/envoyCluster"
+import "github.com/controlplane-com/types-go/pkg/envoyExcExtAuth"
+import "github.com/controlplane-com/types-go/pkg/envoyHttp"
+import "github.com/controlplane-com/types-go/pkg/volumeSpec"
 
 type EnvoyFilters struct {
 	AccessLog            []envoyAccessLog.AccessLog          `json:"accessLog,omitempty"`

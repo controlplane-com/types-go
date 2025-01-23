@@ -2,7 +2,7 @@
 
 package agent
 
-import "github.com/controlplane-com/types-go/base"
+import "github.com/controlplane-com/types-go/pkg/base"
 
 type BootstrapConfig struct {
 	RegistrationToken string `json:"registrationToken,omitempty"`

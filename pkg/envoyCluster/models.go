@@ -2,7 +2,7 @@
 
 package envoyCluster
 
-import "github.com/controlplane-com/types-go/envoyCommon"
+import "github.com/controlplane-com/types-go/pkg/envoyCommon"
 
 type MetadataFilterMetadata map[string]envoyCommon.Struct
 

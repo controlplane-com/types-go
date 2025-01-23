@@ -2,7 +2,7 @@
 
 package mk8sGcp
 
-import "github.com/controlplane-com/types-go/mk8sCommon"
+import "github.com/controlplane-com/types-go/pkg/mk8sCommon"
 
 type ImageRecommended string
 

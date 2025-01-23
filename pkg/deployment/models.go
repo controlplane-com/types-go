@@ -2,9 +2,9 @@
 
 package deployment
 
-import "github.com/controlplane-com/types-go/containerstatus"
-import "github.com/controlplane-com/types-go/cronjob"
-import "github.com/controlplane-com/types-go/base"
+import "github.com/controlplane-com/types-go/pkg/containerstatus"
+import "github.com/controlplane-com/types-go/pkg/cronjob"
+import "github.com/controlplane-com/types-go/pkg/base"
 
 type DeploymentVersionContainers map[string]containerstatus.ContainerStatus
 

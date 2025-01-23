@@ -2,18 +2,18 @@
 
 package mk8s
 
-import "github.com/controlplane-com/types-go/mk8sGeneric"
-import "github.com/controlplane-com/types-go/mk8sHetzner"
-import "github.com/controlplane-com/types-go/mk8sAws"
-import "github.com/controlplane-com/types-go/mk8sLinode"
-import "github.com/controlplane-com/types-go/mk8sOblivus"
-import "github.com/controlplane-com/types-go/mk8sLambdalabs"
-import "github.com/controlplane-com/types-go/mk8sPaperspace"
-import "github.com/controlplane-com/types-go/mk8sEphemeral"
-import "github.com/controlplane-com/types-go/mk8sTriton"
-import "github.com/controlplane-com/types-go/mk8sDigitalOcean"
-import "github.com/controlplane-com/types-go/mk8sAddons"
-import "github.com/controlplane-com/types-go/base"
+import "github.com/controlplane-com/types-go/pkg/mk8sGeneric"
+import "github.com/controlplane-com/types-go/pkg/mk8sHetzner"
+import "github.com/controlplane-com/types-go/pkg/mk8sAws"
+import "github.com/controlplane-com/types-go/pkg/mk8sLinode"
+import "github.com/controlplane-com/types-go/pkg/mk8sOblivus"
+import "github.com/controlplane-com/types-go/pkg/mk8sLambdalabs"
+import "github.com/controlplane-com/types-go/pkg/mk8sPaperspace"
+import "github.com/controlplane-com/types-go/pkg/mk8sEphemeral"
+import "github.com/controlplane-com/types-go/pkg/mk8sTriton"
+import "github.com/controlplane-com/types-go/pkg/mk8sDigitalOcean"
+import "github.com/controlplane-com/types-go/pkg/mk8sAddons"
+import "github.com/controlplane-com/types-go/pkg/base"
 
 type Mk8SSpecVersion string
 

@@ -2,7 +2,7 @@
 
 package statefulSet
 
-import "github.com/controlplane-com/types-go/volumeSet"
+import "github.com/controlplane-com/types-go/pkg/volumeSet"
 
 type StatefulSetStatus struct {
 	ReplicaCount float32                   `json:"replicaCount"`

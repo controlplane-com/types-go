@@ -2,7 +2,7 @@
 
 package envoyRateLimit
 
-import "github.com/controlplane-com/types-go/envoyCommon"
+import "github.com/controlplane-com/types-go/pkg/envoyCommon"
 
 type RateLimitServiceGrpcServiceEnvoyGrpc struct {
 	Cluster_name string                  `json:"cluster_name,omitempty"`
