@@ -2,9 +2,7 @@
 
 package accessreport
 
-import (
-	"github.com/controlplane-com/types-go/pkg/base"
-)
+import "github.com/controlplane-com/types-go/base"
 
 type PrincipalBindingMatch string
 
