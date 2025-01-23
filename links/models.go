@@ -1,3 +1,0 @@
-/* auto-generated */
-
-package links
