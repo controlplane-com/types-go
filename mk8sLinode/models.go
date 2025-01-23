@@ -2,7 +2,7 @@
 
 package mk8sLinode
 
-import "gitlab.com/controlplane/controlplane/go-libs/schema/mk8sCommon"
+import "github.com/controlplane-com/types-go/mk8sCommon"
 
 type LinodePool struct {
 	Name          string            `json:"name,omitempty"`

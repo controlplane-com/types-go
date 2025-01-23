@@ -2,7 +2,7 @@
 
 package mk8sEphemeral
 
-import "gitlab.com/controlplane/controlplane/go-libs/schema/mk8sCommon"
+import "github.com/controlplane-com/types-go/mk8sCommon"
 
 type EphemeralPoolArch string
 

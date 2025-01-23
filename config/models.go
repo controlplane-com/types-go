@@ -2,7 +2,7 @@
 
 package config
 
-import "gitlab.com/controlplane/controlplane/go-libs/schema/base"
+import "github.com/controlplane-com/types-go/base"
 
 type ConfigKind string
 

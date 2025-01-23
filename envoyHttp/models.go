@@ -2,7 +2,7 @@
 
 package envoyHttp
 
-import "gitlab.com/controlplane/controlplane/go-libs/schema/envoyCommon"
+import "github.com/controlplane-com/types-go/envoyCommon"
 
 type HttpUri struct {
 	Uri     string `json:"uri,omitempty"`

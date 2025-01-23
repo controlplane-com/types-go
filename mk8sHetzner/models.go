@@ -2,7 +2,7 @@
 
 package mk8sHetzner
 
-import "gitlab.com/controlplane/controlplane/go-libs/schema/mk8sCommon"
+import "github.com/controlplane-com/types-go/mk8sCommon"
 
 type DedicatedServerHetznerPool struct {
 	Name   string            `json:"name,omitempty"`

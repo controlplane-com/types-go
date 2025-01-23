@@ -2,9 +2,9 @@
 
 package org
 
-import "gitlab.com/controlplane/controlplane/go-libs/schema/orgLogging"
-import "gitlab.com/controlplane/controlplane/go-libs/schema/tracing"
-import "gitlab.com/controlplane/controlplane/go-libs/schema/base"
+import "github.com/controlplane-com/types-go/orgLogging"
+import "github.com/controlplane-com/types-go/tracing"
+import "github.com/controlplane-com/types-go/base"
 
 type OrgStatus struct {
 	AccountLink string `json:"accountLink,omitempty"`

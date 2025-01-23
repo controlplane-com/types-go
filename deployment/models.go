@@ -2,9 +2,9 @@
 
 package deployment
 
-import "gitlab.com/controlplane/controlplane/go-libs/schema/containerstatus"
-import "gitlab.com/controlplane/controlplane/go-libs/schema/cronjob"
-import "gitlab.com/controlplane/controlplane/go-libs/schema/base"
+import "github.com/controlplane-com/types-go/containerstatus"
+import "github.com/controlplane-com/types-go/cronjob"
+import "github.com/controlplane-com/types-go/base"
 
 type DeploymentVersionContainers map[string]containerstatus.ContainerStatus
 
