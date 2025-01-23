@@ -2,7 +2,7 @@
 
 package permissions
 
-import "gitlab.com/controlplane/controlplane/go-libs/schema/base"
+import "github.com/controlplane-com/types-go/base"
 
 type Permission struct {
 	Name        string `json:"name,omitempty"`

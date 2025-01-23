@@ -2,8 +2,8 @@
 
 package group
 
-import "gitlab.com/controlplane/controlplane/go-libs/schema/base"
-import "gitlab.com/controlplane/controlplane/go-libs/schema/query"
+import "github.com/controlplane-com/types-go/base"
+import "github.com/controlplane-com/types-go/query"
 
 type GroupIdentityMatcherLanguage string
 

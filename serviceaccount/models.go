@@ -2,7 +2,7 @@
 
 package serviceaccount
 
-import "gitlab.com/controlplane/controlplane/go-libs/schema/base"
+import "github.com/controlplane-com/types-go/base"
 
 type ServiceAccountKey struct {
 	Name        string `json:"name,omitempty"`

@@ -2,7 +2,7 @@
 
 package cronjob
 
-import "gitlab.com/controlplane/controlplane/go-libs/schema/containerstatus"
+import "github.com/controlplane-com/types-go/containerstatus"
 
 type JobExecutionConditionStatus string
 

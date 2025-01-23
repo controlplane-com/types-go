@@ -2,7 +2,7 @@
 
 package tenant
 
-import "gitlab.com/controlplane/controlplane/go-libs/schema/base"
+import "github.com/controlplane-com/types-go/base"
 
 type TenantSpec struct {
 	Orgs     []base.Name `json:"orgs,omitempty"`

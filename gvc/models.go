@@ -5,9 +5,9 @@ package gvc
 import (
 	"gitlab.com/controlplane/controlplane/go-libs/schema/query"
 )
-import "gitlab.com/controlplane/controlplane/go-libs/schema/tracing"
-import "gitlab.com/controlplane/controlplane/go-libs/schema/env"
-import "gitlab.com/controlplane/controlplane/go-libs/schema/base"
+import "github.com/controlplane-com/types-go/tracing"
+import "github.com/controlplane-com/types-go/env"
+import "github.com/controlplane-com/types-go/base"
 
 type GvcSpecLoadBalancer struct {
 	Dedicated bool `json:"dedicated,omitempty"`
