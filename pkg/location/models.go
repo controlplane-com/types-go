@@ -2,7 +2,7 @@
 
 package location
 
-import "github.com/controlplane-com/types-go/base"
+import "github.com/controlplane-com/types-go/pkg/base"
 
 type LocationSpec struct {
 	Enabled bool `json:"enabled,omitempty"`

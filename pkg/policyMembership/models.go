@@ -2,7 +2,7 @@
 
 package policyMembership
 
-import "github.com/controlplane-com/types-go/base"
+import "github.com/controlplane-com/types-go/pkg/base"
 
 type PolicySummary struct {
 	Link        string    `json:"link,omitempty"`

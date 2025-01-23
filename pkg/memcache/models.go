@@ -2,7 +2,7 @@
 
 package memcache
 
-import "github.com/controlplane-com/types-go/base"
+import "github.com/controlplane-com/types-go/pkg/base"
 
 type MemcacheOptions struct {
 	EvictionsDisabled  bool    `json:"evictionsDisabled,omitempty"`

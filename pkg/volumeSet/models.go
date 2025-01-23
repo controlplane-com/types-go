@@ -2,7 +2,7 @@
 
 package volumeSet
 
-import "github.com/controlplane-com/types-go/base"
+import "github.com/controlplane-com/types-go/pkg/base"
 
 type FileSystem struct {
 	Name              string   `json:"name,omitempty"`

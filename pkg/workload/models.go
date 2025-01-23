@@ -2,12 +2,12 @@
 
 package workload
 
-import "github.com/controlplane-com/types-go/port"
-import "github.com/controlplane-com/types-go/env"
-import "github.com/controlplane-com/types-go/volumeSpec"
-import "github.com/controlplane-com/types-go/workloadOptions"
-import "github.com/controlplane-com/types-go/envoy"
-import "github.com/controlplane-com/types-go/base"
+import "github.com/controlplane-com/types-go/pkg/port"
+import "github.com/controlplane-com/types-go/pkg/env"
+import "github.com/controlplane-com/types-go/pkg/volumeSpec"
+import "github.com/controlplane-com/types-go/pkg/workloadOptions"
+import "github.com/controlplane-com/types-go/pkg/envoy"
+import "github.com/controlplane-com/types-go/pkg/base"
 
 type Memory string
 

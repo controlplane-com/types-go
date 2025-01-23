@@ -3,11 +3,11 @@
 package gvc
 
 import (
-	"github.com/controlplane-com/types-go/query"
+	"github.com/controlplane-com/types-go/pkg/query"
 )
-import "github.com/controlplane-com/types-go/tracing"
-import "github.com/controlplane-com/types-go/env"
-import "github.com/controlplane-com/types-go/base"
+import "github.com/controlplane-com/types-go/pkg/tracing"
+import "github.com/controlplane-com/types-go/pkg/env"
+import "github.com/controlplane-com/types-go/pkg/base"
 
 type GvcSpecLoadBalancer struct {
 	Dedicated bool `json:"dedicated,omitempty"`

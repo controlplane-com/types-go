@@ -2,7 +2,7 @@
 
 package mk8sEphemeral
 
-import "github.com/controlplane-com/types-go/mk8sCommon"
+import "github.com/controlplane-com/types-go/pkg/mk8sCommon"
 
 type EphemeralPoolArch string
 

@@ -2,10 +2,10 @@
 
 package command
 
-import "github.com/controlplane-com/types-go/base"
-import "github.com/controlplane-com/types-go/env"
-import "github.com/controlplane-com/types-go/workload"
-import "github.com/controlplane-com/types-go/volumeSet"
+import "github.com/controlplane-com/types-go/pkg/base"
+import "github.com/controlplane-com/types-go/pkg/env"
+import "github.com/controlplane-com/types-go/pkg/workload"
+import "github.com/controlplane-com/types-go/pkg/volumeSet"
 
 type CommandLifecycleStage string
 

@@ -2,7 +2,7 @@
 
 package mk8sTriton
 
-import "github.com/controlplane-com/types-go/mk8sCommon"
+import "github.com/controlplane-com/types-go/pkg/mk8sCommon"
 
 type TritonPoolTritonTags map[string]string
 

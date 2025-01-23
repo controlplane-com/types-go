@@ -2,8 +2,8 @@
 
 package envoyExcExtAuth
 
-import "github.com/controlplane-com/types-go/envoyCommon"
-import "github.com/controlplane-com/types-go/port"
+import "github.com/controlplane-com/types-go/pkg/envoyCommon"
+import "github.com/controlplane-com/types-go/pkg/port"
 
 type ExcExtAuth struct {
 	Match   envoyCommon.RouteMatch `json:"match,omitempty"`
