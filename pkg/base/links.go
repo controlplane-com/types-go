@@ -1,7 +1,6 @@
 package base
 
 import (
-	"gitlab.com/controlplane/controlplane/go-libs/pipeline"
 	"strings"
 )
 
@@ -16,9 +15,12 @@ func (l Links) Gvc() string {
 }
 
 func (l Links) FindHref(rel string) string {
-	matches := pipeline.MustFilter(l, func(i Link) bool {
-		return i.Rel == rel
-	})
+	var matches []Link
+	for _, link := range l {
+		if link.Rel == rel {
+			matches = append(matches, link)
+		}
+	}
 	if len(matches) == 0 {
 		return ""
 	}
