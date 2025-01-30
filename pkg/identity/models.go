@@ -161,5 +161,5 @@ type Identity struct {
 	MemcacheAccess         []MemcacheAccess        `json:"memcacheAccess,omitempty"`
 	SpicedbAccess          []SpicedbAccess         `json:"spicedbAccess,omitempty"`
 	Status                 Status                  `json:"status,omitempty"`
-	Gvc                    any                     `json:"gvc,omitempty"`
+	Gvc                    string                  `json:"gvc,omitempty"`
 }

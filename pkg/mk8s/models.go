@@ -11,6 +11,7 @@ import "github.com/controlplane-com/types-go/pkg/mk8sLambdalabs"
 import "github.com/controlplane-com/types-go/pkg/mk8sPaperspace"
 import "github.com/controlplane-com/types-go/pkg/mk8sEphemeral"
 import "github.com/controlplane-com/types-go/pkg/mk8sTriton"
+import "github.com/controlplane-com/types-go/pkg/mk8sAzure"
 import "github.com/controlplane-com/types-go/pkg/mk8sDigitalOcean"
 import "github.com/controlplane-com/types-go/pkg/mk8sAddons"
 import "github.com/controlplane-com/types-go/pkg/base"
@@ -42,6 +43,7 @@ type Mk8SSpecProvider struct {
 	Paperspace   mk8sPaperspace.PaperspaceProvider     `json:"paperspace,omitempty"`
 	Ephemeral    mk8sEphemeral.EphemeralProvider       `json:"ephemeral,omitempty"`
 	Triton       mk8sTriton.TritonProvider             `json:"triton,omitempty"`
+	Azure        mk8sAzure.AzureProvider               `json:"azure,omitempty"`
 	Digitalocean mk8sDigitalOcean.DigitalOceanProvider `json:"digitalocean,omitempty"`
 }
 
@@ -111,6 +113,7 @@ type Mk8SClusterSpecProvider struct {
 	Paperspace   mk8sPaperspace.PaperspaceProvider     `json:"paperspace,omitempty"`
 	Ephemeral    mk8sEphemeral.EphemeralProvider       `json:"ephemeral,omitempty"`
 	Triton       mk8sTriton.TritonProvider             `json:"triton,omitempty"`
+	Azure        mk8sAzure.AzureProvider               `json:"azure,omitempty"`
 	Digitalocean mk8sDigitalOcean.DigitalOceanProvider `json:"digitalocean,omitempty"`
 }
 
