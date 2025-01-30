@@ -20,7 +20,7 @@ type ObservabilityConfig struct {
 	LogsRetentionDays    float32  `json:"logsRetentionDays"`
 	MetricsRetentionDays float32  `json:"metricsRetentionDays"`
 	TracesRetentionDays  float32  `json:"tracesRetentionDays"`
-	DefaultAlertEmail    []string `json:"defaultAlertEmail,omitempty"`
+	DefaultAlertEmails   []string `json:"defaultAlertEmails,omitempty"`
 }
 
 type ThreatDetectionMinimumSeverity string
@@ -78,7 +78,7 @@ type OrgSpecObservability struct {
 	LogsRetentionDays    float32  `json:"logsRetentionDays"`
 	MetricsRetentionDays float32  `json:"metricsRetentionDays"`
 	TracesRetentionDays  float32  `json:"tracesRetentionDays"`
-	DefaultAlertEmail    []string `json:"defaultAlertEmail,omitempty"`
+	DefaultAlertEmails   []string `json:"defaultAlertEmails,omitempty"`
 }
 
 type OrgSpecSecurity struct {

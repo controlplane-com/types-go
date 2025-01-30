@@ -422,8 +422,8 @@ type Extras struct {
 }
 
 type RequestRetryPolicy struct {
-	Attempts float32 `json:"attempts"`
-	RetryOn  string  `json:"retryOn,omitempty"`
+	Attempts float32  `json:"attempts"`
+	RetryOn  []string `json:"retryOn,omitempty"`
 }
 
 type WorkloadSpecType string
@@ -536,8 +536,8 @@ type WorkloadSpecExtras struct {
 }
 
 type WorkloadSpecRequestRetryPolicy struct {
-	Attempts float32 `json:"attempts"`
-	RetryOn  string  `json:"retryOn,omitempty"`
+	Attempts float32  `json:"attempts"`
+	RetryOn  []string `json:"retryOn,omitempty"`
 }
 
 type WorkloadSpec struct {
@@ -567,7 +567,7 @@ type Workload struct {
 	LastModified string         `json:"lastModified,omitempty"`
 	Links        base.Links     `json:"links,omitempty"`
 	Name         string         `json:"name,omitempty"`
-	Gvc          any            `json:"gvc,omitempty"`
+	Gvc          string         `json:"gvc,omitempty"`
 	Spec         WorkloadSpec   `json:"spec,omitempty"`
 	Status       WorkloadStatus `json:"status,omitempty"`
 }
