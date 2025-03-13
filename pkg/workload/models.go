@@ -93,8 +93,15 @@ type GpuResourceNvidia struct {
 	Quantity float32 `json:"quantity"`
 }
 
+type GpuResourceCustom struct {
+	Resource     string  `json:"resource,omitempty"`
+	RuntimeClass string  `json:"runtimeClass,omitempty"`
+	Quantity     float32 `json:"quantity"`
+}
+
 type GpuResource struct {
 	Nvidia GpuResourceNvidia `json:"nvidia,omitempty"`
+	Custom GpuResourceCustom `json:"custom,omitempty"`
 }
 
 type ContainerSpecMetrics struct {
@@ -207,8 +214,15 @@ type ContainerSpecGpuNvidia struct {
 	Quantity float32 `json:"quantity"`
 }
 
+type ContainerSpecGpuCustom struct {
+	Resource     string  `json:"resource,omitempty"`
+	RuntimeClass string  `json:"runtimeClass,omitempty"`
+	Quantity     float32 `json:"quantity"`
+}
+
 type ContainerSpecGpu struct {
 	Nvidia ContainerSpecGpuNvidia `json:"nvidia,omitempty"`
+	Custom ContainerSpecGpuCustom `json:"custom,omitempty"`
 }
 
 type ContainerSpecLifecyclePostStartExec struct {

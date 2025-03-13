@@ -26,6 +26,8 @@ const (
 	Mk8SSpecVersion1284 Mk8SSpecVersion = "1.28.4"
 	Mk8SSpecVersion1297 Mk8SSpecVersion = "1.29.7"
 	Mk8SSpecVersion1303 Mk8SSpecVersion = "1.30.3"
+	Mk8SSpecVersion1315 Mk8SSpecVersion = "1.31.5"
+	Mk8SSpecVersion1321 Mk8SSpecVersion = "1.32.1"
 )
 
 type Mk8SSpecFirewall struct {
@@ -96,6 +98,8 @@ const (
 	Mk8SClusterSpecVersion1284 Mk8SClusterSpecVersion = "1.28.4"
 	Mk8SClusterSpecVersion1297 Mk8SClusterSpecVersion = "1.29.7"
 	Mk8SClusterSpecVersion1303 Mk8SClusterSpecVersion = "1.30.3"
+	Mk8SClusterSpecVersion1315 Mk8SClusterSpecVersion = "1.31.5"
+	Mk8SClusterSpecVersion1321 Mk8SClusterSpecVersion = "1.32.1"
 )
 
 type Mk8SClusterSpecFirewall struct {
