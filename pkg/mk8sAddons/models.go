@@ -45,6 +45,7 @@ type LogsAddonConfig struct {
 	AuditEnabled      bool              `json:"auditEnabled,omitempty"`
 	IncludeNamespaces RegularExpression `json:"includeNamespaces,omitempty"`
 	ExcludeNamespaces RegularExpression `json:"excludeNamespaces,omitempty"`
+	Docker            bool              `json:"docker,omitempty"`
 }
 
 type LogsAddonStatus struct {

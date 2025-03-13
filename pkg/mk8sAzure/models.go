@@ -7,9 +7,11 @@ import "github.com/controlplane-com/types-go/pkg/mk8sCommon"
 type ImageRecommended string
 
 const (
-	ImageRecommendedUbuntuNoble2404 ImageRecommended = "ubuntu/noble-24.04"
-	ImageRecommendedUbuntuJammy2204 ImageRecommended = "ubuntu/jammy-22.04"
-	ImageRecommendedUbuntuFocal2004 ImageRecommended = "ubuntu/focal-20.04"
+	ImageRecommendedUbuntuNoble2404  ImageRecommended = "ubuntu/noble-24.04"
+	ImageRecommendedUbuntuJammy2204  ImageRecommended = "ubuntu/jammy-22.04"
+	ImageRecommendedUbuntuFocal2004  ImageRecommended = "ubuntu/focal-20.04"
+	ImageRecommendedDebianBookworm12 ImageRecommended = "debian/bookworm-12"
+	ImageRecommendedDebianBullseye11 ImageRecommended = "debian/bullseye-11"
 )
 
 type ImageReference struct {
@@ -42,10 +44,9 @@ type AzureProviderLocation string
 const (
 	AzureProviderLocationCentralus      AzureProviderLocation = "centralus"
 	AzureProviderLocationEastus2        AzureProviderLocation = "eastus2"
+	AzureProviderLocationEastus         AzureProviderLocation = "eastus"
 	AzureProviderLocationSouthcentralus AzureProviderLocation = "southcentralus"
 )
-
-type AzureProviderAzureTags map[string]string
 
 type AzureProviderNetworkingServiceNetwork string
 
@@ -76,9 +77,11 @@ type AzureProviderNetworking struct {
 type AzureProviderImageRecommended string
 
 const (
-	AzureProviderImageRecommendedUbuntuNoble2404 AzureProviderImageRecommended = "ubuntu/noble-24.04"
-	AzureProviderImageRecommendedUbuntuJammy2204 AzureProviderImageRecommended = "ubuntu/jammy-22.04"
-	AzureProviderImageRecommendedUbuntuFocal2004 AzureProviderImageRecommended = "ubuntu/focal-20.04"
+	AzureProviderImageRecommendedUbuntuNoble2404  AzureProviderImageRecommended = "ubuntu/noble-24.04"
+	AzureProviderImageRecommendedUbuntuJammy2204  AzureProviderImageRecommended = "ubuntu/jammy-22.04"
+	AzureProviderImageRecommendedUbuntuFocal2004  AzureProviderImageRecommended = "ubuntu/focal-20.04"
+	AzureProviderImageRecommendedDebianBookworm12 AzureProviderImageRecommended = "debian/bookworm-12"
+	AzureProviderImageRecommendedDebianBullseye11 AzureProviderImageRecommended = "debian/bullseye-11"
 )
 
 type AzureProviderImageReference struct {
@@ -97,13 +100,13 @@ type AzureProviderTags map[string]string
 
 type AzureProvider struct {
 	Location         AzureProviderLocation       `json:"location,omitempty"`
-	AzureTags        AzureProviderAzureTags      `json:"azureTags,omitempty"`
 	SubscriptionId   string                      `json:"subscriptionId,omitempty"`
 	SdkSecretLink    string                      `json:"sdkSecretLink,omitempty"`
 	ResourceGroup    string                      `json:"resourceGroup,omitempty"`
 	Networking       AzureProviderNetworking     `json:"networking,omitempty"`
 	PreInstallScript string                      `json:"preInstallScript,omitempty"`
 	Image            AzureProviderImage          `json:"image,omitempty"`
+	SshKeys          []mk8sCommon.SshPublicKey   `json:"sshKeys,omitempty"`
 	NetworkId        string                      `json:"networkId,omitempty"`
 	Tags             AzureProviderTags           `json:"tags,omitempty"`
 	NodePools        []AzurePool                 `json:"nodePools,omitempty"`
