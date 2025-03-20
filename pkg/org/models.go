@@ -7,8 +7,9 @@ import "github.com/controlplane-com/types-go/pkg/tracing"
 import "github.com/controlplane-com/types-go/pkg/base"
 
 type OrgStatus struct {
-	AccountLink string `json:"accountLink,omitempty"`
-	Active      bool   `json:"active,omitempty"`
+	AccountLink    string `json:"accountLink,omitempty"`
+	Active         bool   `json:"active,omitempty"`
+	EndpointPrefix string `json:"endpointPrefix,omitempty"`
 }
 
 type AuthConfig struct {
