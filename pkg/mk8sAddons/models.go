@@ -46,6 +46,8 @@ type LogsAddonConfig struct {
 	IncludeNamespaces RegularExpression `json:"includeNamespaces,omitempty"`
 	ExcludeNamespaces RegularExpression `json:"excludeNamespaces,omitempty"`
 	Docker            bool              `json:"docker,omitempty"`
+	Kubelet           bool              `json:"kubelet,omitempty"`
+	Kernel            bool              `json:"kernel,omitempty"`
 }
 
 type LogsAddonStatus struct {
