@@ -22,6 +22,7 @@ type Route struct {
 	Port          float32      `json:"port"`
 	HostPrefix    string       `json:"hostPrefix,omitempty"`
 	Headers       RouteHeaders `json:"headers,omitempty"`
+	Replica       float32      `json:"replica"`
 }
 
 type ExternalPortTlsMinProtocolVersion string
