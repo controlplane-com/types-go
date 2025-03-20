@@ -100,19 +100,38 @@ const (
 	FileSystemTypeShared FileSystemType = "shared"
 )
 
+type MountResources struct {
+	MaxCpu    string `json:"maxCpu,omitempty"`
+	MinCpu    string `json:"minCpu,omitempty"`
+	MinMemory string `json:"minMemory,omitempty"`
+	MaxMemory string `json:"maxMemory,omitempty"`
+}
+
 type VolumeSetSpecAutoscaling struct {
 	MaxCapacity       float32 `json:"maxCapacity"`
 	MinFreePercentage float32 `json:"minFreePercentage"`
 	ScalingFactor     float32 `json:"scalingFactor"`
 }
 
+type VolumeSetSpecMountOptionsResources struct {
+	MaxCpu    string `json:"maxCpu,omitempty"`
+	MinCpu    string `json:"minCpu,omitempty"`
+	MinMemory string `json:"minMemory,omitempty"`
+	MaxMemory string `json:"maxMemory,omitempty"`
+}
+
+type VolumeSetSpecMountOptions struct {
+	Resources VolumeSetSpecMountOptionsResources `json:"resources,omitempty"`
+}
+
 type VolumeSetSpec struct {
-	InitialCapacity    float32                  `json:"initialCapacity"`
-	PerformanceClass   PerformanceClassName     `json:"performanceClass,omitempty"`
-	StorageClassSuffix string                   `json:"storageClassSuffix,omitempty"`
-	FileSystemType     FileSystemType           `json:"fileSystemType,omitempty"`
-	Snapshots          SnapshotSpec             `json:"snapshots,omitempty"`
-	Autoscaling        VolumeSetSpecAutoscaling `json:"autoscaling,omitempty"`
+	InitialCapacity    float32                   `json:"initialCapacity"`
+	PerformanceClass   PerformanceClassName      `json:"performanceClass,omitempty"`
+	StorageClassSuffix string                    `json:"storageClassSuffix,omitempty"`
+	FileSystemType     FileSystemType            `json:"fileSystemType,omitempty"`
+	Snapshots          SnapshotSpec              `json:"snapshots,omitempty"`
+	Autoscaling        VolumeSetSpecAutoscaling  `json:"autoscaling,omitempty"`
+	MountOptions       VolumeSetSpecMountOptions `json:"mountOptions,omitempty"`
 }
 
 type VolumeSet struct {
