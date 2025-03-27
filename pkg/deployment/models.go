@@ -16,6 +16,7 @@ type DeploymentVersion struct {
 	Containers DeploymentVersionContainers `json:"containers,omitempty"`
 	Ready      bool                        `json:"ready,omitempty"`
 	Message    string                      `json:"message,omitempty"`
+	Zone       string                      `json:"zone,omitempty"`
 }
 
 type DeploymentStatus struct {
