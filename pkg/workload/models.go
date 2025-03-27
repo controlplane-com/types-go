@@ -586,12 +586,17 @@ type Workload struct {
 	Status       WorkloadStatus `json:"status,omitempty"`
 }
 
+type PodZoneMap map[string]string
+
 type WorkloadConfigScheduling struct {
 	Fingerprint string  `json:"fingerprint,omitempty"`
 	Version     float32 `json:"version"`
 }
 
+type WorkloadConfigPodZoneMap map[string]string
+
 type WorkloadConfig struct {
 	Scheduling    WorkloadConfigScheduling `json:"scheduling,omitempty"`
 	ThinProvision float32                  `json:"thinProvision"`
+	PodZoneMap    WorkloadConfigPodZoneMap `json:"podZoneMap,omitempty"`
 }
