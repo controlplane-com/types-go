@@ -61,6 +61,7 @@ type PersistentVolumeStatus struct {
 	Driver              string                           `json:"driver,omitempty"`
 	VolumeSnapshots     []VolumeSnapshot                 `json:"volumeSnapshots,omitempty"`
 	Attributes          PersistentVolumeStatusAttributes `json:"attributes,omitempty"`
+	Zone                string                           `json:"zone,omitempty"`
 }
 
 type VolumeSetStatusLocation struct {
