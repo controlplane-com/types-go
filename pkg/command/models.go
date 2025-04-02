@@ -223,6 +223,7 @@ type DeleteCloudDevicesStatusVolume struct {
 	Driver              string                                   `json:"driver,omitempty"`
 	VolumeSnapshots     []volumeSet.VolumeSnapshot               `json:"volumeSnapshots,omitempty"`
 	Attributes          DeleteCloudDevicesStatusVolumeAttributes `json:"attributes,omitempty"`
+	Zone                string                                   `json:"zone,omitempty"`
 }
 
 type DeleteCloudDevicesStatusStage string
