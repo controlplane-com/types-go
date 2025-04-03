@@ -158,7 +158,7 @@ type ExpandVolumeStatus struct {
 	Messages           []string                `json:"messages,omitempty"`
 	Stage              ExpandVolumeStatusStage `json:"stage,omitempty"`
 	ReplicaRestartedAt string                  `json:"replicaRestartedAt,omitempty"`
-	LockName           string                  `json:"lockName,omitempty"`
+	LockNames          []string                `json:"lockNames,omitempty"`
 }
 
 type DeleteVolumeSpec struct {
