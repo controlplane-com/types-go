@@ -145,7 +145,7 @@ type ExpandVolumeStatusStage string
 
 const (
 	ExpandVolumeStatusStageExpandVolume            ExpandVolumeStatusStage = "expand-volume"
-	ExpandVolumeStatusStageAcquireLocks            ExpandVolumeStatusStage = "acquire-locks"
+	ExpandVolumeStatusStageDeleteStatefulSet       ExpandVolumeStatusStage = "delete-stateful-set"
 	ExpandVolumeStatusStageAwaitReplicaTermination ExpandVolumeStatusStage = "await-replica-termination"
 	ExpandVolumeStatusStageAwaitExpansionCompleted ExpandVolumeStatusStage = "await-expansion-completed"
 	ExpandVolumeStatusStageUpdateVolumeSet         ExpandVolumeStatusStage = "update-volume-set"
