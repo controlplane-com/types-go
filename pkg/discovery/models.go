@@ -17,6 +17,7 @@ type DiscoveryEndpoints struct {
 	BillingNg         string `json:"billingNg,omitempty"`
 	Grafana           string `json:"grafana,omitempty"`
 	TerraformExporter string `json:"terraformExporter,omitempty"`
+	K8sCrdExporter    string `json:"k8sCrdExporter,omitempty"`
 }
 
 type DiscoveryFirebase struct {
