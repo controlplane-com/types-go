@@ -22,6 +22,7 @@ type IpAddress struct {
 type IpSetStatus struct {
 	IpAddresses []IpAddress `json:"ipAddresses,omitempty"`
 	Error       string      `json:"error,omitempty"`
+	Warning     string      `json:"warning,omitempty"`
 }
 
 type IpSetLocationRetentionPolicy string
