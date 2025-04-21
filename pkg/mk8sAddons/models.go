@@ -48,6 +48,7 @@ type LogsAddonConfig struct {
 	Docker            bool              `json:"docker,omitempty"`
 	Kubelet           bool              `json:"kubelet,omitempty"`
 	Kernel            bool              `json:"kernel,omitempty"`
+	Events            bool              `json:"events,omitempty"`
 }
 
 type LogsAddonStatus struct {

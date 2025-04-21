@@ -174,7 +174,7 @@ const (
 	ExtAuthzNameEnvoyFiltersHttpExtAuthz ExtAuthzName = "envoy.filters.http.ext_authz"
 )
 
-type ExtAuthzTypedConfigHttpServiceAuthroizationRequest struct {
+type ExtAuthzTypedConfigHttpServiceAuthorizationRequest struct {
 	Allowed_headers envoyCommon.ListStringMatcher `json:"allowed_headers,omitempty"`
 	Headers_to_add  []envoyCommon.HeaderValue     `json:"headers_to_add,omitempty"`
 }
@@ -190,7 +190,7 @@ type ExtAuthzTypedConfigHttpServiceAuthorizationResponse struct {
 type ExtAuthzTypedConfigHttpService struct {
 	Server_uri             HttpUri                                             `json:"server_uri,omitempty"`
 	Path_prefix            string                                              `json:"path_prefix,omitempty"`
-	Authroization_request  ExtAuthzTypedConfigHttpServiceAuthroizationRequest  `json:"authroization_request,omitempty"`
+	Authorization_request  ExtAuthzTypedConfigHttpServiceAuthorizationRequest  `json:"authorization_request,omitempty"`
 	Authorization_response ExtAuthzTypedConfigHttpServiceAuthorizationResponse `json:"authorization_response,omitempty"`
 }
 
