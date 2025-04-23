@@ -21,6 +21,7 @@ type Route struct {
 	WorkloadLink  string       `json:"workloadLink,omitempty"`
 	Port          float32      `json:"port"`
 	HostPrefix    string       `json:"hostPrefix,omitempty"`
+	HostRegex     string       `json:"hostRegex,omitempty"`
 	Headers       RouteHeaders `json:"headers,omitempty"`
 	Replica       float32      `json:"replica"`
 }
