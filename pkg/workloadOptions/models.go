@@ -32,6 +32,7 @@ type Options struct {
 	Debug          bool               `json:"debug,omitempty"`
 	Suspend        bool               `json:"suspend,omitempty"`
 	MultiZone      bool               `json:"multiZone,omitempty"`
+	Location       string             `json:"location,omitempty"`
 }
 
 type DefaultOptions Options
