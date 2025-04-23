@@ -31,6 +31,7 @@ type Options struct {
 	Spot           bool               `json:"spot,omitempty"`
 	Debug          bool               `json:"debug,omitempty"`
 	Suspend        bool               `json:"suspend,omitempty"`
+	MultiZone      bool               `json:"multiZone,omitempty"`
 }
 
 type DefaultOptions Options
