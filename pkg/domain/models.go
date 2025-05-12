@@ -86,6 +86,7 @@ const (
 
 type ExternalPortCorsAllowOrigins struct {
 	Exact string `json:"exact,omitempty"`
+	Regex string `json:"regex,omitempty"`
 }
 
 type ExternalPortCors struct {
