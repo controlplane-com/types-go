@@ -5,9 +5,9 @@ package workload
 import "github.com/controlplane-com/types-go/pkg/port"
 import "github.com/controlplane-com/types-go/pkg/env"
 import "github.com/controlplane-com/types-go/pkg/volumeSpec"
+import "github.com/controlplane-com/types-go/pkg/base"
 import "github.com/controlplane-com/types-go/pkg/workloadOptions"
 import "github.com/controlplane-com/types-go/pkg/envoy"
-import "github.com/controlplane-com/types-go/pkg/base"
 
 type Memory string
 
@@ -317,6 +317,12 @@ type WorkloadStatus struct {
 	/* WARNING!! Arbitrary properties are being ignored! */
 }
 
+type HeaderFilter struct {
+	Key           string       `json:"key,omitempty"`
+	AllowedValues []base.Regex `json:"allowedValues,omitempty"`
+	BlockedValues []base.Regex `json:"blockedValues,omitempty"`
+}
+
 type FirewallSpecExternalOutboundAllowPortProtocol string
 
 const (
@@ -330,6 +336,10 @@ type FirewallSpecExternalOutboundAllowPort struct {
 	Number   float32                                       `json:"number"`
 }
 
+type FirewallSpecExternalHttp struct {
+	InboundHeaderFilter []HeaderFilter `json:"inboundHeaderFilter,omitempty"`
+}
+
 type FirewallSpecExternal struct {
 	InboundAllowCIDR      []string                                `json:"inboundAllowCIDR,omitempty"`
 	InboundBlockedCIDR    []string                                `json:"inboundBlockedCIDR,omitempty"`
@@ -337,6 +347,7 @@ type FirewallSpecExternal struct {
 	OutboundAllowPort     []FirewallSpecExternalOutboundAllowPort `json:"outboundAllowPort,omitempty"`
 	OutboundAllowCIDR     []string                                `json:"outboundAllowCIDR,omitempty"`
 	OutboundBlockedCIDR   []string                                `json:"outboundBlockedCIDR,omitempty"`
+	Http                  FirewallSpecExternalHttp                `json:"http,omitempty"`
 }
 
 type FirewallSpecInternalInboundAllowType string
@@ -462,6 +473,10 @@ type WorkloadSpecFirewallConfigExternalOutboundAllowPort struct {
 	Number   float32                                                     `json:"number"`
 }
 
+type WorkloadSpecFirewallConfigExternalHttp struct {
+	InboundHeaderFilter []HeaderFilter `json:"inboundHeaderFilter,omitempty"`
+}
+
 type WorkloadSpecFirewallConfigExternal struct {
 	InboundAllowCIDR      []string                                              `json:"inboundAllowCIDR,omitempty"`
 	InboundBlockedCIDR    []string                                              `json:"inboundBlockedCIDR,omitempty"`
@@ -469,6 +484,7 @@ type WorkloadSpecFirewallConfigExternal struct {
 	OutboundAllowPort     []WorkloadSpecFirewallConfigExternalOutboundAllowPort `json:"outboundAllowPort,omitempty"`
 	OutboundAllowCIDR     []string                                              `json:"outboundAllowCIDR,omitempty"`
 	OutboundBlockedCIDR   []string                                              `json:"outboundBlockedCIDR,omitempty"`
+	Http                  WorkloadSpecFirewallConfigExternalHttp                `json:"http,omitempty"`
 }
 
 type WorkloadSpecFirewallConfigInternalInboundAllowType string

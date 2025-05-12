@@ -131,10 +131,16 @@ type List struct {
 	Links    []Link       `json:"links,omitempty"`
 }
 
+type Regex string
+
 type ApiError struct {
 	Status  float32 `json:"status"`
 	Message string  `json:"message,omitempty"`
 	Code    string  `json:"code,omitempty"`
 	Details any     `json:"details,omitempty"`
 	Id      string  `json:"id,omitempty"`
+}
+
+type MultiZoneOptions struct {
+	Enabled bool `json:"enabled,omitempty"`
 }
