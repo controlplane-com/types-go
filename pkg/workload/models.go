@@ -436,8 +436,9 @@ type LoadBalancerSpecGeoLocation struct {
 }
 
 type LoadBalancerSpec struct {
-	Direct      LoadBalancerSpecDirect      `json:"direct,omitempty"`
-	GeoLocation LoadBalancerSpecGeoLocation `json:"geoLocation,omitempty"`
+	Direct        LoadBalancerSpecDirect      `json:"direct,omitempty"`
+	GeoLocation   LoadBalancerSpecGeoLocation `json:"geoLocation,omitempty"`
+	ReplicaDirect bool                        `json:"replicaDirect,omitempty"`
 }
 
 type Extras struct {
@@ -555,8 +556,9 @@ type WorkloadSpecLoadBalancerGeoLocation struct {
 }
 
 type WorkloadSpecLoadBalancer struct {
-	Direct      WorkloadSpecLoadBalancerDirect      `json:"direct,omitempty"`
-	GeoLocation WorkloadSpecLoadBalancerGeoLocation `json:"geoLocation,omitempty"`
+	Direct        WorkloadSpecLoadBalancerDirect      `json:"direct,omitempty"`
+	GeoLocation   WorkloadSpecLoadBalancerGeoLocation `json:"geoLocation,omitempty"`
+	ReplicaDirect bool                                `json:"replicaDirect,omitempty"`
 }
 
 type WorkloadSpecExtras struct {
@@ -601,6 +603,7 @@ type Workload struct {
 	Spec         WorkloadSpec   `json:"spec,omitempty"`
 	Status       WorkloadStatus `json:"status,omitempty"`
 }
+
 
 
 
