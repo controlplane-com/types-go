@@ -2,6 +2,8 @@
 
 package workloadOptions
 
+import "github.com/controlplane-com/types-go/pkg/base"
+
 type OptionsAutoscalingMetric string
 
 const (
@@ -25,14 +27,14 @@ type OptionsAutoscaling struct {
 }
 
 type Options struct {
-	Autoscaling    OptionsAutoscaling `json:"autoscaling,omitempty"`
-	TimeoutSeconds float32            `json:"timeoutSeconds"`
-	CapacityAI     bool               `json:"capacityAI,omitempty"`
-	Spot           bool               `json:"spot,omitempty"`
-	Debug          bool               `json:"debug,omitempty"`
-	Suspend        bool               `json:"suspend,omitempty"`
-	MultiZone      bool               `json:"multiZone,omitempty"`
-	Location       string             `json:"location,omitempty"`
+	Autoscaling    OptionsAutoscaling    `json:"autoscaling,omitempty"`
+	TimeoutSeconds float32               `json:"timeoutSeconds"`
+	CapacityAI     bool                  `json:"capacityAI,omitempty"`
+	Spot           bool                  `json:"spot,omitempty"`
+	Debug          bool                  `json:"debug,omitempty"`
+	Suspend        bool                  `json:"suspend,omitempty"`
+	MultiZone      base.MultiZoneOptions `json:"multiZone,omitempty"`
+	Location       string                `json:"location,omitempty"`
 }
 
 type DefaultOptions Options

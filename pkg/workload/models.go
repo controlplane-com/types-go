@@ -436,8 +436,9 @@ type LoadBalancerSpecGeoLocation struct {
 }
 
 type LoadBalancerSpec struct {
-	Direct      LoadBalancerSpecDirect      `json:"direct,omitempty"`
-	GeoLocation LoadBalancerSpecGeoLocation `json:"geoLocation,omitempty"`
+	Direct        LoadBalancerSpecDirect      `json:"direct,omitempty"`
+	GeoLocation   LoadBalancerSpecGeoLocation `json:"geoLocation,omitempty"`
+	ReplicaDirect bool                        `json:"replicaDirect,omitempty"`
 }
 
 type Extras struct {
@@ -555,8 +556,9 @@ type WorkloadSpecLoadBalancerGeoLocation struct {
 }
 
 type WorkloadSpecLoadBalancer struct {
-	Direct      WorkloadSpecLoadBalancerDirect      `json:"direct,omitempty"`
-	GeoLocation WorkloadSpecLoadBalancerGeoLocation `json:"geoLocation,omitempty"`
+	Direct        WorkloadSpecLoadBalancerDirect      `json:"direct,omitempty"`
+	GeoLocation   WorkloadSpecLoadBalancerGeoLocation `json:"geoLocation,omitempty"`
+	ReplicaDirect bool                                `json:"replicaDirect,omitempty"`
 }
 
 type WorkloadSpecExtras struct {
@@ -611,8 +613,13 @@ type WorkloadConfigScheduling struct {
 
 type WorkloadConfigPodZoneMap map[string]string
 
+type WorkloadConfigSubsets struct {
+	Enabled bool `json:"enabled,omitempty"`
+}
+
 type WorkloadConfig struct {
 	Scheduling    WorkloadConfigScheduling `json:"scheduling,omitempty"`
 	ThinProvision float32                  `json:"thinProvision"`
 	PodZoneMap    WorkloadConfigPodZoneMap `json:"podZoneMap,omitempty"`
+	Subsets       WorkloadConfigSubsets    `json:"subsets,omitempty"`
 }

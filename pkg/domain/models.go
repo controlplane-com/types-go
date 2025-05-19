@@ -113,11 +113,20 @@ const (
 	DomainSpecDnsModeNs    DomainSpecDnsMode = "ns"
 )
 
+type DomainSpecCertChallengeType string
+
+const (
+	DomainSpecCertChallengeTypeHttp01 DomainSpecCertChallengeType = "http01"
+	DomainSpecCertChallengeTypeDns01  DomainSpecCertChallengeType = "dns01"
+)
+
 type DomainSpec struct {
-	DnsMode        DomainSpecDnsMode `json:"dnsMode,omitempty"`
-	GvcLink        string            `json:"gvcLink,omitempty"`
-	AcceptAllHosts bool              `json:"acceptAllHosts,omitempty"`
-	Ports          []ExternalPort    `json:"ports,omitempty"`
+	DnsMode           DomainSpecDnsMode           `json:"dnsMode,omitempty"`
+	GvcLink           string                      `json:"gvcLink,omitempty"`
+	CertChallengeType DomainSpecCertChallengeType `json:"certChallengeType,omitempty"`
+	WorkloadLink      string                      `json:"workloadLink,omitempty"`
+	AcceptAllHosts    bool                        `json:"acceptAllHosts,omitempty"`
+	Ports             []ExternalPort              `json:"ports,omitempty"`
 }
 
 type DnsConfigRecord struct {
