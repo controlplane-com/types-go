@@ -29,6 +29,7 @@ type Command struct {
 	Created        string                `json:"created,omitempty"`
 	LastModified   string                `json:"lastModified,omitempty"`
 	Links          base.Links            `json:"links,omitempty"`
+	Tags           base.Tags             `json:"tags,omitempty"`
 	Type           string                `json:"type,omitempty"`
 	LifecycleStage CommandLifecycleStage `json:"lifecycleStage,omitempty"`
 	Spec           CommandSpec           `json:"spec,omitempty"`
