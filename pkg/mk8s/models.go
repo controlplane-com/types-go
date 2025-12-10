@@ -13,21 +13,26 @@ import "github.com/controlplane-com/types-go/pkg/mk8sEphemeral"
 import "github.com/controlplane-com/types-go/pkg/mk8sTriton"
 import "github.com/controlplane-com/types-go/pkg/mk8sAzure"
 import "github.com/controlplane-com/types-go/pkg/mk8sDigitalOcean"
+import "github.com/controlplane-com/types-go/pkg/mk8sGcp"
 import "github.com/controlplane-com/types-go/pkg/mk8sAddons"
 import "github.com/controlplane-com/types-go/pkg/base"
 
 type Mk8SSpecVersion string
 
 const (
-	Mk8SSpecVersion1260 Mk8SSpecVersion = "1.26.0"
-	Mk8SSpecVersion1264 Mk8SSpecVersion = "1.26.4"
-	Mk8SSpecVersion1273 Mk8SSpecVersion = "1.27.3"
-	Mk8SSpecVersion1282 Mk8SSpecVersion = "1.28.2"
-	Mk8SSpecVersion1284 Mk8SSpecVersion = "1.28.4"
-	Mk8SSpecVersion1297 Mk8SSpecVersion = "1.29.7"
-	Mk8SSpecVersion1303 Mk8SSpecVersion = "1.30.3"
-	Mk8SSpecVersion1315 Mk8SSpecVersion = "1.31.5"
-	Mk8SSpecVersion1321 Mk8SSpecVersion = "1.32.1"
+	Mk8SSpecVersion1260  Mk8SSpecVersion = "1.26.0"
+	Mk8SSpecVersion1264  Mk8SSpecVersion = "1.26.4"
+	Mk8SSpecVersion1273  Mk8SSpecVersion = "1.27.3"
+	Mk8SSpecVersion1282  Mk8SSpecVersion = "1.28.2"
+	Mk8SSpecVersion1284  Mk8SSpecVersion = "1.28.4"
+	Mk8SSpecVersion1297  Mk8SSpecVersion = "1.29.7"
+	Mk8SSpecVersion1303  Mk8SSpecVersion = "1.30.3"
+	Mk8SSpecVersion1315  Mk8SSpecVersion = "1.31.5"
+	Mk8SSpecVersion13113 Mk8SSpecVersion = "1.31.13"
+	Mk8SSpecVersion1321  Mk8SSpecVersion = "1.32.1"
+	Mk8SSpecVersion1329  Mk8SSpecVersion = "1.32.9"
+	Mk8SSpecVersion1335  Mk8SSpecVersion = "1.33.5"
+	Mk8SSpecVersion1342  Mk8SSpecVersion = "1.34.2"
 )
 
 type Mk8SSpecFirewall struct {
@@ -47,21 +52,25 @@ type Mk8SSpecProvider struct {
 	Triton       mk8sTriton.TritonProvider             `json:"triton,omitempty"`
 	Azure        mk8sAzure.AzureProvider               `json:"azure,omitempty"`
 	Digitalocean mk8sDigitalOcean.DigitalOceanProvider `json:"digitalocean,omitempty"`
+	Gcp          mk8sGcp.GcpProvider                   `json:"gcp,omitempty"`
 }
 
 type Mk8SSpecAddOns struct {
 	Dashboard             mk8sAddons.NonCustomizableAddonConfig `json:"dashboard,omitempty"`
+	Headlamp              mk8sAddons.NonCustomizableAddonConfig `json:"headlamp,omitempty"`
 	AzureWorkloadIdentity mk8sAddons.AzureAddonConfig           `json:"azureWorkloadIdentity,omitempty"`
 	AwsWorkloadIdentity   mk8sAddons.NonCustomizableAddonConfig `json:"awsWorkloadIdentity,omitempty"`
 	LocalPathStorage      mk8sAddons.NonCustomizableAddonConfig `json:"localPathStorage,omitempty"`
 	Metrics               mk8sAddons.MetricsAddonConfig         `json:"metrics,omitempty"`
 	Logs                  mk8sAddons.LogsAddonConfig            `json:"logs,omitempty"`
+	RegistryMirror        mk8sAddons.RegistryMirrorConfig       `json:"registryMirror,omitempty"`
 	Nvidia                mk8sAddons.NvidiaAddonConfig          `json:"nvidia,omitempty"`
 	AwsEFS                mk8sAddons.AwsEFSAddonConfig          `json:"awsEFS,omitempty"`
 	AwsECR                mk8sAddons.AwsECRAddonConfig          `json:"awsECR,omitempty"`
 	AwsELB                mk8sAddons.AwsELBAddonConfig          `json:"awsELB,omitempty"`
 	AzureACR              mk8sAddons.AzureACRAddonConfig        `json:"azureACR,omitempty"`
 	Sysbox                mk8sAddons.NonCustomizableAddonConfig `json:"sysbox,omitempty"`
+	Byok                  mk8sAddons.ByokAddonConfig            `json:"byok,omitempty"`
 }
 
 type Mk8sSpec struct {
@@ -73,6 +82,7 @@ type Mk8sSpec struct {
 
 type Mk8SStatusAddOns struct {
 	Dashboard           mk8sAddons.DashboardAddonStatus           `json:"dashboard,omitempty"`
+	Headlamp            mk8sAddons.DashboardAddonStatus           `json:"headlamp,omitempty"`
 	AwsWorkloadIdentity mk8sAddons.AwsWorkloadIdentityAddonStatus `json:"awsWorkloadIdentity,omitempty"`
 	Metrics             mk8sAddons.MetricsAddonStatus             `json:"metrics,omitempty"`
 	Logs                mk8sAddons.LogsAddonStatus                `json:"logs,omitempty"`
@@ -91,15 +101,19 @@ type Mk8sStatus struct {
 type Mk8SClusterSpecVersion string
 
 const (
-	Mk8SClusterSpecVersion1260 Mk8SClusterSpecVersion = "1.26.0"
-	Mk8SClusterSpecVersion1264 Mk8SClusterSpecVersion = "1.26.4"
-	Mk8SClusterSpecVersion1273 Mk8SClusterSpecVersion = "1.27.3"
-	Mk8SClusterSpecVersion1282 Mk8SClusterSpecVersion = "1.28.2"
-	Mk8SClusterSpecVersion1284 Mk8SClusterSpecVersion = "1.28.4"
-	Mk8SClusterSpecVersion1297 Mk8SClusterSpecVersion = "1.29.7"
-	Mk8SClusterSpecVersion1303 Mk8SClusterSpecVersion = "1.30.3"
-	Mk8SClusterSpecVersion1315 Mk8SClusterSpecVersion = "1.31.5"
-	Mk8SClusterSpecVersion1321 Mk8SClusterSpecVersion = "1.32.1"
+	Mk8SClusterSpecVersion1260  Mk8SClusterSpecVersion = "1.26.0"
+	Mk8SClusterSpecVersion1264  Mk8SClusterSpecVersion = "1.26.4"
+	Mk8SClusterSpecVersion1273  Mk8SClusterSpecVersion = "1.27.3"
+	Mk8SClusterSpecVersion1282  Mk8SClusterSpecVersion = "1.28.2"
+	Mk8SClusterSpecVersion1284  Mk8SClusterSpecVersion = "1.28.4"
+	Mk8SClusterSpecVersion1297  Mk8SClusterSpecVersion = "1.29.7"
+	Mk8SClusterSpecVersion1303  Mk8SClusterSpecVersion = "1.30.3"
+	Mk8SClusterSpecVersion1315  Mk8SClusterSpecVersion = "1.31.5"
+	Mk8SClusterSpecVersion13113 Mk8SClusterSpecVersion = "1.31.13"
+	Mk8SClusterSpecVersion1321  Mk8SClusterSpecVersion = "1.32.1"
+	Mk8SClusterSpecVersion1329  Mk8SClusterSpecVersion = "1.32.9"
+	Mk8SClusterSpecVersion1335  Mk8SClusterSpecVersion = "1.33.5"
+	Mk8SClusterSpecVersion1342  Mk8SClusterSpecVersion = "1.34.2"
 )
 
 type Mk8SClusterSpecFirewall struct {
@@ -119,21 +133,25 @@ type Mk8SClusterSpecProvider struct {
 	Triton       mk8sTriton.TritonProvider             `json:"triton,omitempty"`
 	Azure        mk8sAzure.AzureProvider               `json:"azure,omitempty"`
 	Digitalocean mk8sDigitalOcean.DigitalOceanProvider `json:"digitalocean,omitempty"`
+	Gcp          mk8sGcp.GcpProvider                   `json:"gcp,omitempty"`
 }
 
 type Mk8SClusterSpecAddOns struct {
 	Dashboard             mk8sAddons.NonCustomizableAddonConfig `json:"dashboard,omitempty"`
+	Headlamp              mk8sAddons.NonCustomizableAddonConfig `json:"headlamp,omitempty"`
 	AzureWorkloadIdentity mk8sAddons.AzureAddonConfig           `json:"azureWorkloadIdentity,omitempty"`
 	AwsWorkloadIdentity   mk8sAddons.NonCustomizableAddonConfig `json:"awsWorkloadIdentity,omitempty"`
 	LocalPathStorage      mk8sAddons.NonCustomizableAddonConfig `json:"localPathStorage,omitempty"`
 	Metrics               mk8sAddons.MetricsAddonConfig         `json:"metrics,omitempty"`
 	Logs                  mk8sAddons.LogsAddonConfig            `json:"logs,omitempty"`
+	RegistryMirror        mk8sAddons.RegistryMirrorConfig       `json:"registryMirror,omitempty"`
 	Nvidia                mk8sAddons.NvidiaAddonConfig          `json:"nvidia,omitempty"`
 	AwsEFS                mk8sAddons.AwsEFSAddonConfig          `json:"awsEFS,omitempty"`
 	AwsECR                mk8sAddons.AwsECRAddonConfig          `json:"awsECR,omitempty"`
 	AwsELB                mk8sAddons.AwsELBAddonConfig          `json:"awsELB,omitempty"`
 	AzureACR              mk8sAddons.AzureACRAddonConfig        `json:"azureACR,omitempty"`
 	Sysbox                mk8sAddons.NonCustomizableAddonConfig `json:"sysbox,omitempty"`
+	Byok                  mk8sAddons.ByokAddonConfig            `json:"byok,omitempty"`
 }
 
 type Mk8SClusterSpec struct {

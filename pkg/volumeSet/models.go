@@ -108,6 +108,16 @@ type MountResources struct {
 	MaxMemory string `json:"maxMemory,omitempty"`
 }
 
+type CustomEncryptionRegion struct {
+	KeyId string `json:"keyId,omitempty"`
+}
+
+type VolumeSetSpecCustomEncryptionRegions map[string]CustomEncryptionRegion
+
+type VolumeSetSpecCustomEncryption struct {
+	Regions VolumeSetSpecCustomEncryptionRegions `json:"regions,omitempty"`
+}
+
 type VolumeSetSpecAutoscaling struct {
 	MaxCapacity       float32 `json:"maxCapacity"`
 	MinFreePercentage float32 `json:"minFreePercentage"`
@@ -126,13 +136,14 @@ type VolumeSetSpecMountOptions struct {
 }
 
 type VolumeSetSpec struct {
-	InitialCapacity    float32                   `json:"initialCapacity"`
-	PerformanceClass   PerformanceClassName      `json:"performanceClass,omitempty"`
-	StorageClassSuffix string                    `json:"storageClassSuffix,omitempty"`
-	FileSystemType     FileSystemType            `json:"fileSystemType,omitempty"`
-	Snapshots          SnapshotSpec              `json:"snapshots,omitempty"`
-	Autoscaling        VolumeSetSpecAutoscaling  `json:"autoscaling,omitempty"`
-	MountOptions       VolumeSetSpecMountOptions `json:"mountOptions,omitempty"`
+	InitialCapacity    float32                       `json:"initialCapacity"`
+	PerformanceClass   PerformanceClassName          `json:"performanceClass,omitempty"`
+	StorageClassSuffix string                        `json:"storageClassSuffix,omitempty"`
+	FileSystemType     FileSystemType                `json:"fileSystemType,omitempty"`
+	CustomEncryption   VolumeSetSpecCustomEncryption `json:"customEncryption,omitempty"`
+	Snapshots          SnapshotSpec                  `json:"snapshots,omitempty"`
+	Autoscaling        VolumeSetSpecAutoscaling      `json:"autoscaling,omitempty"`
+	MountOptions       VolumeSetSpecMountOptions     `json:"mountOptions,omitempty"`
 }
 
 type VolumeSet struct {

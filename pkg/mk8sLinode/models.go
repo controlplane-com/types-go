@@ -39,6 +39,7 @@ const (
 type LinodeProviderNetworking struct {
 	ServiceNetwork LinodeProviderNetworkingServiceNetwork `json:"serviceNetwork,omitempty"`
 	PodNetwork     LinodeProviderNetworkingPodNetwork     `json:"podNetwork,omitempty"`
+	DnsForwarder   string                                 `json:"dnsForwarder,omitempty"`
 }
 
 type LinodeProvider struct {

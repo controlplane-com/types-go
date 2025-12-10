@@ -44,6 +44,7 @@ const (
 type GenericProviderNetworking struct {
 	ServiceNetwork GenericProviderNetworkingServiceNetwork `json:"serviceNetwork,omitempty"`
 	PodNetwork     GenericProviderNetworkingPodNetwork     `json:"podNetwork,omitempty"`
+	DnsForwarder   string                                  `json:"dnsForwarder,omitempty"`
 }
 
 type GenericProvider struct {

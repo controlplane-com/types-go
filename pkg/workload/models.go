@@ -3,9 +3,9 @@
 package workload
 
 import "github.com/controlplane-com/types-go/pkg/port"
+import "github.com/controlplane-com/types-go/pkg/base"
 import "github.com/controlplane-com/types-go/pkg/env"
 import "github.com/controlplane-com/types-go/pkg/volumeSpec"
-import "github.com/controlplane-com/types-go/pkg/base"
 import "github.com/controlplane-com/types-go/pkg/workloadOptions"
 import "github.com/controlplane-com/types-go/pkg/envoy"
 
@@ -64,10 +64,11 @@ const (
 )
 
 type RolloutOptions struct {
-	MinReadySeconds        float32                     `json:"minReadySeconds"`
-	MaxUnavailableReplicas string                      `json:"maxUnavailableReplicas,omitempty"`
-	MaxSurgeReplicas       string                      `json:"maxSurgeReplicas,omitempty"`
-	ScalingPolicy          RolloutOptionsScalingPolicy `json:"scalingPolicy,omitempty"`
+	MinReadySeconds               float32                     `json:"minReadySeconds"`
+	MaxUnavailableReplicas        string                      `json:"maxUnavailableReplicas,omitempty"`
+	MaxSurgeReplicas              string                      `json:"maxSurgeReplicas,omitempty"`
+	ScalingPolicy                 RolloutOptionsScalingPolicy `json:"scalingPolicy,omitempty"`
+	TerminationGracePeriodSeconds float32                     `json:"terminationGracePeriodSeconds"`
 }
 
 type RolloutOptionsStatefulScalingPolicy string
@@ -78,10 +79,11 @@ const (
 )
 
 type RolloutOptionsStateful struct {
-	MinReadySeconds        float32                             `json:"minReadySeconds"`
-	MaxSurgeReplicas       string                              `json:"maxSurgeReplicas,omitempty"`
-	ScalingPolicy          RolloutOptionsStatefulScalingPolicy `json:"scalingPolicy,omitempty"`
-	MaxUnavailableReplicas string                              `json:"maxUnavailableReplicas,omitempty"`
+	MinReadySeconds               float32                             `json:"minReadySeconds"`
+	MaxSurgeReplicas              string                              `json:"maxSurgeReplicas,omitempty"`
+	ScalingPolicy                 RolloutOptionsStatefulScalingPolicy `json:"scalingPolicy,omitempty"`
+	TerminationGracePeriodSeconds float32                             `json:"terminationGracePeriodSeconds"`
+	MaxUnavailableReplicas        string                              `json:"maxUnavailableReplicas,omitempty"`
 }
 
 type SecurityOptions struct {
@@ -105,8 +107,9 @@ type GpuResource struct {
 }
 
 type ContainerSpecMetrics struct {
-	Port float32 `json:"port"`
-	Path string  `json:"path,omitempty"`
+	Port        float32      `json:"port"`
+	Path        string       `json:"path,omitempty"`
+	DropMetrics []base.Regex `json:"dropMetrics,omitempty"`
 }
 
 type ContainerSpecPortsProtocol string
@@ -301,18 +304,20 @@ type ResolvedImages struct {
 	ResolvedForVersion float32         `json:"resolvedForVersion"`
 	ResolvedAt         string          `json:"resolvedAt,omitempty"`
 	ErrorMessages      []string        `json:"errorMessages,omitempty"`
+	NextRetryAt        string          `json:"nextRetryAt,omitempty"`
 	Images             []ResolvedImage `json:"images,omitempty"`
 }
 
 type WorkloadStatus struct {
-	ParentId            string               `json:"parentId,omitempty"`
-	CanonicalEndpoint   string               `json:"canonicalEndpoint,omitempty"`
-	Endpoint            string               `json:"endpoint,omitempty"`
-	InternalName        string               `json:"internalName,omitempty"`
-	HealthCheck         HealthCheckStatus    `json:"healthCheck,omitempty"`
-	CurrentReplicaCount float32              `json:"currentReplicaCount"`
-	ResolvedImages      ResolvedImages       `json:"resolvedImages,omitempty"`
-	LoadBalancer        []LoadBalancerStatus `json:"loadBalancer,omitempty"`
+	ParentId             string               `json:"parentId,omitempty"`
+	CanonicalEndpoint    string               `json:"canonicalEndpoint,omitempty"`
+	Endpoint             string               `json:"endpoint,omitempty"`
+	InternalName         string               `json:"internalName,omitempty"`
+	ReplicaInternalNames []string             `json:"replicaInternalNames,omitempty"`
+	HealthCheck          HealthCheckStatus    `json:"healthCheck,omitempty"`
+	CurrentReplicaCount  float32              `json:"currentReplicaCount"`
+	ResolvedImages       ResolvedImages       `json:"resolvedImages,omitempty"`
+	LoadBalancer         []LoadBalancerStatus `json:"loadBalancer,omitempty"`
 
 	/* WARNING!! Arbitrary properties are being ignored! */
 }
@@ -376,6 +381,7 @@ type JobSpecConcurrencyPolicy string
 const (
 	JobSpecConcurrencyPolicyForbid  JobSpecConcurrencyPolicy = "Forbid"
 	JobSpecConcurrencyPolicyReplace JobSpecConcurrencyPolicy = "Replace"
+	JobSpecConcurrencyPolicyAllow   JobSpecConcurrencyPolicy = "Allow"
 )
 
 type JobSpecRestartPolicy string
@@ -452,13 +458,13 @@ type RequestRetryPolicy struct {
 	RetryOn  []string `json:"retryOn,omitempty"`
 }
 
-type WorkloadSpecType string
+type WorkloadType string
 
 const (
-	WorkloadSpecTypeServerless WorkloadSpecType = "serverless"
-	WorkloadSpecTypeStandard   WorkloadSpecType = "standard"
-	WorkloadSpecTypeCron       WorkloadSpecType = "cron"
-	WorkloadSpecTypeStateful   WorkloadSpecType = "stateful"
+	WorkloadTypeServerless WorkloadType = "serverless"
+	WorkloadTypeStandard   WorkloadType = "standard"
+	WorkloadTypeCron       WorkloadType = "cron"
+	WorkloadTypeStateful   WorkloadType = "stateful"
 )
 
 type WorkloadSpecFirewallConfigExternalOutboundAllowPortProtocol string
@@ -512,6 +518,7 @@ type WorkloadSpecJobConcurrencyPolicy string
 const (
 	WorkloadSpecJobConcurrencyPolicyForbid  WorkloadSpecJobConcurrencyPolicy = "Forbid"
 	WorkloadSpecJobConcurrencyPolicyReplace WorkloadSpecJobConcurrencyPolicy = "Replace"
+	WorkloadSpecJobConcurrencyPolicyAllow   WorkloadSpecJobConcurrencyPolicy = "Allow"
 )
 
 type WorkloadSpecJobRestartPolicy string
@@ -573,7 +580,7 @@ type WorkloadSpecRequestRetryPolicy struct {
 }
 
 type WorkloadSpec struct {
-	Type               WorkloadSpecType               `json:"type,omitempty"`
+	Type               WorkloadType                   `json:"type,omitempty"`
 	IdentityLink       string                         `json:"identityLink,omitempty"`
 	Containers         []ContainerSpec                `json:"containers,omitempty"`
 	FirewallConfig     WorkloadSpecFirewallConfig     `json:"firewallConfig,omitempty"`
@@ -613,13 +620,21 @@ type WorkloadConfigScheduling struct {
 
 type WorkloadConfigPodZoneMap map[string]string
 
+type WorkloadConfigLocationPodZoneMap map[string]PodZoneMap
+
+type WorkloadConfigProxy struct {
+	MinCpu float32 `json:"minCpu"`
+}
+
 type WorkloadConfigSubsets struct {
 	Enabled bool `json:"enabled,omitempty"`
 }
 
 type WorkloadConfig struct {
-	Scheduling    WorkloadConfigScheduling `json:"scheduling,omitempty"`
-	ThinProvision float32                  `json:"thinProvision"`
-	PodZoneMap    WorkloadConfigPodZoneMap `json:"podZoneMap,omitempty"`
-	Subsets       WorkloadConfigSubsets    `json:"subsets,omitempty"`
+	Scheduling         WorkloadConfigScheduling         `json:"scheduling,omitempty"`
+	ThinProvision      float32                          `json:"thinProvision"`
+	PodZoneMap         WorkloadConfigPodZoneMap         `json:"podZoneMap,omitempty"`
+	LocationPodZoneMap WorkloadConfigLocationPodZoneMap `json:"locationPodZoneMap,omitempty"`
+	Proxy              WorkloadConfigProxy              `json:"proxy,omitempty"`
+	Subsets            WorkloadConfigSubsets            `json:"subsets,omitempty"`
 }

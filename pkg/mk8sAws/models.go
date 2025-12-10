@@ -115,6 +115,7 @@ const (
 type AwsProviderNetworking struct {
 	ServiceNetwork AwsProviderNetworkingServiceNetwork `json:"serviceNetwork,omitempty"`
 	PodNetwork     AwsProviderNetworkingPodNetwork     `json:"podNetwork,omitempty"`
+	DnsForwarder   string                              `json:"dnsForwarder,omitempty"`
 }
 
 type AwsProviderImageRecommended string

@@ -11,6 +11,7 @@ type DiscoveryEndpoints struct {
 	Audit             string `json:"audit,omitempty"`
 	Logs              string `json:"logs,omitempty"`
 	Metrics           string `json:"metrics,omitempty"`
+	MetricsNg         string `json:"metricsNg,omitempty"`
 	Tracing           string `json:"tracing,omitempty"`
 	Byok              string `json:"byok,omitempty"`
 	Metering          string `json:"metering,omitempty"`
@@ -18,6 +19,7 @@ type DiscoveryEndpoints struct {
 	Grafana           string `json:"grafana,omitempty"`
 	TerraformExporter string `json:"terraformExporter,omitempty"`
 	K8sCrdExporter    string `json:"k8sCrdExporter,omitempty"`
+	Mcp               string `json:"mcp,omitempty"`
 }
 
 type DiscoveryFirebase struct {

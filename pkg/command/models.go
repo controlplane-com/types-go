@@ -52,7 +52,8 @@ type RunCronWorkloadSpec struct {
 }
 
 type RunCronWorkloadStatus struct {
-	Replica string `json:"replica,omitempty"`
+	Replica                string  `json:"replica,omitempty"`
+	MinimumWorkloadVersion float32 `json:"minimumWorkloadVersion"`
 }
 
 type StopReplicaSpec struct {
@@ -140,6 +141,7 @@ type ExpandVolumeSpec struct {
 	Location           string  `json:"location,omitempty"`
 	VolumeIndex        float32 `json:"volumeIndex"`
 	NewStorageCapacity float32 `json:"newStorageCapacity"`
+	TimeoutSeconds     float32 `json:"timeoutSeconds"`
 }
 
 type ExpandVolumeStatusStage string
@@ -168,6 +170,13 @@ type DeleteVolumeSpec struct {
 	VolumeIndex float32 `json:"volumeIndex"`
 }
 
+type DeleteOrphanedVolumeSpec struct {
+	Location                     string  `json:"location,omitempty"`
+	StorageDeviceId              string  `json:"storageDeviceId,omitempty"`
+	VolumeIndex                  float32 `json:"volumeIndex"`
+	NewlyObservedStorageDeviceId string  `json:"newlyObservedStorageDeviceId,omitempty"`
+}
+
 type DeleteVolumeStatusStage string
 
 const (
@@ -185,6 +194,41 @@ type DeleteVolumeStatus struct {
 	Messages                []string                `json:"messages,omitempty"`
 	InUseByWorkloadId       string                  `json:"inUseByWorkloadId,omitempty"`
 	StorageDeviceIdToRemove string                  `json:"storageDeviceIdToRemove,omitempty"`
+}
+
+type DeleteOrphanedVolumeStatusStage string
+
+const (
+	DeleteOrphanedVolumeStatusStageDeleteStorageResources DeleteOrphanedVolumeStatusStage = "delete-storage-resources"
+	DeleteOrphanedVolumeStatusStageCleanupK8S             DeleteOrphanedVolumeStatusStage = "cleanup-k8s"
+	DeleteOrphanedVolumeStatusStageUpdateVolumeSet        DeleteOrphanedVolumeStatusStage = "update-volume-set"
+	DeleteOrphanedVolumeStatusStageFail                   DeleteOrphanedVolumeStatusStage = "fail"
+)
+
+type DeleteOrphanedVolumeStatus struct {
+	Stage     DeleteOrphanedVolumeStatusStage `json:"stage,omitempty"`
+	ClusterId string                          `json:"clusterId,omitempty"`
+	Messages  []string                        `json:"messages,omitempty"`
+}
+
+type DeleteOrphanedVolumeSnapshotSpec struct {
+	Location    string  `json:"location,omitempty"`
+	SnapshotId  string  `json:"snapshotId,omitempty"`
+	VolumeIndex float32 `json:"volumeIndex"`
+}
+
+type DeleteOrphanedVolumeSnapshotStatusStage string
+
+const (
+	DeleteOrphanedVolumeSnapshotStatusStageDeleteSnapshot  DeleteOrphanedVolumeSnapshotStatusStage = "delete-snapshot"
+	DeleteOrphanedVolumeSnapshotStatusStageUpdateVolumeSet DeleteOrphanedVolumeSnapshotStatusStage = "update-volume-set"
+	DeleteOrphanedVolumeSnapshotStatusStageFail            DeleteOrphanedVolumeSnapshotStatusStage = "fail"
+)
+
+type DeleteOrphanedVolumeSnapshotStatus struct {
+	Stage     DeleteOrphanedVolumeSnapshotStatusStage `json:"stage,omitempty"`
+	ClusterId string                                  `json:"clusterId,omitempty"`
+	Messages  []string                                `json:"messages,omitempty"`
 }
 
 type SnapshotDeletionStatusStage string
@@ -279,10 +323,11 @@ const (
 )
 
 type DeleteVolumeSnapshotStatus struct {
-	ClusterId string                             `json:"clusterId,omitempty"`
-	Snapshot  DeleteVolumeSnapshotStatusSnapshot `json:"snapshot,omitempty"`
-	Stage     DeleteVolumeSnapshotStatusStage    `json:"stage,omitempty"`
-	Messages  []string                           `json:"messages,omitempty"`
+	ClusterId  string                             `json:"clusterId,omitempty"`
+	Snapshot   DeleteVolumeSnapshotStatusSnapshot `json:"snapshot,omitempty"`
+	Stage      DeleteVolumeSnapshotStatusStage    `json:"stage,omitempty"`
+	Messages   []string                           `json:"messages,omitempty"`
+	SnapshotId string                             `json:"snapshotId,omitempty"`
 }
 
 type Cluster struct {
@@ -328,26 +373,3 @@ type DeleteVolumeSetLocationStatus struct {
 }
 
 type DeleteVolumeSetStatus map[string]DeleteVolumeSetLocationStatus
-
-type DeleteOrphanedVolumeSpec struct {
-	StorageDeviceId string `json:"storageDeviceId,omitempty"`
-	Org             string `json:"org,omitempty"`
-	Gvc             string `json:"gvc,omitempty"`
-	WorkloadName    string `json:"workloadName,omitempty"`
-	VolumeSetUri    string `json:"volumeSetUri,omitempty"`
-	Driver          string `json:"driver,omitempty"`
-}
-
-type DeleteOrphanedVolumeStatusStage string
-
-const (
-	DeleteOrphanedVolumeStatusStageCreateDeletionRecords DeleteOrphanedVolumeStatusStage = "create-deletion-records"
-	DeleteOrphanedVolumeStatusStageDelete                DeleteOrphanedVolumeStatusStage = "delete"
-	DeleteOrphanedVolumeStatusStageCleanupK8S            DeleteOrphanedVolumeStatusStage = "cleanup-k8s"
-)
-
-type DeleteOrphanedVolumeStatus struct {
-	ClusterId string                          `json:"clusterId,omitempty"`
-	Stage     DeleteOrphanedVolumeStatusStage `json:"stage,omitempty"`
-	Messages  []string                        `json:"messages,omitempty"`
-}

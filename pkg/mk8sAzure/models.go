@@ -39,15 +39,6 @@ type AzurePool struct {
 	MaxSize       float32           `json:"maxSize"`
 }
 
-type AzureProviderLocation string
-
-const (
-	AzureProviderLocationCentralus      AzureProviderLocation = "centralus"
-	AzureProviderLocationEastus2        AzureProviderLocation = "eastus2"
-	AzureProviderLocationEastus         AzureProviderLocation = "eastus"
-	AzureProviderLocationSouthcentralus AzureProviderLocation = "southcentralus"
-)
-
 type AzureProviderNetworkingServiceNetwork string
 
 const (
@@ -72,6 +63,7 @@ const (
 type AzureProviderNetworking struct {
 	ServiceNetwork AzureProviderNetworkingServiceNetwork `json:"serviceNetwork,omitempty"`
 	PodNetwork     AzureProviderNetworkingPodNetwork     `json:"podNetwork,omitempty"`
+	DnsForwarder   string                                `json:"dnsForwarder,omitempty"`
 }
 
 type AzureProviderImageRecommended string
@@ -99,7 +91,7 @@ type AzureProviderImage struct {
 type AzureProviderTags map[string]string
 
 type AzureProvider struct {
-	Location         AzureProviderLocation       `json:"location,omitempty"`
+	Location         string                      `json:"location,omitempty"`
 	SubscriptionId   string                      `json:"subscriptionId,omitempty"`
 	SdkSecretLink    string                      `json:"sdkSecretLink,omitempty"`
 	ResourceGroup    string                      `json:"resourceGroup,omitempty"`

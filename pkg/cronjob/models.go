@@ -4,29 +4,13 @@ package cronjob
 
 import "github.com/controlplane-com/types-go/pkg/containerstatus"
 
-type JobExecutionConditionStatus string
-
-const (
-	JobExecutionConditionStatusTrue    JobExecutionConditionStatus = "True"
-	JobExecutionConditionStatusFalse   JobExecutionConditionStatus = "False"
-	JobExecutionConditionStatusUnknown JobExecutionConditionStatus = "Unknown"
-)
-
-type JobExecutionConditionType string
-
-const (
-	JobExecutionConditionTypeComplete  JobExecutionConditionType = "Complete"
-	JobExecutionConditionTypeFailed    JobExecutionConditionType = "Failed"
-	JobExecutionConditionTypeSuspended JobExecutionConditionType = "Suspended"
-)
-
 type JobExecutionCondition struct {
-	Status             JobExecutionConditionStatus `json:"status,omitempty"`
-	Type               JobExecutionConditionType   `json:"type,omitempty"`
-	LastDetectionTime  string                      `json:"lastDetectionTime,omitempty"`
-	LastTransitionTime string                      `json:"lastTransitionTime,omitempty"`
-	Message            string                      `json:"message,omitempty"`
-	Reason             string                      `json:"reason,omitempty"`
+	Status             string `json:"status,omitempty"`
+	Type               string `json:"type,omitempty"`
+	LastDetectionTime  string `json:"lastDetectionTime,omitempty"`
+	LastTransitionTime string `json:"lastTransitionTime,omitempty"`
+	Message            string `json:"message,omitempty"`
+	Reason             string `json:"reason,omitempty"`
 }
 
 type JobExecutionStatusStatus string
