@@ -35,10 +35,12 @@ type EventContext struct {
 }
 
 type Event struct {
-	Id      string       `json:"id,omitempty"`
-	Created string       `json:"created,omitempty"`
-	Kind    string       `json:"kind,omitempty"`
-	Status  string       `json:"status,omitempty"`
-	Pinned  bool         `json:"pinned,omitempty"`
-	Context EventContext `json:"context,omitempty"`
+	Id            string       `json:"id,omitempty"`
+	Created       string       `json:"created,omitempty"`
+	Kind          string       `json:"kind,omitempty"`
+	LastEventTime string       `json:"lastEventTime,omitempty"`
+	EventCount    float32      `json:"eventCount"`
+	Status        string       `json:"status,omitempty"`
+	Pinned        bool         `json:"pinned,omitempty"`
+	Context       EventContext `json:"context,omitempty"`
 }

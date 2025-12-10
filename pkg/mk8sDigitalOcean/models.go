@@ -57,6 +57,7 @@ const (
 type DigitalOceanProviderNetworking struct {
 	ServiceNetwork DigitalOceanProviderNetworkingServiceNetwork `json:"serviceNetwork,omitempty"`
 	PodNetwork     DigitalOceanProviderNetworkingPodNetwork     `json:"podNetwork,omitempty"`
+	DnsForwarder   string                                       `json:"dnsForwarder,omitempty"`
 }
 
 type DigitalOceanProvider struct {

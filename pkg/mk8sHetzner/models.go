@@ -44,6 +44,7 @@ const (
 type NetworkingConfig struct {
 	ServiceNetwork NetworkingConfigServiceNetwork `json:"serviceNetwork,omitempty"`
 	PodNetwork     NetworkingConfigPodNetwork     `json:"podNetwork,omitempty"`
+	DnsForwarder   string                         `json:"dnsForwarder,omitempty"`
 }
 
 type HetznerProviderRegion string

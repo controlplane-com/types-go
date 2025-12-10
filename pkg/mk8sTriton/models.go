@@ -23,6 +23,11 @@ type ManualMetadata map[string]string
 
 type ManualTags map[string]string
 
+type ManualLogging struct {
+	NodePort       float32 `json:"nodePort"`
+	ExternalSyslog string  `json:"externalSyslog,omitempty"`
+}
+
 type Manual struct {
 	PackageId         string         `json:"packageId,omitempty"`
 	ImageId           string         `json:"imageId,omitempty"`
@@ -30,9 +35,13 @@ type Manual struct {
 	PrivateNetworkIds []string       `json:"privateNetworkIds,omitempty"`
 	Metadata          ManualMetadata `json:"metadata,omitempty"`
 	Tags              ManualTags     `json:"tags,omitempty"`
+	Logging           ManualLogging  `json:"logging,omitempty"`
 	Count             float32        `json:"count"`
 	CnsInternalDomain string         `json:"cnsInternalDomain,omitempty"`
 	CnsPublicDomain   string         `json:"cnsPublicDomain,omitempty"`
+}
+
+type LoadBalancerConfigNone struct {
 }
 
 type LoadBalancerConfigGateway struct {
@@ -40,6 +49,7 @@ type LoadBalancerConfigGateway struct {
 
 type LoadBalancerConfig struct {
 	Manual  Manual                    `json:"manual,omitempty"`
+	None    LoadBalancerConfigNone    `json:"none,omitempty"`
 	Gateway LoadBalancerConfigGateway `json:"gateway,omitempty"`
 }
 
@@ -81,6 +91,7 @@ const (
 type TritonProviderNetworking struct {
 	ServiceNetwork TritonProviderNetworkingServiceNetwork `json:"serviceNetwork,omitempty"`
 	PodNetwork     TritonProviderNetworkingPodNetwork     `json:"podNetwork,omitempty"`
+	DnsForwarder   string                                 `json:"dnsForwarder,omitempty"`
 }
 
 type TritonProviderLocation string

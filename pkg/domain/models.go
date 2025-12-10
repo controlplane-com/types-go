@@ -4,7 +4,9 @@ package domain
 
 import "github.com/controlplane-com/types-go/pkg/base"
 
-type HeaderOperationSet map[string]string
+type EnvoyHeaderValue string
+
+type HeaderOperationSet map[string]EnvoyHeaderValue
 
 type HeaderOperation struct {
 	Set HeaderOperationSet `json:"set,omitempty"`
@@ -106,6 +108,13 @@ type ExternalPort struct {
 	Tls      ExternalPortTLS      `json:"tls,omitempty"`
 }
 
+type CertChallengeType string
+
+const (
+	CertChallengeTypeHttp01 CertChallengeType = "http01"
+	CertChallengeTypeDns01  CertChallengeType = "dns01"
+)
+
 type DomainSpecDnsMode string
 
 const (
@@ -121,12 +130,13 @@ const (
 )
 
 type DomainSpec struct {
-	DnsMode           DomainSpecDnsMode           `json:"dnsMode,omitempty"`
-	GvcLink           string                      `json:"gvcLink,omitempty"`
-	CertChallengeType DomainSpecCertChallengeType `json:"certChallengeType,omitempty"`
-	WorkloadLink      string                      `json:"workloadLink,omitempty"`
-	AcceptAllHosts    bool                        `json:"acceptAllHosts,omitempty"`
-	Ports             []ExternalPort              `json:"ports,omitempty"`
+	DnsMode             DomainSpecDnsMode           `json:"dnsMode,omitempty"`
+	GvcLink             string                      `json:"gvcLink,omitempty"`
+	CertChallengeType   DomainSpecCertChallengeType `json:"certChallengeType,omitempty"`
+	WorkloadLink        string                      `json:"workloadLink,omitempty"`
+	AcceptAllHosts      bool                        `json:"acceptAllHosts,omitempty"`
+	AcceptAllSubdomains bool                        `json:"acceptAllSubdomains,omitempty"`
+	Ports               []ExternalPort              `json:"ports,omitempty"`
 }
 
 type DnsConfigRecord struct {
@@ -150,6 +160,11 @@ const (
 	DomainStatusStatusPendingCertificate DomainStatusStatus = "pendingCertificate"
 	DomainStatusStatusUsedByGvc          DomainStatusStatus = "usedByGvc"
 	DomainStatusStatusWarning            DomainStatusStatus = "warning"
+	DomainStatusStatusCreated            DomainStatusStatus = "created"
+	DomainStatusStatusUpdated            DomainStatusStatus = "updated"
+	DomainStatusStatusDeleted            DomainStatusStatus = "deleted"
+	DomainStatusStatusErrored            DomainStatusStatus = "errored"
+	DomainStatusStatusIgnored            DomainStatusStatus = "ignored"
 )
 
 type DomainStatusLocationsCertificateStatus string
