@@ -51,9 +51,12 @@ type RunCronWorkloadSpec struct {
 	ContainerOverrides []CronWorkloadContainerOverrides `json:"containerOverrides,omitempty"`
 }
 
+type RunCronWorkloadStatusClusterIdByLocation map[string]string
+
 type RunCronWorkloadStatus struct {
-	Replica                string  `json:"replica,omitempty"`
-	MinimumWorkloadVersion float32 `json:"minimumWorkloadVersion"`
+	Replica                string                                   `json:"replica,omitempty"`
+	ClusterIdByLocation    RunCronWorkloadStatusClusterIdByLocation `json:"clusterIdByLocation,omitempty"`
+	MinimumWorkloadVersion float32                                  `json:"minimumWorkloadVersion"`
 }
 
 type StopReplicaSpec struct {
@@ -61,10 +64,13 @@ type StopReplicaSpec struct {
 	Replica  string `json:"replica,omitempty"`
 }
 
+type StopReplicaStatusClusterIdByLocation map[string]string
+
 type StopReplicaStatus struct {
-	ClusterId               string `json:"clusterId,omitempty"`
-	PodCreatedByCommandLink string `json:"podCreatedByCommandLink,omitempty"`
-	PodId                   string `json:"podId,omitempty"`
+	ClusterId               string                               `json:"clusterId,omitempty"`
+	ClusterIdByLocation     StopReplicaStatusClusterIdByLocation `json:"clusterIdByLocation,omitempty"`
+	PodCreatedByCommandLink string                               `json:"podCreatedByCommandLink,omitempty"`
+	PodId                   string                               `json:"podId,omitempty"`
 }
 
 type ReplaceVolumeSpec struct {
@@ -73,9 +79,10 @@ type ReplaceVolumeSpec struct {
 }
 
 type RestoreVolumeSpec struct {
-	Location     string  `json:"location,omitempty"`
 	VolumeIndex  float32 `json:"volumeIndex"`
+	Location     string  `json:"location,omitempty"`
 	SnapshotName string  `json:"snapshotName,omitempty"`
+	Zone         string  `json:"zone,omitempty"`
 }
 
 type ReplaceVolumeStatusStage string
@@ -95,12 +102,15 @@ const (
 	ReplaceVolumeStatusStageRestartReplica             ReplaceVolumeStatusStage = "restart-replica"
 )
 
+type ReplaceVolumeStatusClusterIdByLocation map[string]string
+
 type ReplaceVolumeStatusNewVolumeAttributes map[string]string
 
 type ReplaceVolumeStatus struct {
 	Stage                   ReplaceVolumeStatusStage               `json:"stage,omitempty"`
 	Messages                []string                               `json:"messages,omitempty"`
 	ClusterId               string                                 `json:"clusterId,omitempty"`
+	ClusterIdByLocation     ReplaceVolumeStatusClusterIdByLocation `json:"clusterIdByLocation,omitempty"`
 	InUseByWorkloadId       string                                 `json:"inUseByWorkloadId,omitempty"`
 	StorageDeviceIdToRemove string                                 `json:"storageDeviceIdToRemove,omitempty"`
 	NewStorageDeviceId      string                                 `json:"newStorageDeviceId,omitempty"`
@@ -128,13 +138,16 @@ const (
 	CreateVolumeSnapshotStatusStageRevert          CreateVolumeSnapshotStatusStage = "revert"
 )
 
+type CreateVolumeSnapshotStatusClusterIdByLocation map[string]string
+
 type CreateVolumeSnapshotStatus struct {
-	Stage             CreateVolumeSnapshotStatusStage `json:"stage,omitempty"`
-	Messages          []string                        `json:"messages,omitempty"`
-	ClusterId         string                          `json:"clusterId,omitempty"`
-	NewSnapshotId     string                          `json:"newSnapshotId,omitempty"`
-	NewSnapshotSize   float32                         `json:"newSnapshotSize"`
-	CreationStartTime string                          `json:"creationStartTime,omitempty"`
+	Stage               CreateVolumeSnapshotStatusStage               `json:"stage,omitempty"`
+	Messages            []string                                      `json:"messages,omitempty"`
+	ClusterId           string                                        `json:"clusterId,omitempty"`
+	ClusterIdByLocation CreateVolumeSnapshotStatusClusterIdByLocation `json:"clusterIdByLocation,omitempty"`
+	NewSnapshotId       string                                        `json:"newSnapshotId,omitempty"`
+	NewSnapshotSize     float32                                       `json:"newSnapshotSize"`
+	CreationStartTime   string                                        `json:"creationStartTime,omitempty"`
 }
 
 type ExpandVolumeSpec struct {
@@ -143,6 +156,8 @@ type ExpandVolumeSpec struct {
 	NewStorageCapacity float32 `json:"newStorageCapacity"`
 	TimeoutSeconds     float32 `json:"timeoutSeconds"`
 }
+
+type ExpandVolumeStatusClusterIdByLocation map[string]string
 
 type ExpandVolumeStatusStage string
 
@@ -158,11 +173,12 @@ const (
 )
 
 type ExpandVolumeStatus struct {
-	ClusterId          string                  `json:"clusterId,omitempty"`
-	Messages           []string                `json:"messages,omitempty"`
-	Stage              ExpandVolumeStatusStage `json:"stage,omitempty"`
-	ReplicaRestartedAt string                  `json:"replicaRestartedAt,omitempty"`
-	LockNames          []string                `json:"lockNames,omitempty"`
+	ClusterId           string                                `json:"clusterId,omitempty"`
+	ClusterIdByLocation ExpandVolumeStatusClusterIdByLocation `json:"clusterIdByLocation,omitempty"`
+	Messages            []string                              `json:"messages,omitempty"`
+	Stage               ExpandVolumeStatusStage               `json:"stage,omitempty"`
+	ReplicaRestartedAt  string                                `json:"replicaRestartedAt,omitempty"`
+	LockNames           []string                              `json:"lockNames,omitempty"`
 }
 
 type DeleteVolumeSpec struct {
@@ -188,12 +204,15 @@ const (
 	DeleteVolumeStatusStageCleanupK8S              DeleteVolumeStatusStage = "cleanup-k8s"
 )
 
+type DeleteVolumeStatusClusterIdByLocation map[string]string
+
 type DeleteVolumeStatus struct {
-	Stage                   DeleteVolumeStatusStage `json:"stage,omitempty"`
-	ClusterId               string                  `json:"clusterId,omitempty"`
-	Messages                []string                `json:"messages,omitempty"`
-	InUseByWorkloadId       string                  `json:"inUseByWorkloadId,omitempty"`
-	StorageDeviceIdToRemove string                  `json:"storageDeviceIdToRemove,omitempty"`
+	Stage                   DeleteVolumeStatusStage               `json:"stage,omitempty"`
+	ClusterId               string                                `json:"clusterId,omitempty"`
+	ClusterIdByLocation     DeleteVolumeStatusClusterIdByLocation `json:"clusterIdByLocation,omitempty"`
+	Messages                []string                              `json:"messages,omitempty"`
+	InUseByWorkloadId       string                                `json:"inUseByWorkloadId,omitempty"`
+	StorageDeviceIdToRemove string                                `json:"storageDeviceIdToRemove,omitempty"`
 }
 
 type DeleteOrphanedVolumeStatusStage string
@@ -205,10 +224,13 @@ const (
 	DeleteOrphanedVolumeStatusStageFail                   DeleteOrphanedVolumeStatusStage = "fail"
 )
 
+type DeleteOrphanedVolumeStatusClusterIdByLocation map[string]string
+
 type DeleteOrphanedVolumeStatus struct {
-	Stage     DeleteOrphanedVolumeStatusStage `json:"stage,omitempty"`
-	ClusterId string                          `json:"clusterId,omitempty"`
-	Messages  []string                        `json:"messages,omitempty"`
+	Stage               DeleteOrphanedVolumeStatusStage               `json:"stage,omitempty"`
+	ClusterId           string                                        `json:"clusterId,omitempty"`
+	ClusterIdByLocation DeleteOrphanedVolumeStatusClusterIdByLocation `json:"clusterIdByLocation,omitempty"`
+	Messages            []string                                      `json:"messages,omitempty"`
 }
 
 type DeleteOrphanedVolumeSnapshotSpec struct {
@@ -225,10 +247,13 @@ const (
 	DeleteOrphanedVolumeSnapshotStatusStageFail            DeleteOrphanedVolumeSnapshotStatusStage = "fail"
 )
 
+type DeleteOrphanedVolumeSnapshotStatusClusterIdByLocation map[string]string
+
 type DeleteOrphanedVolumeSnapshotStatus struct {
-	Stage     DeleteOrphanedVolumeSnapshotStatusStage `json:"stage,omitempty"`
-	ClusterId string                                  `json:"clusterId,omitempty"`
-	Messages  []string                                `json:"messages,omitempty"`
+	Stage               DeleteOrphanedVolumeSnapshotStatusStage               `json:"stage,omitempty"`
+	ClusterId           string                                                `json:"clusterId,omitempty"`
+	ClusterIdByLocation DeleteOrphanedVolumeSnapshotStatusClusterIdByLocation `json:"clusterIdByLocation,omitempty"`
+	Messages            []string                                              `json:"messages,omitempty"`
 }
 
 type SnapshotDeletionStatusStage string
@@ -243,6 +268,8 @@ type SnapshotDeletionStatus struct {
 	Stage    SnapshotDeletionStatusStage `json:"stage,omitempty"`
 	Messages []string                    `json:"messages,omitempty"`
 }
+
+type DeleteCloudDevicesStatusClusterIdByLocation map[string]string
 
 type DeleteCloudDevicesStatusVolumeLifecycle string
 
@@ -291,6 +318,7 @@ type DeleteCloudDevicesStatusSnapshotDeletionStatus map[string]SnapshotDeletionS
 
 type DeleteCloudDevicesStatus struct {
 	ClusterId              string                                         `json:"clusterId,omitempty"`
+	ClusterIdByLocation    DeleteCloudDevicesStatusClusterIdByLocation    `json:"clusterIdByLocation,omitempty"`
 	Volume                 DeleteCloudDevicesStatusVolume                 `json:"volume,omitempty"`
 	Stage                  DeleteCloudDevicesStatusStage                  `json:"stage,omitempty"`
 	Messages               []string                                       `json:"messages,omitempty"`
@@ -303,6 +331,8 @@ type DeleteVolumeSnapshotSpec struct {
 	VolumeIndex  float32 `json:"volumeIndex"`
 	SnapshotName string  `json:"snapshotName,omitempty"`
 }
+
+type DeleteVolumeSnapshotStatusClusterIdByLocation map[string]string
 
 type DeleteVolumeSnapshotStatusSnapshotTags map[string]string
 
@@ -323,11 +353,12 @@ const (
 )
 
 type DeleteVolumeSnapshotStatus struct {
-	ClusterId  string                             `json:"clusterId,omitempty"`
-	Snapshot   DeleteVolumeSnapshotStatusSnapshot `json:"snapshot,omitempty"`
-	Stage      DeleteVolumeSnapshotStatusStage    `json:"stage,omitempty"`
-	Messages   []string                           `json:"messages,omitempty"`
-	SnapshotId string                             `json:"snapshotId,omitempty"`
+	ClusterId           string                                        `json:"clusterId,omitempty"`
+	ClusterIdByLocation DeleteVolumeSnapshotStatusClusterIdByLocation `json:"clusterIdByLocation,omitempty"`
+	Snapshot            DeleteVolumeSnapshotStatusSnapshot            `json:"snapshot,omitempty"`
+	Stage               DeleteVolumeSnapshotStatusStage               `json:"stage,omitempty"`
+	Messages            []string                                      `json:"messages,omitempty"`
+	SnapshotId          string                                        `json:"snapshotId,omitempty"`
 }
 
 type Cluster struct {
@@ -354,6 +385,7 @@ type DeleteVolumeSetSpecVolumeSet struct {
 
 type DeleteVolumeSetSpec struct {
 	VolumeSet DeleteVolumeSetSpecVolumeSet `json:"volumeSet,omitempty"`
+	Locations []string                     `json:"locations,omitempty"`
 }
 
 type DeleteVolumeSetLocationStatusStage string

@@ -104,6 +104,12 @@ type AzureACRAddonConfig struct {
 	ClientId string `json:"clientId,omitempty"`
 }
 
+type HttpHeaderValue struct {
+	Values  []string `json:"values,omitempty"`
+	Secrets []string `json:"secrets,omitempty"`
+	Files   []string `json:"files,omitempty"`
+}
+
 type ByokAddonConfigConfigActuatorLogLevel string
 
 const (
@@ -126,6 +132,8 @@ type ByokAddonConfigConfigActuator struct {
 type ByokAddonConfigConfigMiddlebox struct {
 	Enabled            bool    `json:"enabled,omitempty"`
 	BandwidthAlertMbps float32 `json:"bandwidthAlertMbps"`
+	Port               float32 `json:"port"`
+	Ip                 string  `json:"ip,omitempty"`
 }
 
 type ByokAddonConfigConfigCommonPdb struct {
@@ -138,7 +146,13 @@ type ByokAddonConfigConfigCommon struct {
 }
 
 type ByokAddonConfigConfigLonghorn struct {
-	Replicas float32 `json:"replicas"`
+	NumberOfReplicas float32 `json:"numberOfReplicas"`
+	Replicas         float32 `json:"replicas"`
+	IsDefault        bool    `json:"isDefault,omitempty"`
+}
+
+type ByokAddonConfigConfigByok struct {
+	NoDefaultStorageClasses bool `json:"noDefaultStorageClasses,omitempty"`
 }
 
 type ByokAddonConfigConfigIngress struct {
@@ -194,11 +208,73 @@ type ByokAddonConfigConfigMonitoringPrometheus struct {
 	Main ByokAddonConfigConfigMonitoringPrometheusMain `json:"main,omitempty"`
 }
 
+type ByokAddonConfigConfigMonitoringRemoteWriteBasicAuth struct {
+	Username      string `json:"username,omitempty"`
+	Username_file string `json:"username_file,omitempty"`
+	Password      string `json:"password,omitempty"`
+	Password_file string `json:"password_file,omitempty"`
+}
+
+type ByokAddonConfigConfigMonitoringRemoteWriteAuthorization struct {
+	Type             string `json:"type,omitempty"`
+	Credentials      string `json:"credentials,omitempty"`
+	Credentials_file string `json:"credentials_file,omitempty"`
+}
+
+type ByokAddonConfigConfigMonitoringRemoteWriteOauth2 map[string]any
+
+type ByokAddonConfigConfigMonitoringRemoteWriteTlsConfig map[string]any
+
+type ByokAddonConfigConfigMonitoringRemoteWriteProxyConnectHeader map[string][]string
+
+type ByokAddonConfigConfigMonitoringRemoteWriteHttpHeaders map[string]HttpHeaderValue
+
+type ByokAddonConfigConfigMonitoringRemoteWriteHeaders map[string]string
+
+type ByokAddonConfigConfigMonitoringRemoteWriteWriteRelabelConfigs map[string]any
+
+type ByokAddonConfigConfigMonitoringRemoteWriteSigv4 map[string]any
+
+type ByokAddonConfigConfigMonitoringRemoteWriteAzuread map[string]any
+
+type ByokAddonConfigConfigMonitoringRemoteWriteGoogleIam map[string]any
+
+type ByokAddonConfigConfigMonitoringRemoteWriteQueueConfig map[string]any
+
+type ByokAddonConfigConfigMonitoringRemoteWrite struct {
+	Basic_auth             ByokAddonConfigConfigMonitoringRemoteWriteBasicAuth             `json:"basic_auth,omitempty"`
+	Authorization          ByokAddonConfigConfigMonitoringRemoteWriteAuthorization         `json:"authorization,omitempty"`
+	Oauth2                 ByokAddonConfigConfigMonitoringRemoteWriteOauth2                `json:"oauth2,omitempty"`
+	Follow_redirects       bool                                                            `json:"follow_redirects,omitempty"`
+	Enable_http2           bool                                                            `json:"enable_http2,omitempty"`
+	Tls_config             ByokAddonConfigConfigMonitoringRemoteWriteTlsConfig             `json:"tls_config,omitempty"`
+	Proxy_url              string                                                          `json:"proxy_url,omitempty"`
+	No_proxy               string                                                          `json:"no_proxy,omitempty"`
+	Proxy_from_environment bool                                                            `json:"proxy_from_environment,omitempty"`
+	Proxy_connect_header   ByokAddonConfigConfigMonitoringRemoteWriteProxyConnectHeader    `json:"proxy_connect_header,omitempty"`
+	Http_headers           ByokAddonConfigConfigMonitoringRemoteWriteHttpHeaders           `json:"http_headers,omitempty"`
+	Url                    string                                                          `json:"url,omitempty"`
+	Remote_timeout         string                                                          `json:"remote_timeout,omitempty"`
+	Headers                ByokAddonConfigConfigMonitoringRemoteWriteHeaders               `json:"headers,omitempty"`
+	Write_relabel_configs  []ByokAddonConfigConfigMonitoringRemoteWriteWriteRelabelConfigs `json:"write_relabel_configs,omitempty"`
+	Name                   string                                                          `json:"name,omitempty"`
+	Send_exemplars         bool                                                            `json:"send_exemplars,omitempty"`
+	Send_native_histograms bool                                                            `json:"send_native_histograms,omitempty"`
+	Sigv4                  ByokAddonConfigConfigMonitoringRemoteWriteSigv4                 `json:"sigv4,omitempty"`
+	Azuread                ByokAddonConfigConfigMonitoringRemoteWriteAzuread               `json:"azuread,omitempty"`
+	Google_iam             ByokAddonConfigConfigMonitoringRemoteWriteGoogleIam             `json:"google_iam,omitempty"`
+	Queue_config           ByokAddonConfigConfigMonitoringRemoteWriteQueueConfig           `json:"queue_config,omitempty"`
+}
+
+type ByokAddonConfigConfigMonitoringExternalLabels map[string]string
+
 type ByokAddonConfigConfigMonitoring struct {
 	MinMemory        workload.Memory                                 `json:"minMemory,omitempty"`
 	MaxMemory        workload.Memory                                 `json:"maxMemory,omitempty"`
 	KubeStateMetrics ByokAddonConfigConfigMonitoringKubeStateMetrics `json:"kubeStateMetrics,omitempty"`
 	Prometheus       ByokAddonConfigConfigMonitoringPrometheus       `json:"prometheus,omitempty"`
+	RemoteWrite      []ByokAddonConfigConfigMonitoringRemoteWrite    `json:"remoteWrite,omitempty"`
+	ExternalLabels   ByokAddonConfigConfigMonitoringExternalLabels   `json:"externalLabels,omitempty"`
 }
 
 type ByokAddonConfigConfigRedis struct {
@@ -242,6 +318,7 @@ type ByokAddonConfigConfig struct {
 	Middlebox     ByokAddonConfigConfigMiddlebox     `json:"middlebox,omitempty"`
 	Common        ByokAddonConfigConfigCommon        `json:"common,omitempty"`
 	Longhorn      ByokAddonConfigConfigLonghorn      `json:"longhorn,omitempty"`
+	Byok          ByokAddonConfigConfigByok          `json:"byok,omitempty"`
 	Ingress       ByokAddonConfigConfigIngress       `json:"ingress,omitempty"`
 	Istio         ByokAddonConfigConfigIstio         `json:"istio,omitempty"`
 	LogSplitter   ByokAddonConfigConfigLogSplitter   `json:"logSplitter,omitempty"`
@@ -251,8 +328,6 @@ type ByokAddonConfigConfig struct {
 	RedisSentinel ByokAddonConfigConfigRedisSentinel `json:"redisSentinel,omitempty"`
 	TempoAgent    ByokAddonConfigConfigTempoAgent    `json:"tempoAgent,omitempty"`
 	InternalDns   ByokAddonConfigConfigInternalDns   `json:"internalDns,omitempty"`
-
-	/* WARNING!! Arbitrary properties are being ignored! */
 }
 
 type ByokAddonConfig struct {

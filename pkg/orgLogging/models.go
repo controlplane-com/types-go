@@ -46,6 +46,14 @@ type DatadogLogging struct {
 	Credentials string             `json:"credentials,omitempty"`
 }
 
+type OpenTelemetryLoggingHeaders map[string]string
+
+type OpenTelemetryLogging struct {
+	Endpoint    string                      `json:"endpoint,omitempty"`
+	Headers     OpenTelemetryLoggingHeaders `json:"headers,omitempty"`
+	Credentials string                      `json:"credentials,omitempty"`
+}
+
 type LogzioLoggingListenerHost string
 
 const (
