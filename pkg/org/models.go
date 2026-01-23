@@ -52,27 +52,29 @@ type ThreatDetection struct {
 }
 
 type OrgSpecLogging struct {
-	S3          orgLogging.S3Logging          `json:"s3,omitempty"`
-	Coralogix   orgLogging.CoralogixLogging   `json:"coralogix,omitempty"`
-	Datadog     orgLogging.DatadogLogging     `json:"datadog,omitempty"`
-	Logzio      orgLogging.LogzioLogging      `json:"logzio,omitempty"`
-	Elastic     orgLogging.ElasticLogging     `json:"elastic,omitempty"`
-	CloudWatch  orgLogging.CloudWatchLogging  `json:"cloudWatch,omitempty"`
-	Fluentd     orgLogging.FluentdLogging     `json:"fluentd,omitempty"`
-	Stackdriver orgLogging.StackdriverLogging `json:"stackdriver,omitempty"`
-	Syslog      orgLogging.SyslogLogging      `json:"syslog,omitempty"`
+	S3            orgLogging.S3Logging            `json:"s3,omitempty"`
+	Coralogix     orgLogging.CoralogixLogging     `json:"coralogix,omitempty"`
+	Datadog       orgLogging.DatadogLogging       `json:"datadog,omitempty"`
+	Logzio        orgLogging.LogzioLogging        `json:"logzio,omitempty"`
+	Elastic       orgLogging.ElasticLogging       `json:"elastic,omitempty"`
+	CloudWatch    orgLogging.CloudWatchLogging    `json:"cloudWatch,omitempty"`
+	Fluentd       orgLogging.FluentdLogging       `json:"fluentd,omitempty"`
+	Stackdriver   orgLogging.StackdriverLogging   `json:"stackdriver,omitempty"`
+	Syslog        orgLogging.SyslogLogging        `json:"syslog,omitempty"`
+	Opentelemetry orgLogging.OpenTelemetryLogging `json:"opentelemetry,omitempty"`
 }
 
 type OrgSpecExtraLogging struct {
-	S3          orgLogging.S3Logging          `json:"s3,omitempty"`
-	Coralogix   orgLogging.CoralogixLogging   `json:"coralogix,omitempty"`
-	Datadog     orgLogging.DatadogLogging     `json:"datadog,omitempty"`
-	Logzio      orgLogging.LogzioLogging      `json:"logzio,omitempty"`
-	Elastic     orgLogging.ElasticLogging     `json:"elastic,omitempty"`
-	CloudWatch  orgLogging.CloudWatchLogging  `json:"cloudWatch,omitempty"`
-	Fluentd     orgLogging.FluentdLogging     `json:"fluentd,omitempty"`
-	Stackdriver orgLogging.StackdriverLogging `json:"stackdriver,omitempty"`
-	Syslog      orgLogging.SyslogLogging      `json:"syslog,omitempty"`
+	S3            orgLogging.S3Logging            `json:"s3,omitempty"`
+	Coralogix     orgLogging.CoralogixLogging     `json:"coralogix,omitempty"`
+	Datadog       orgLogging.DatadogLogging       `json:"datadog,omitempty"`
+	Logzio        orgLogging.LogzioLogging        `json:"logzio,omitempty"`
+	Elastic       orgLogging.ElasticLogging       `json:"elastic,omitempty"`
+	CloudWatch    orgLogging.CloudWatchLogging    `json:"cloudWatch,omitempty"`
+	Fluentd       orgLogging.FluentdLogging       `json:"fluentd,omitempty"`
+	Stackdriver   orgLogging.StackdriverLogging   `json:"stackdriver,omitempty"`
+	Syslog        orgLogging.SyslogLogging        `json:"syslog,omitempty"`
+	Opentelemetry orgLogging.OpenTelemetryLogging `json:"opentelemetry,omitempty"`
 }
 
 type OrgSpecObservability struct {

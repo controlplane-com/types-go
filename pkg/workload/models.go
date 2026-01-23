@@ -2,12 +2,14 @@
 
 package workload
 
-import "github.com/controlplane-com/types-go/pkg/port"
 import "github.com/controlplane-com/types-go/pkg/base"
 import "github.com/controlplane-com/types-go/pkg/env"
 import "github.com/controlplane-com/types-go/pkg/volumeSpec"
 import "github.com/controlplane-com/types-go/pkg/workloadOptions"
-import "github.com/controlplane-com/types-go/pkg/envoy"
+import "github.com/controlplane-com/types-go/pkg/envoyAccessLog"
+import "github.com/controlplane-com/types-go/pkg/envoyCluster"
+import "github.com/controlplane-com/types-go/pkg/envoyExcExtAuth"
+import "github.com/controlplane-com/types-go/pkg/envoyHttp"
 
 type Memory string
 
@@ -18,7 +20,7 @@ type HealthCheckSpecExec struct {
 }
 
 type HealthCheckSpecGrpc struct {
-	Port port.Port `json:"port,omitempty"`
+	Port float32 `json:"port"`
 }
 
 type HealthCheckSpecTcpSocket struct {
@@ -88,6 +90,7 @@ type RolloutOptionsStateful struct {
 
 type SecurityOptions struct {
 	FilesystemGroupId float32 `json:"filesystemGroupId"`
+	RunAsUser         float32 `json:"runAsUser"`
 }
 
 type GpuResourceNvidia struct {
@@ -131,7 +134,7 @@ type ContainerSpecReadinessProbeExec struct {
 }
 
 type ContainerSpecReadinessProbeGrpc struct {
-	Port port.Port `json:"port,omitempty"`
+	Port float32 `json:"port"`
 }
 
 type ContainerSpecReadinessProbeTcpSocket struct {
@@ -174,7 +177,7 @@ type ContainerSpecLivenessProbeExec struct {
 }
 
 type ContainerSpecLivenessProbeGrpc struct {
-	Port port.Port `json:"port,omitempty"`
+	Port float32 `json:"port"`
 }
 
 type ContainerSpecLivenessProbeTcpSocket struct {
@@ -308,16 +311,34 @@ type ResolvedImages struct {
 	Images             []ResolvedImage `json:"images,omitempty"`
 }
 
+type WorkloadStatusHealthCheck struct {
+	Active      bool    `json:"active,omitempty"`
+	Success     bool    `json:"success,omitempty"`
+	Code        float32 `json:"code"`
+	Message     string  `json:"message,omitempty"`
+	Failures    float32 `json:"failures"`
+	Successes   float32 `json:"successes"`
+	LastChecked string  `json:"lastChecked,omitempty"`
+}
+
+type WorkloadStatusResolvedImages struct {
+	ResolvedForVersion float32         `json:"resolvedForVersion"`
+	ResolvedAt         string          `json:"resolvedAt,omitempty"`
+	ErrorMessages      []string        `json:"errorMessages,omitempty"`
+	NextRetryAt        string          `json:"nextRetryAt,omitempty"`
+	Images             []ResolvedImage `json:"images,omitempty"`
+}
+
 type WorkloadStatus struct {
-	ParentId             string               `json:"parentId,omitempty"`
-	CanonicalEndpoint    string               `json:"canonicalEndpoint,omitempty"`
-	Endpoint             string               `json:"endpoint,omitempty"`
-	InternalName         string               `json:"internalName,omitempty"`
-	ReplicaInternalNames []string             `json:"replicaInternalNames,omitempty"`
-	HealthCheck          HealthCheckStatus    `json:"healthCheck,omitempty"`
-	CurrentReplicaCount  float32              `json:"currentReplicaCount"`
-	ResolvedImages       ResolvedImages       `json:"resolvedImages,omitempty"`
-	LoadBalancer         []LoadBalancerStatus `json:"loadBalancer,omitempty"`
+	ParentId             string                       `json:"parentId,omitempty"`
+	CanonicalEndpoint    string                       `json:"canonicalEndpoint,omitempty"`
+	Endpoint             string                       `json:"endpoint,omitempty"`
+	InternalName         string                       `json:"internalName,omitempty"`
+	ReplicaInternalNames []string                     `json:"replicaInternalNames,omitempty"`
+	HealthCheck          WorkloadStatusHealthCheck    `json:"healthCheck,omitempty"`
+	CurrentReplicaCount  float32                      `json:"currentReplicaCount"`
+	ResolvedImages       WorkloadStatusResolvedImages `json:"resolvedImages,omitempty"`
+	LoadBalancer         []LoadBalancerStatus         `json:"loadBalancer,omitempty"`
 
 	/* WARNING!! Arbitrary properties are being ignored! */
 }
@@ -536,12 +557,23 @@ type WorkloadSpecJob struct {
 	ActiveDeadlineSeconds float32                          `json:"activeDeadlineSeconds"`
 }
 
+type WorkloadSpecSidecarEnvoy struct {
+	AccessLog            []envoyAccessLog.AccessLog          `json:"accessLog,omitempty"`
+	Clusters             []envoyCluster.Cluster              `json:"clusters,omitempty"`
+	ExcludedExternalAuth []envoyExcExtAuth.ExcExtAuth        `json:"excludedExternalAuth,omitempty"`
+	ExcludedRateLimit    []envoyExcExtAuth.ExcludedRateLimit `json:"excludedRateLimit,omitempty"`
+	Http                 []envoyHttp.HttpFilter              `json:"http,omitempty"`
+	Network              []any                               `json:"network,omitempty"`
+	Volumes              []volumeSpec.VolumeSpec             `json:"volumes,omitempty"`
+}
+
 type WorkloadSpecSidecar struct {
-	Envoy envoy.EnvoyFilters `json:"envoy,omitempty"`
+	Envoy WorkloadSpecSidecarEnvoy `json:"envoy,omitempty"`
 }
 
 type WorkloadSpecSecurityOptions struct {
 	FilesystemGroupId float32 `json:"filesystemGroupId"`
+	RunAsUser         float32 `json:"runAsUser"`
 }
 
 type WorkloadSpecLoadBalancerDirect struct {
