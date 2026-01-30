@@ -24,13 +24,13 @@ const (
 )
 
 type ClusterLoadAssignment struct {
-	Cluster_name string `json:"cluster_name,omitempty"`
+	Cluster_name string `json:"cluster_name"`
 	Endpoints    any    `json:"endpoints,omitempty"`
 	Policy       any    `json:"policy,omitempty"`
 }
 
 type Cluster struct {
-	Name                                      string                `json:"name,omitempty"`
+	Name                                      string                `json:"name"`
 	ExcludedWorkloads                         []string              `json:"excludedWorkloads,omitempty"`
 	Transport_socket_matches                  any                   `json:"transport_socket_matches,omitempty"`
 	Alt_stat_name                             any                   `json:"alt_stat_name,omitempty"`

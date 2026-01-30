@@ -5,6 +5,8 @@ package group
 import "github.com/controlplane-com/types-go/pkg/base"
 import "github.com/controlplane-com/types-go/pkg/query"
 
+type GroupTags map[string]any
+
 type GroupIdentityMatcherLanguage string
 
 const (
@@ -13,7 +15,7 @@ const (
 )
 
 type GroupIdentityMatcher struct {
-	Expression string                       `json:"expression,omitempty"`
+	Expression string                       `json:"expression"`
 	Language   GroupIdentityMatcherLanguage `json:"language,omitempty"`
 }
 
@@ -31,7 +33,7 @@ type Group struct {
 	Kind            base.Kind            `json:"kind,omitempty"`
 	Version         float32              `json:"version"`
 	Description     string               `json:"description,omitempty"`
-	Tags            base.Tags            `json:"tags,omitempty"`
+	Tags            GroupTags            `json:"tags,omitempty"`
 	Created         string               `json:"created,omitempty"`
 	LastModified    string               `json:"lastModified,omitempty"`
 	Links           base.Links           `json:"links,omitempty"`

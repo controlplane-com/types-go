@@ -6,7 +6,7 @@ import "github.com/controlplane-com/types-go/pkg/containerstatus"
 
 type JobExecutionCondition struct {
 	Status             string `json:"status,omitempty"`
-	Type               string `json:"type,omitempty"`
+	Type               string `json:"type"`
 	LastDetectionTime  string `json:"lastDetectionTime,omitempty"`
 	LastTransitionTime string `json:"lastTransitionTime,omitempty"`
 	Message            string `json:"message,omitempty"`
@@ -33,7 +33,7 @@ type JobExecutionStatus struct {
 	StartTime       string                       `json:"startTime,omitempty"`
 	CompletionTime  string                       `json:"completionTime,omitempty"`
 	Conditions      []JobExecutionCondition      `json:"conditions,omitempty"`
-	Name            string                       `json:"name,omitempty"`
+	Name            string                       `json:"name"`
 	Replica         string                       `json:"replica,omitempty"`
 	Containers      JobExecutionStatusContainers `json:"containers,omitempty"`
 }

@@ -15,9 +15,9 @@ const (
 )
 
 type Taint struct {
-	Key    string      `json:"key,omitempty"`
-	Value  string      `json:"value,omitempty"`
-	Effect TaintEffect `json:"effect,omitempty"`
+	Key    SshPublicKey `json:"key,omitempty"`
+	Value  string       `json:"value,omitempty"`
+	Effect TaintEffect  `json:"effect,omitempty"`
 }
 
 type Taints []Taint
@@ -43,7 +43,7 @@ type AutoscalerConfig struct {
 }
 
 type UnmanagedPool struct {
-	Name   string `json:"name,omitempty"`
+	Name   string `json:"name"`
 	Labels Labels `json:"labels,omitempty"`
 	Taints Taints `json:"taints,omitempty"`
 }

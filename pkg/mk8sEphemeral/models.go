@@ -21,14 +21,14 @@ const (
 )
 
 type EphemeralPool struct {
-	Name   string              `json:"name,omitempty"`
+	Name   string              `json:"name"`
 	Labels mk8sCommon.Labels   `json:"labels,omitempty"`
 	Taints mk8sCommon.Taints   `json:"taints,omitempty"`
 	Count  float32             `json:"count"`
 	Arch   EphemeralPoolArch   `json:"arch,omitempty"`
 	Flavor EphemeralPoolFlavor `json:"flavor,omitempty"`
-	Cpu    string              `json:"cpu,omitempty"`
-	Memory string              `json:"memory,omitempty"`
+	Cpu    string              `json:"cpu"`
+	Memory string              `json:"memory"`
 }
 
 type EphemeralProviderLocation string

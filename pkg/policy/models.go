@@ -6,9 +6,11 @@ import "github.com/controlplane-com/types-go/pkg/base"
 import "github.com/controlplane-com/types-go/pkg/query"
 
 type Binding struct {
-	Permissions    []string `json:"permissions,omitempty"`
-	PrincipalLinks []string `json:"principalLinks,omitempty"`
+	Permissions    []string `json:"permissions"`
+	PrincipalLinks []string `json:"principalLinks"`
 }
+
+type PolicyTags map[string]any
 
 type PolicyTarget string
 
@@ -29,7 +31,7 @@ type Policy struct {
 	Kind         base.Kind    `json:"kind,omitempty"`
 	Version      float32      `json:"version"`
 	Description  string       `json:"description,omitempty"`
-	Tags         base.Tags    `json:"tags,omitempty"`
+	Tags         PolicyTags   `json:"tags,omitempty"`
 	Created      string       `json:"created,omitempty"`
 	LastModified string       `json:"lastModified,omitempty"`
 	Links        base.Links   `json:"links,omitempty"`
