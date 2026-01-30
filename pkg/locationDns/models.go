@@ -10,13 +10,13 @@ const (
 )
 
 type LocationDnsMessage struct {
-	Org              string                      `json:"org,omitempty"`
-	Gvc              string                      `json:"gvc,omitempty"`
-	GvcAlias         string                      `json:"gvcAlias,omitempty"`
-	Workload         string                      `json:"workload,omitempty"`
+	Org              string                      `json:"org"`
+	Gvc              string                      `json:"gvc"`
+	GvcAlias         string                      `json:"gvcAlias"`
+	Workload         string                      `json:"workload"`
 	Operation        LocationDnsMessageOperation `json:"operation,omitempty"`
 	DeleteReason     string                      `json:"deleteReason,omitempty"`
-	Name             string                      `json:"name,omitempty"`
-	Target           string                      `json:"target,omitempty"`
+	Name             string                      `json:"name"`
+	Target           string                      `json:"target"`
 	AvailabilityZone string                      `json:"availabilityZone,omitempty"`
 }

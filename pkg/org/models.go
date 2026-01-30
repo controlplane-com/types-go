@@ -41,12 +41,12 @@ const (
 
 type ThreatDetectionSyslog struct {
 	Transport ThreatDetectionSyslogTransport `json:"transport,omitempty"`
-	Host      string                         `json:"host,omitempty"`
+	Host      string                         `json:"host"`
 	Port      float32                        `json:"port"`
 }
 
 type ThreatDetection struct {
-	Enabled         bool                           `json:"enabled,omitempty"`
+	Enabled         bool                           `json:"enabled"`
 	MinimumSeverity ThreatDetectionMinimumSeverity `json:"minimumSeverity,omitempty"`
 	Syslog          ThreatDetectionSyslog          `json:"syslog,omitempty"`
 }
@@ -98,12 +98,14 @@ type OrgSpec struct {
 	Security              OrgSpecSecurity       `json:"security,omitempty"`
 }
 
+type OrgTags map[string]any
+
 type Org struct {
 	Id           string     `json:"id,omitempty"`
 	Kind         base.Kind  `json:"kind,omitempty"`
 	Version      float32    `json:"version"`
 	Description  string     `json:"description,omitempty"`
-	Tags         base.Tags  `json:"tags,omitempty"`
+	Tags         OrgTags    `json:"tags,omitempty"`
 	Created      string     `json:"created,omitempty"`
 	LastModified string     `json:"lastModified,omitempty"`
 	Links        base.Links `json:"links,omitempty"`
@@ -113,7 +115,7 @@ type Org struct {
 }
 
 type QuotaOverride struct {
-	Name string  `json:"name,omitempty"`
+	Name string  `json:"name"`
 	Max  float32 `json:"max"`
 }
 

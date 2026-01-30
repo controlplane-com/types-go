@@ -25,17 +25,17 @@ type DoubleRange struct {
 
 type RuntimeFractionalPercent struct {
 	Default_value FractionalPercent `json:"default_value,omitempty"`
-	Runtime_key   string            `json:"runtime_key,omitempty"`
+	Runtime_key   string            `json:"runtime_key"`
 }
 
 type RuntimeDouble struct {
 	Default_value float32 `json:"default_value"`
-	Runtime_key   string  `json:"runtime_key,omitempty"`
+	Runtime_key   string  `json:"runtime_key"`
 }
 
 type RuntimeFeatureFlag struct {
-	Default_value bool   `json:"default_value,omitempty"`
-	Runtime_key   string `json:"runtime_key,omitempty"`
+	Default_value bool   `json:"default_value"`
+	Runtime_key   string `json:"runtime_key"`
 }
 
 type HealthStatus string
@@ -122,7 +122,7 @@ type DataSource struct {
 }
 
 type TypedExtensionConfig struct {
-	Name         string `json:"name,omitempty"`
+	Name         string `json:"name"`
 	Typed_config any    `json:"typed_config,omitempty"`
 }
 
@@ -132,7 +132,7 @@ type RegexMatcherGoogleRe2 struct {
 
 type RegexMatcher struct {
 	Google_re2 RegexMatcherGoogleRe2 `json:"google_re2,omitempty"`
-	Regex      string                `json:"regex,omitempty"`
+	Regex      string                `json:"regex"`
 }
 
 type StringMatcher struct {
@@ -158,13 +158,13 @@ type ValueMatcher struct {
 }
 
 type QueryParameterMatcher struct {
-	Name          string        `json:"name,omitempty"`
+	Name          string        `json:"name"`
 	String_match  StringMatcher `json:"string_match,omitempty"`
 	Present_match bool          `json:"present_match,omitempty"`
 }
 
 type MetadataMatcherPath struct {
-	Key string `json:"key,omitempty"`
+	Key string `json:"key"`
 }
 
 type MetadataMatcherValue struct {
@@ -176,14 +176,14 @@ type MetadataMatcherValue struct {
 }
 
 type MetadataMatcher struct {
-	Filter string                `json:"filter,omitempty"`
+	Filter string                `json:"filter"`
 	Path   []MetadataMatcherPath `json:"path,omitempty"`
-	Value  MetadataMatcherValue  `json:"value,omitempty"`
+	Value  MetadataMatcherValue  `json:"value"`
 	Invert bool                  `json:"invert,omitempty"`
 }
 
 type HeaderMatcher struct {
-	Name                          string        `json:"name,omitempty"`
+	Name                          string        `json:"name"`
 	Safe_regex_match              RegexMatcher  `json:"safe_regex_match,omitempty"`
 	Range_match                   IntRange      `json:"range_match,omitempty"`
 	Present_match                 bool          `json:"present_match,omitempty"`
@@ -227,7 +227,7 @@ type ListStringMatcher struct {
 }
 
 type TimeInterval struct {
-	Base_interval any/* TODO: [object Object]*/ `json:"base_interval,omitempty"`
+	Base_interval any/* TODO: [object Object]*/ `json:"base_interval"`
 	Max_interval  Duration `json:"max_interval,omitempty"`
 }
 
@@ -246,7 +246,7 @@ const (
 )
 
 type HeaderValue struct {
-	Key       string `json:"key,omitempty"`
+	Key       string `json:"key"`
 	Value     string `json:"value,omitempty"`
 	Raw_value any/* TODO: [object Object]*/ `json:"raw_value,omitempty"`
 }
@@ -279,8 +279,8 @@ type GoogleCallCredentialsStsService struct {
 	Audience                   string `json:"audience,omitempty"`
 	Scope                      string `json:"scope,omitempty"`
 	Requested_token_type       string `json:"requested_token_type,omitempty"`
-	Subject_token_path         string `json:"subject_token_path,omitempty"`
-	Subject_token_type         string `json:"subject_token_type,omitempty"`
+	Subject_token_path         string `json:"subject_token_path"`
+	Subject_token_type         string `json:"subject_token_type"`
 	Actor_token_path           string `json:"actor_token_path,omitempty"`
 	Actor_token_type           string `json:"actor_token_type,omitempty"`
 }
@@ -296,7 +296,7 @@ type GoogleCallCredentials struct {
 }
 
 type GrpcServiceEnvoyGrpc struct {
-	Cluster_name string      `json:"cluster_name,omitempty"`
+	Cluster_name string      `json:"cluster_name"`
 	Authority    string      `json:"authority,omitempty"`
 	Retry_policy RetryPolicy `json:"retry_policy,omitempty"`
 }
@@ -313,10 +313,10 @@ type GrpcServiceGoogleGrpcChannelCredentials struct {
 }
 
 type GrpcServiceGoogleGrpc struct {
-	Target_uri               string                                  `json:"target_uri,omitempty"`
+	Target_uri               string                                  `json:"target_uri"`
 	Channel_credentials      GrpcServiceGoogleGrpcChannelCredentials `json:"channel_credentials,omitempty"`
 	Call_credentials         []GoogleCallCredentials                 `json:"call_credentials,omitempty"`
-	Stat_prefix              string                                  `json:"stat_prefix,omitempty"`
+	Stat_prefix              string                                  `json:"stat_prefix"`
 	Credentials_factory_name string                                  `json:"credentials_factory_name,omitempty"`
 	Config                   Struct                                  `json:"config,omitempty"`
 }
@@ -343,7 +343,7 @@ const (
 
 type SocketAddress struct {
 	Protocol      SocketAddressProtocol `json:"protocol,omitempty"`
-	Address       string                `json:"address,omitempty"`
+	Address       string                `json:"address"`
 	Port_value    float32               `json:"port_value"`
 	Named_port    string                `json:"named_port,omitempty"`
 	Resolver_name any                   `json:"resolver_name,omitempty"`
@@ -372,12 +372,12 @@ type SocketOptionsOverride struct {
 }
 
 type Pipe struct {
-	Path string  `json:"path,omitempty"`
+	Path string  `json:"path"`
 	Mode float32 `json:"mode"`
 }
 
 type EnvoyInternalAddress struct {
-	Server_listener_name string `json:"server_listener_name,omitempty"`
+	Server_listener_name string `json:"server_listener_name"`
 	Endpoint_id          string `json:"endpoint_id,omitempty"`
 }
 
@@ -427,16 +427,16 @@ type TransportSocketTypedConfig struct {
 }
 
 type TransportSocket struct {
-	Name         string                     `json:"name,omitempty"`
+	Name         string                     `json:"name"`
 	Typed_config TransportSocketTypedConfig `json:"typed_config,omitempty"`
 }
 
 type WatchedDirectory struct {
-	Path string `json:"path,omitempty"`
+	Path string `json:"path"`
 }
 
 type PathConfigSource struct {
-	Path              string           `json:"path,omitempty"`
+	Path              string           `json:"path"`
 	Watched_directory WatchedDirectory `json:"watched_directory,omitempty"`
 }
 
@@ -542,7 +542,7 @@ type HttpStatus struct {
 
 type HttpHealthCheck struct {
 	Host                      string               `json:"host,omitempty"`
-	Path                      string               `json:"path,omitempty"`
+	Path                      string               `json:"path"`
 	Receive                   []HealthCheckPayload `json:"receive,omitempty"`
 	Response_buffer_size      UInt64               `json:"response_buffer_size,omitempty"`
 	Request_headers_to_add    []HeaderValueOption  `json:"request_headers_to_add,omitempty"`
@@ -556,7 +556,7 @@ type HttpHealthCheck struct {
 
 type KeepaliveSettings struct {
 	Interval                 Duration `json:"interval,omitempty"`
-	Timeout                  any/* TODO: [object Object]*/ `json:"timeout,omitempty"`
+	Timeout                  any/* TODO: [object Object]*/ `json:"timeout"`
 	Interval_jitter          Percent  `json:"interval_jitter,omitempty"`
 	Connection_idle_interval Duration `json:"connection_idle_interval,omitempty"`
 }
@@ -647,7 +647,7 @@ type GrpcHealthCheck struct {
 }
 
 type CustomHealthCheck struct {
-	Name         string `json:"name,omitempty"`
+	Name         string `json:"name"`
 	Typed_config any    `json:"typed_config,omitempty"`
 }
 

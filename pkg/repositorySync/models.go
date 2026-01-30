@@ -7,11 +7,11 @@ type RepositorySyncSourceDirectory struct {
 }
 
 type RepositorySyncSource struct {
-	RepoURL           string                        `json:"repoURL,omitempty"`
+	RepoURL           string                        `json:"repoURL"`
 	TargetRevision    string                        `json:"targetRevision,omitempty"`
-	Path              string                        `json:"path,omitempty"`
+	Path              string                        `json:"path"`
 	AuthSecretLink    string                        `json:"authSecretLink,omitempty"`
-	WebhookSecretLink string                        `json:"webhookSecretLink,omitempty"`
+	WebhookSecretLink string                        `json:"webhookSecretLink"`
 	Directory         RepositorySyncSourceDirectory `json:"directory,omitempty"`
 }
 

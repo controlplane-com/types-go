@@ -36,7 +36,7 @@ const (
 )
 
 type Mk8SSpecFirewall struct {
-	SourceCIDR  string `json:"sourceCIDR,omitempty"`
+	SourceCIDR  string `json:"sourceCIDR"`
 	Description string `json:"description,omitempty"`
 }
 
@@ -69,6 +69,7 @@ type Mk8SSpecAddOns struct {
 	AwsECR                mk8sAddons.AwsECRAddonConfig          `json:"awsECR,omitempty"`
 	AwsELB                mk8sAddons.AwsELBAddonConfig          `json:"awsELB,omitempty"`
 	AzureACR              mk8sAddons.AzureACRAddonConfig        `json:"azureACR,omitempty"`
+	JuiceFS               mk8sAddons.JuiceFSAddonConfig         `json:"juiceFS,omitempty"`
 	Sysbox                mk8sAddons.NonCustomizableAddonConfig `json:"sysbox,omitempty"`
 	Byok                  mk8sAddons.ByokAddonConfig            `json:"byok,omitempty"`
 }
@@ -76,7 +77,7 @@ type Mk8SSpecAddOns struct {
 type Mk8sSpec struct {
 	Version  Mk8SSpecVersion    `json:"version,omitempty"`
 	Firewall []Mk8SSpecFirewall `json:"firewall,omitempty"`
-	Provider Mk8SSpecProvider   `json:"provider,omitempty"`
+	Provider Mk8SSpecProvider   `json:"provider"`
 	AddOns   Mk8SSpecAddOns     `json:"addOns,omitempty"`
 }
 
@@ -98,6 +99,8 @@ type Mk8sStatus struct {
 	AddOns          Mk8SStatusAddOns `json:"addOns,omitempty"`
 }
 
+type Mk8SClusterTags map[string]any
+
 type Mk8SClusterSpecVersion string
 
 const (
@@ -117,7 +120,7 @@ const (
 )
 
 type Mk8SClusterSpecFirewall struct {
-	SourceCIDR  string `json:"sourceCIDR,omitempty"`
+	SourceCIDR  string `json:"sourceCIDR"`
 	Description string `json:"description,omitempty"`
 }
 
@@ -150,6 +153,7 @@ type Mk8SClusterSpecAddOns struct {
 	AwsECR                mk8sAddons.AwsECRAddonConfig          `json:"awsECR,omitempty"`
 	AwsELB                mk8sAddons.AwsELBAddonConfig          `json:"awsELB,omitempty"`
 	AzureACR              mk8sAddons.AzureACRAddonConfig        `json:"azureACR,omitempty"`
+	JuiceFS               mk8sAddons.JuiceFSAddonConfig         `json:"juiceFS,omitempty"`
 	Sysbox                mk8sAddons.NonCustomizableAddonConfig `json:"sysbox,omitempty"`
 	Byok                  mk8sAddons.ByokAddonConfig            `json:"byok,omitempty"`
 }
@@ -157,7 +161,7 @@ type Mk8SClusterSpecAddOns struct {
 type Mk8SClusterSpec struct {
 	Version  Mk8SClusterSpecVersion    `json:"version,omitempty"`
 	Firewall []Mk8SClusterSpecFirewall `json:"firewall,omitempty"`
-	Provider Mk8SClusterSpecProvider   `json:"provider,omitempty"`
+	Provider Mk8SClusterSpecProvider   `json:"provider"`
 	AddOns   Mk8SClusterSpecAddOns     `json:"addOns,omitempty"`
 }
 
@@ -167,11 +171,11 @@ type Mk8sCluster struct {
 	Kind         base.Kind       `json:"kind,omitempty"`
 	Version      float32         `json:"version"`
 	Description  string          `json:"description,omitempty"`
-	Tags         base.Tags       `json:"tags,omitempty"`
+	Tags         Mk8SClusterTags `json:"tags,omitempty"`
 	Created      string          `json:"created,omitempty"`
 	LastModified string          `json:"lastModified,omitempty"`
 	Links        base.Links      `json:"links,omitempty"`
-	Spec         Mk8SClusterSpec `json:"spec,omitempty"`
+	Spec         Mk8SClusterSpec `json:"spec"`
 	Alias        string          `json:"alias,omitempty"`
 	Status       Mk8sStatus      `json:"status,omitempty"`
 }

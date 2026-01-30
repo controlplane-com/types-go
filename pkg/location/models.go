@@ -22,6 +22,8 @@ type LocationStatus struct {
 	IpRanges []string          `json:"ipRanges,omitempty"`
 }
 
+type LocationTags map[string]any
+
 type LocationOrigin string
 
 const (
@@ -48,7 +50,7 @@ type Location struct {
 	Kind         base.Kind        `json:"kind,omitempty"`
 	Version      float32          `json:"version"`
 	Description  string           `json:"description,omitempty"`
-	Tags         base.Tags        `json:"tags,omitempty"`
+	Tags         LocationTags     `json:"tags,omitempty"`
 	Created      string           `json:"created,omitempty"`
 	LastModified string           `json:"lastModified,omitempty"`
 	Links        base.Links       `json:"links,omitempty"`

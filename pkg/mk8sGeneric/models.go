@@ -5,7 +5,7 @@ package mk8sGeneric
 import "github.com/controlplane-com/types-go/pkg/mk8sCommon"
 
 type GenericPool struct {
-	Name   string            `json:"name,omitempty"`
+	Name   string            `json:"name"`
 	Labels mk8sCommon.Labels `json:"labels,omitempty"`
 	Taints mk8sCommon.Taints `json:"taints,omitempty"`
 }
@@ -56,7 +56,7 @@ type GenericProvider struct {
 type GenericProviderStatus map[string]any
 
 type GenericJoinParams struct {
-	NodePoolName string `json:"nodePoolName,omitempty"`
+	NodePoolName string `json:"nodePoolName"`
 
 	/* WARNING!! Arbitrary properties are being ignored! */
 }

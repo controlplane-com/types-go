@@ -20,7 +20,7 @@ type Route struct {
 	ReplacePrefix string       `json:"replacePrefix,omitempty"`
 	Regex         string       `json:"regex,omitempty"`
 	Prefix        string       `json:"prefix,omitempty"`
-	WorkloadLink  string       `json:"workloadLink,omitempty"`
+	WorkloadLink  string       `json:"workloadLink"`
 	Port          float32      `json:"port"`
 	HostPrefix    string       `json:"hostPrefix,omitempty"`
 	HostRegex     string       `json:"hostRegex,omitempty"`
@@ -147,7 +147,7 @@ type DnsConfigRecord struct {
 }
 
 type DomainStatusEndpoints struct {
-	Url          string         `json:"url,omitempty"`
+	Url          string         `json:"url"`
 	WorkloadLink base.LocalLink `json:"workloadLink,omitempty"`
 }
 
@@ -178,7 +178,7 @@ const (
 )
 
 type DomainStatusLocations struct {
-	Name              string                                 `json:"name,omitempty"`
+	Name              string                                 `json:"name"`
 	CertificateStatus DomainStatusLocationsCertificateStatus `json:"certificateStatus,omitempty"`
 }
 
@@ -191,12 +191,14 @@ type DomainStatus struct {
 	DnsConfig   []DnsConfigRecord       `json:"dnsConfig,omitempty"`
 }
 
+type DomainTags map[string]any
+
 type Domain struct {
 	Id           string       `json:"id,omitempty"`
 	Kind         base.Kind    `json:"kind,omitempty"`
 	Version      float32      `json:"version"`
 	Description  string       `json:"description,omitempty"`
-	Tags         base.Tags    `json:"tags,omitempty"`
+	Tags         DomainTags   `json:"tags,omitempty"`
 	Created      string       `json:"created,omitempty"`
 	LastModified string       `json:"lastModified,omitempty"`
 	Links        base.Links   `json:"links,omitempty"`

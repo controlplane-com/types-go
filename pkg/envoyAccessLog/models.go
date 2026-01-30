@@ -11,7 +11,7 @@ const (
 )
 
 type AccessLogTypedConfigCommonConfig struct {
-	Log_name                    string                  `json:"log_name,omitempty"`
+	Log_name                    string                  `json:"log_name"`
 	Grpc_service                envoyCommon.GrpcService `json:"grpc_service,omitempty"`
 	Transport_api_version       envoyCommon.ApiVersion  `json:"transport_api_version,omitempty"`
 	Buffer_flush_interval       envoyCommon.Duration    `json:"buffer_flush_interval,omitempty"`

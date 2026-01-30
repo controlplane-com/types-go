@@ -33,7 +33,7 @@ type DeploymentStatus struct {
 }
 
 type Deployment struct {
-	Name         string           `json:"name,omitempty"`
+	Name         string           `json:"name"`
 	Kind         base.Kind        `json:"kind,omitempty"`
 	Links        base.Links       `json:"links,omitempty"`
 	LastModified string           `json:"lastModified,omitempty"`

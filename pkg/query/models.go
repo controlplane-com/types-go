@@ -7,38 +7,15 @@ import "github.com/controlplane-com/types-go/pkg/base"
 type TermOp string
 
 const (
-	TermOpEqual            TermOp = "="
-	TermOpGreaterThan      TermOp = ">"
-	TermOpGreaterThanEqual TermOp = ">="
-	TermOpLessThan         TermOp = "<"
-	TermOpLessThanEqual    TermOp = "<="
-	TermOpNotEqual         TermOp = "!="
-	TermOpRegex            TermOp = "~"
-	TermOpExists           TermOp = "exists"
-	TermOpNotExists        TermOp = "!exists"
-)
-
-type SpecMatch string
-
-const (
-	SpecMatchAll  SpecMatch = "all"
-	SpecMatchAny  SpecMatch = "any"
-	SpecMatchNone SpecMatch = "none"
-)
-
-type QueryContext map[string]any
-
-type QueryFetch string
-
-const (
-	QueryFetchLinks QueryFetch = "links"
-	QueryFetchItems QueryFetch = "items"
-)
-
-type QueryResultKind string
-
-const (
-	QueryResultKindQueryresult QueryResultKind = "queryresult"
+	TermOpEq        TermOp = "="
+	TermOpGt        TermOp = ">"
+	TermOpGte       TermOp = ">="
+	TermOpLt        TermOp = "<"
+	TermOpLte       TermOp = "<="
+	TermOpNe        TermOp = "!="
+	TermOpMatch     TermOp = "~"
+	TermOpExists    TermOp = "exists"
+	TermOpNotExists TermOp = "!exists"
 )
 
 type Term struct {
@@ -49,22 +26,58 @@ type Term struct {
 	Value    any/* TODO: [object Object]*/ `json:"value,omitempty"`
 }
 
+type SpecMatch string
+
+const (
+	SpecMatchAll  SpecMatch = "all"
+	SpecMatchAny  SpecMatch = "any"
+	SpecMatchNone SpecMatch = "none"
+)
+
+type SpecSortOrder string
+
+const (
+	SpecSortOrderAsc  SpecSortOrder = "asc"
+	SpecSortOrderDesc SpecSortOrder = "desc"
+)
+
+type SpecSort struct {
+	By    string        `json:"by"`
+	Order SpecSortOrder `json:"order,omitempty"`
+}
+
 type Spec struct {
 	Match SpecMatch `json:"match,omitempty"`
 	Terms []Term    `json:"terms,omitempty"`
+	Sort  *SpecSort `json:"sort,omitempty"`
 }
+
+type QueryContext map[string]any
+
+type QueryFetch string
+
+const (
+	QueryFetchLinks QueryFetch = "links"
+	QueryFetchItems QueryFetch = "items"
+)
 
 type Query struct {
-	Kind    base.Kind    `json:"kind,omitempty"`
-	Context QueryContext `json:"context,omitempty"`
-	Fetch   QueryFetch   `json:"fetch,omitempty"`
-	Spec    Spec         `json:"spec,omitempty"`
+	Kind    base.Kind     `json:"kind,omitempty"`
+	Context *QueryContext `json:"context,omitempty"`
+	Fetch   QueryFetch    `json:"fetch,omitempty"`
+	Spec    *Spec         `json:"spec,omitempty"`
 }
 
-type QueryResult[T any] struct {
+type QueryResultKind string
+
+const (
+	QueryResultKindQueryresult QueryResultKind = "queryresult"
+)
+
+type QueryResult struct {
 	Kind     QueryResultKind `json:"kind,omitempty"`
 	ItemKind base.Kind       `json:"itemKind,omitempty"`
-	Items    []T             `json:"items,omitempty"`
-	Links    []base.Link     `json:"links,omitempty"`
+	Items    []any           `json:"items"`
+	Links    []base.Link     `json:"links"`
 	Query    Query           `json:"query,omitempty"`
 }
