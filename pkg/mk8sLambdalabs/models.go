@@ -25,7 +25,7 @@ const (
 )
 
 type LambdalabsPool struct {
-	Name         string                     `json:"name,omitempty"`
+	Name         string                     `json:"name"`
 	Labels       mk8sCommon.Labels          `json:"labels,omitempty"`
 	Taints       mk8sCommon.Taints          `json:"taints,omitempty"`
 	MinSize      float32                    `json:"minSize"`
@@ -53,9 +53,9 @@ const (
 
 type LambdalabsProvider struct {
 	Region             LambdalabsProviderRegion    `json:"region,omitempty"`
-	TokenSecretLink    string                      `json:"tokenSecretLink,omitempty"`
+	TokenSecretLink    string                      `json:"tokenSecretLink"`
 	NodePools          []LambdalabsPool            `json:"nodePools,omitempty"`
-	SshKey             string                      `json:"sshKey,omitempty"`
+	SshKey             string                      `json:"sshKey"`
 	UnmanagedNodePools []mk8sCommon.UnmanagedPool  `json:"unmanagedNodePools,omitempty"`
 	Autoscaler         mk8sCommon.AutoscalerConfig `json:"autoscaler,omitempty"`
 	FileSystems        []string                    `json:"fileSystems,omitempty"`
@@ -65,7 +65,7 @@ type LambdalabsProvider struct {
 type LambdalabsProviderStatus map[string]any
 
 type LambdalabsJoinParams struct {
-	NodePoolName string `json:"nodePoolName,omitempty"`
+	NodePoolName string `json:"nodePoolName"`
 
 	/* WARNING!! Arbitrary properties are being ignored! */
 }

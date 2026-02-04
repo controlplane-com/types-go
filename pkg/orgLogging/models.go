@@ -2,11 +2,13 @@
 
 package orgLogging
 
+import "github.com/controlplane-com/types-go/pkg/base"
+
 type S3Logging struct {
-	Bucket      string `json:"bucket,omitempty"`
-	Region      string `json:"region,omitempty"`
+	Bucket      string `json:"bucket"`
+	Region      string `json:"region"`
 	Prefix      string `json:"prefix,omitempty"`
-	Credentials string `json:"credentials,omitempty"`
+	Credentials string `json:"credentials"`
 }
 
 type SyslogLoggingMode string
@@ -25,7 +27,7 @@ const (
 )
 
 type SyslogLogging struct {
-	Host     string              `json:"host,omitempty"`
+	Host     string              `json:"host"`
 	Port     float32             `json:"port"`
 	Mode     SyslogLoggingMode   `json:"mode,omitempty"`
 	Format   SyslogLoggingFormat `json:"format,omitempty"`
@@ -43,13 +45,13 @@ const (
 
 type DatadogLogging struct {
 	Host        DatadogLoggingHost `json:"host,omitempty"`
-	Credentials string             `json:"credentials,omitempty"`
+	Credentials string             `json:"credentials"`
 }
 
 type OpenTelemetryLoggingHeaders map[string]string
 
 type OpenTelemetryLogging struct {
-	Endpoint    string                      `json:"endpoint,omitempty"`
+	Endpoint    string                      `json:"endpoint"`
 	Headers     OpenTelemetryLoggingHeaders `json:"headers,omitempty"`
 	Credentials string                      `json:"credentials,omitempty"`
 }
@@ -63,11 +65,11 @@ const (
 
 type LogzioLogging struct {
 	ListenerHost LogzioLoggingListenerHost `json:"listenerHost,omitempty"`
-	Credentials  string                    `json:"credentials,omitempty"`
+	Credentials  string                    `json:"credentials"`
 }
 
 type FluentdLogging struct {
-	Host string  `json:"host,omitempty"`
+	Host string  `json:"host"`
 	Port float32 `json:"port"`
 }
 
@@ -98,10 +100,10 @@ type CloudWatchLoggingExtractFields map[string]string
 
 type CloudWatchLogging struct {
 	Region        CloudWatchLoggingRegion        `json:"region,omitempty"`
-	Credentials   string                         `json:"credentials,omitempty"`
+	Credentials   string                         `json:"credentials"`
 	RetentionDays float32                        `json:"retentionDays"`
-	GroupName     string                         `json:"groupName,omitempty"`
-	StreamName    string                         `json:"streamName,omitempty"`
+	GroupName     string                         `json:"groupName"`
+	StreamName    string                         `json:"streamName"`
 	ExtractFields CloudWatchLoggingExtractFields `json:"extractFields,omitempty"`
 }
 
@@ -117,34 +119,34 @@ const (
 
 type CoralogixLogging struct {
 	Cluster     CoralogixLoggingCluster `json:"cluster,omitempty"`
-	Credentials string                  `json:"credentials,omitempty"`
-	App         string                  `json:"app,omitempty"`
-	Subsystem   string                  `json:"subsystem,omitempty"`
+	Credentials string                  `json:"credentials"`
+	App         base.Regex              `json:"app,omitempty"`
+	Subsystem   base.Regex              `json:"subsystem,omitempty"`
 }
 
 type ElasticLoggingAws struct {
-	Host        string  `json:"host,omitempty"`
+	Host        string  `json:"host"`
 	Port        float32 `json:"port"`
-	Index       string  `json:"index,omitempty"`
-	Type        string  `json:"type,omitempty"`
-	Credentials string  `json:"credentials,omitempty"`
-	Region      string  `json:"region,omitempty"`
+	Index       string  `json:"index"`
+	Type        string  `json:"type"`
+	Credentials string  `json:"credentials"`
+	Region      string  `json:"region"`
 }
 
 type ElasticLoggingElasticCloud struct {
-	Index       string `json:"index,omitempty"`
-	Type        string `json:"type,omitempty"`
-	Credentials string `json:"credentials,omitempty"`
-	CloudId     string `json:"cloudId,omitempty"`
+	Index       string `json:"index"`
+	Type        string `json:"type"`
+	Credentials string `json:"credentials"`
+	CloudId     string `json:"cloudId"`
 }
 
 type ElasticLoggingGeneric struct {
-	Host        string  `json:"host,omitempty"`
+	Host        string  `json:"host"`
 	Port        float32 `json:"port"`
 	Path        string  `json:"path,omitempty"`
-	Index       string  `json:"index,omitempty"`
-	Type        string  `json:"type,omitempty"`
-	Credentials string  `json:"credentials,omitempty"`
+	Index       string  `json:"index"`
+	Type        string  `json:"type"`
+	Credentials string  `json:"credentials"`
 	Username    string  `json:"username,omitempty"`
 	Password    string  `json:"password,omitempty"`
 }
@@ -201,6 +203,6 @@ const (
 )
 
 type StackdriverLogging struct {
-	Credentials string                     `json:"credentials,omitempty"`
+	Credentials string                     `json:"credentials"`
 	Location    StackdriverLoggingLocation `json:"location,omitempty"`
 }

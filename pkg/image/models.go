@@ -4,6 +4,8 @@ package image
 
 import "github.com/controlplane-com/types-go/pkg/base"
 
+type ImageTags map[string]any
+
 type ImageManifest map[string]any
 
 type Image struct {
@@ -13,7 +15,7 @@ type Image struct {
 	Version      float32       `json:"version"`
 	Created      string        `json:"created,omitempty"`
 	LastModified string        `json:"lastModified,omitempty"`
-	Tags         base.Tags     `json:"tags,omitempty"`
+	Tags         ImageTags     `json:"tags,omitempty"`
 	Links        base.Links    `json:"links,omitempty"`
 	Repository   string        `json:"repository,omitempty"`
 	Tag          string        `json:"tag,omitempty"`

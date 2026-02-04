@@ -18,7 +18,7 @@ type AwsPolicyDocument struct {
 }
 
 type AwsIdentity struct {
-	CloudAccountLink string            `json:"cloudAccountLink,omitempty"`
+	CloudAccountLink string            `json:"cloudAccountLink"`
 	PolicyRefs       []PolicyRef       `json:"policyRefs,omitempty"`
 	TrustPolicy      AwsPolicyDocument `json:"trustPolicy,omitempty"`
 	RoleName         AwsRoleName       `json:"roleName,omitempty"`
@@ -30,7 +30,7 @@ type GcpIdentityBindings struct {
 }
 
 type GcpIdentity struct {
-	CloudAccountLink string                `json:"cloudAccountLink,omitempty"`
+	CloudAccountLink string                `json:"cloudAccountLink"`
 	Scopes           []string              `json:"scopes,omitempty"`
 	ServiceAccount   string                `json:"serviceAccount,omitempty"`
 	Bindings         []GcpIdentityBindings `json:"bindings,omitempty"`
@@ -52,7 +52,7 @@ type NgsIdentityResp struct {
 }
 
 type NgsIdentity struct {
-	CloudAccountLink string          `json:"cloudAccountLink,omitempty"`
+	CloudAccountLink string          `json:"cloudAccountLink"`
 	Pub              NgsIdentityPub  `json:"pub,omitempty"`
 	Sub              NgsIdentitySub  `json:"sub,omitempty"`
 	Resp             NgsIdentityResp `json:"resp,omitempty"`
@@ -67,7 +67,7 @@ type AzureRoleAssignment struct {
 }
 
 type AzureIdentity struct {
-	CloudAccountLink string                `json:"cloudAccountLink,omitempty"`
+	CloudAccountLink string                `json:"cloudAccountLink"`
 	RoleAssignments  []AzureRoleAssignment `json:"roleAssignments,omitempty"`
 }
 
@@ -94,26 +94,26 @@ type Status struct {
 }
 
 type NetworkResource struct {
-	Name       any/* TODO: [object Object]*/ `json:"name,omitempty"`
+	Name       any/* TODO: [object Object]*/ `json:"name"`
 	AgentLink  string    `json:"agentLink,omitempty"`
 	IPs        []string  `json:"iPs,omitempty"`
 	FQDN       string    `json:"fQDN,omitempty"`
 	ResolverIP string    `json:"resolverIP,omitempty"`
-	Ports      []float32 `json:"ports,omitempty"`
+	Ports      []float32 `json:"ports"`
 }
 
 type NativeNetworkResourceAwsPrivateLink struct {
-	EndpointServiceName string `json:"endpointServiceName,omitempty"`
+	EndpointServiceName string `json:"endpointServiceName"`
 }
 
 type NativeNetworkResourceGcpServiceConnect struct {
-	TargetService string `json:"targetService,omitempty"`
+	TargetService string `json:"targetService"`
 }
 
 type NativeNetworkResource struct {
-	Name              any/* TODO: [object Object]*/ `json:"name,omitempty"`
+	Name              any/* TODO: [object Object]*/ `json:"name"`
 	FQDN              string                                 `json:"fQDN,omitempty"`
-	Ports             []float32                              `json:"ports,omitempty"`
+	Ports             []float32                              `json:"ports"`
 	AwsPrivateLink    NativeNetworkResourceAwsPrivateLink    `json:"awsPrivateLink,omitempty"`
 	GcpServiceConnect NativeNetworkResourceGcpServiceConnect `json:"gcpServiceConnect,omitempty"`
 }
@@ -127,7 +127,7 @@ const (
 )
 
 type SpicedbAccess struct {
-	ClusterLink string            `json:"clusterLink,omitempty"`
+	ClusterLink string            `json:"clusterLink"`
 	Role        SpicedbAccessRole `json:"role,omitempty"`
 }
 
@@ -138,9 +138,11 @@ const (
 )
 
 type MemcacheAccess struct {
-	ClusterLink string             `json:"clusterLink,omitempty"`
+	ClusterLink string             `json:"clusterLink"`
 	Role        MemcacheAccessRole `json:"role,omitempty"`
 }
+
+type IdentityTags map[string]any
 
 type Identity struct {
 	Id                     string                  `json:"id,omitempty"`
@@ -148,14 +150,14 @@ type Identity struct {
 	Kind                   base.Kind               `json:"kind,omitempty"`
 	Version                float32                 `json:"version"`
 	Description            string                  `json:"description,omitempty"`
-	Tags                   base.Tags               `json:"tags,omitempty"`
+	Tags                   IdentityTags            `json:"tags,omitempty"`
 	Created                string                  `json:"created,omitempty"`
 	LastModified           string                  `json:"lastModified,omitempty"`
 	Links                  base.Links              `json:"links,omitempty"`
-	Aws                    AwsIdentity             `json:"aws,omitempty"`
-	Gcp                    GcpIdentity             `json:"gcp,omitempty"`
-	Azure                  AzureIdentity           `json:"azure,omitempty"`
-	Ngs                    NgsIdentity             `json:"ngs,omitempty"`
+	Aws                    *AwsIdentity            `json:"aws,omitempty"`
+	Gcp                    *GcpIdentity            `json:"gcp,omitempty"`
+	Azure                  *AzureIdentity          `json:"azure,omitempty"`
+	Ngs                    *NgsIdentity            `json:"ngs,omitempty"`
 	NetworkResources       []NetworkResource       `json:"networkResources,omitempty"`
 	NativeNetworkResources []NativeNetworkResource `json:"nativeNetworkResources,omitempty"`
 	MemcacheAccess         []MemcacheAccess        `json:"memcacheAccess,omitempty"`

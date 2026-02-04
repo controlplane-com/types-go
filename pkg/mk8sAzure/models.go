@@ -15,10 +15,10 @@ const (
 )
 
 type ImageReference struct {
-	Publisher string `json:"publisher,omitempty"`
-	Offer     string `json:"offer,omitempty"`
-	Sku       string `json:"sku,omitempty"`
-	Version   string `json:"version,omitempty"`
+	Publisher string `json:"publisher"`
+	Offer     string `json:"offer"`
+	Sku       string `json:"sku"`
+	Version   string `json:"version"`
 }
 
 type Image struct {
@@ -27,12 +27,12 @@ type Image struct {
 }
 
 type AzurePool struct {
-	Name          string            `json:"name,omitempty"`
+	Name          string            `json:"name"`
 	Labels        mk8sCommon.Labels `json:"labels,omitempty"`
 	Taints        mk8sCommon.Taints `json:"taints,omitempty"`
-	Size          string            `json:"size,omitempty"`
-	SubnetId      string            `json:"subnetId,omitempty"`
-	Zones         []float32         `json:"zones,omitempty"`
+	Size          string            `json:"size"`
+	SubnetId      string            `json:"subnetId"`
+	Zones         []float32         `json:"zones"`
 	OverrideImage Image             `json:"overrideImage,omitempty"`
 	BootDiskSize  float32           `json:"bootDiskSize"`
 	MinSize       float32           `json:"minSize"`
@@ -77,10 +77,10 @@ const (
 )
 
 type AzureProviderImageReference struct {
-	Publisher string `json:"publisher,omitempty"`
-	Offer     string `json:"offer,omitempty"`
-	Sku       string `json:"sku,omitempty"`
-	Version   string `json:"version,omitempty"`
+	Publisher string `json:"publisher"`
+	Offer     string `json:"offer"`
+	Sku       string `json:"sku"`
+	Version   string `json:"version"`
 }
 
 type AzureProviderImage struct {
@@ -91,15 +91,15 @@ type AzureProviderImage struct {
 type AzureProviderTags map[string]string
 
 type AzureProvider struct {
-	Location         string                      `json:"location,omitempty"`
-	SubscriptionId   string                      `json:"subscriptionId,omitempty"`
-	SdkSecretLink    string                      `json:"sdkSecretLink,omitempty"`
-	ResourceGroup    string                      `json:"resourceGroup,omitempty"`
+	Location         string                      `json:"location"`
+	SubscriptionId   string                      `json:"subscriptionId"`
+	SdkSecretLink    string                      `json:"sdkSecretLink"`
+	ResourceGroup    string                      `json:"resourceGroup"`
 	Networking       AzureProviderNetworking     `json:"networking,omitempty"`
 	PreInstallScript string                      `json:"preInstallScript,omitempty"`
-	Image            AzureProviderImage          `json:"image,omitempty"`
-	SshKeys          []mk8sCommon.SshPublicKey   `json:"sshKeys,omitempty"`
-	NetworkId        string                      `json:"networkId,omitempty"`
+	Image            AzureProviderImage          `json:"image"`
+	SshKeys          []mk8sCommon.SshPublicKey   `json:"sshKeys"`
+	NetworkId        string                      `json:"networkId"`
 	Tags             AzureProviderTags           `json:"tags,omitempty"`
 	NodePools        []AzurePool                 `json:"nodePools,omitempty"`
 	Autoscaler       mk8sCommon.AutoscalerConfig `json:"autoscaler,omitempty"`

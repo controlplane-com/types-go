@@ -7,10 +7,10 @@ import "github.com/controlplane-com/types-go/pkg/mk8sCommon"
 type TritonPoolTritonTags map[string]string
 
 type TritonPool struct {
-	Name              string               `json:"name,omitempty"`
+	Name              string               `json:"name"`
 	Labels            mk8sCommon.Labels    `json:"labels,omitempty"`
 	Taints            mk8sCommon.Taints    `json:"taints,omitempty"`
-	PackageId         string               `json:"packageId,omitempty"`
+	PackageId         string               `json:"packageId"`
 	OverrideImageId   string               `json:"overrideImageId,omitempty"`
 	PublicNetworkId   string               `json:"publicNetworkId,omitempty"`
 	PrivateNetworkIds []string             `json:"privateNetworkIds,omitempty"`
@@ -29,16 +29,16 @@ type ManualLogging struct {
 }
 
 type Manual struct {
-	PackageId         string         `json:"packageId,omitempty"`
-	ImageId           string         `json:"imageId,omitempty"`
-	PublicNetworkId   string         `json:"publicNetworkId,omitempty"`
+	PackageId         string         `json:"packageId"`
+	ImageId           string         `json:"imageId"`
+	PublicNetworkId   string         `json:"publicNetworkId"`
 	PrivateNetworkIds []string       `json:"privateNetworkIds,omitempty"`
 	Metadata          ManualMetadata `json:"metadata,omitempty"`
 	Tags              ManualTags     `json:"tags,omitempty"`
 	Logging           ManualLogging  `json:"logging,omitempty"`
 	Count             float32        `json:"count"`
-	CnsInternalDomain string         `json:"cnsInternalDomain,omitempty"`
-	CnsPublicDomain   string         `json:"cnsPublicDomain,omitempty"`
+	CnsInternalDomain string         `json:"cnsInternalDomain"`
+	CnsPublicDomain   string         `json:"cnsPublicDomain"`
 }
 
 type LoadBalancerConfigNone struct {
@@ -54,17 +54,17 @@ type LoadBalancerConfig struct {
 }
 
 type SdcConnection struct {
-	Url                  string `json:"url,omitempty"`
-	Account              string `json:"account,omitempty"`
+	Url                  string `json:"url"`
+	Account              string `json:"account"`
 	User                 string `json:"user,omitempty"`
-	PrivateKeySecretLink string `json:"privateKeySecretLink,omitempty"`
+	PrivateKeySecretLink string `json:"privateKeySecretLink"`
 }
 
 type TritonProviderConnection struct {
-	Url                  string `json:"url,omitempty"`
-	Account              string `json:"account,omitempty"`
+	Url                  string `json:"url"`
+	Account              string `json:"account"`
 	User                 string `json:"user,omitempty"`
-	PrivateKeySecretLink string `json:"privateKeySecretLink,omitempty"`
+	PrivateKeySecretLink string `json:"privateKeySecretLink"`
 }
 
 type TritonProviderNetworkingServiceNetwork string
@@ -105,15 +105,15 @@ const (
 )
 
 type TritonProvider struct {
-	Connection       TritonProviderConnection    `json:"connection,omitempty"`
+	Connection       TritonProviderConnection    `json:"connection"`
 	Networking       TritonProviderNetworking    `json:"networking,omitempty"`
 	PreInstallScript mk8sCommon.PreInstallScript `json:"preInstallScript,omitempty"`
 	Location         TritonProviderLocation      `json:"location,omitempty"`
 	LoadBalancer     LoadBalancerConfig          `json:"loadBalancer,omitempty"`
-	PrivateNetworkId string                      `json:"privateNetworkId,omitempty"`
+	PrivateNetworkId string                      `json:"privateNetworkId"`
 	FirewallEnabled  bool                        `json:"firewallEnabled,omitempty"`
 	NodePools        []TritonPool                `json:"nodePools,omitempty"`
-	ImageId          string                      `json:"imageId,omitempty"`
+	ImageId          string                      `json:"imageId"`
 	SshKeys          []mk8sCommon.SshPublicKey   `json:"sshKeys,omitempty"`
 	Autoscaler       mk8sCommon.AutoscalerConfig `json:"autoscaler,omitempty"`
 }
@@ -121,7 +121,7 @@ type TritonProvider struct {
 type TritonProviderStatus map[string]any
 
 type TritonJoinParams struct {
-	NodePoolName string `json:"nodePoolName,omitempty"`
+	NodePoolName string `json:"nodePoolName"`
 
 	/* WARNING!! Arbitrary properties are being ignored! */
 }

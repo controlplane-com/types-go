@@ -5,7 +5,7 @@ package permissions
 import "github.com/controlplane-com/types-go/pkg/base"
 
 type Permission struct {
-	Name        string `json:"name,omitempty"`
+	Name        string `json:"name"`
 	Description string `json:"description,omitempty"`
 }
 
@@ -59,6 +59,6 @@ type Permissions struct {
 	Links      base.Links            `json:"links,omitempty"`
 	Kind       PermissionsKind       `json:"kind,omitempty"`
 	TargetKind PermissionsTargetKind `json:"targetKind,omitempty"`
-	Items      []Permission          `json:"items,omitempty"`
+	Items      []Permission          `json:"items"`
 	Implied    PermissionsImplied    `json:"implied,omitempty"`
 }

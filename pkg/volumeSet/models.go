@@ -5,8 +5,8 @@ package volumeSet
 import "github.com/controlplane-com/types-go/pkg/base"
 
 type FileSystem struct {
-	Name              string   `json:"name,omitempty"`
-	AccessMode        string   `json:"accessMode,omitempty"`
+	Name              string   `json:"name"`
+	AccessMode        string   `json:"accessMode"`
 	CommandsSupported []string `json:"commandsSupported,omitempty"`
 }
 
@@ -18,7 +18,7 @@ const (
 )
 
 type PerformanceClass struct {
-	Name              string                              `json:"name,omitempty"`
+	Name              string                              `json:"name"`
 	MinCapacity       float32                             `json:"minCapacity"`
 	MaxCapacity       float32                             `json:"maxCapacity"`
 	FeaturesSupported []PerformanceClassFeaturesSupported `json:"featuresSupported,omitempty"`
@@ -27,9 +27,9 @@ type PerformanceClass struct {
 type VolumeSnapshotTags map[string]string
 
 type VolumeSnapshot struct {
-	Name    string               `json:"name,omitempty"`
+	Name    string               `json:"name"`
 	Id      string               `json:"id,omitempty"`
-	Created string               `json:"created,omitempty"`
+	Created string               `json:"created"`
 	Expires string               `json:"expires,omitempty"`
 	Size    float32              `json:"size"`
 	Tags    []VolumeSnapshotTags `json:"tags,omitempty"`
@@ -58,14 +58,14 @@ type PersistentVolumeStatus struct {
 	CurrentBytesUsed    float32                          `json:"currentBytesUsed"`
 	Iops                float32                          `json:"iops"`
 	Throughput          float32                          `json:"throughput"`
-	Driver              string                           `json:"driver,omitempty"`
+	Driver              string                           `json:"driver"`
 	VolumeSnapshots     []VolumeSnapshot                 `json:"volumeSnapshots,omitempty"`
 	Attributes          PersistentVolumeStatusAttributes `json:"attributes,omitempty"`
 	Zone                string                           `json:"zone,omitempty"`
 }
 
 type VolumeSetStatusLocation struct {
-	Name               string                   `json:"name,omitempty"`
+	Name               string                   `json:"name"`
 	Volumes            []PersistentVolumeStatus `json:"volumes,omitempty"`
 	DesiredVolumeCount float32                  `json:"desiredVolumeCount"`
 	ClusterId          string                   `json:"clusterId,omitempty"`
@@ -118,10 +118,19 @@ type VolumeSetSpecCustomEncryption struct {
 	Regions VolumeSetSpecCustomEncryptionRegions `json:"regions,omitempty"`
 }
 
+type VolumeSetSpecAutoscalingPredictive struct {
+	Enabled                bool    `json:"enabled,omitempty"`
+	LookbackHours          float32 `json:"lookbackHours"`
+	ProjectionHours        float32 `json:"projectionHours"`
+	MinDataPoints          float32 `json:"minDataPoints"`
+	MinGrowthRateGBPerHour float32 `json:"minGrowthRateGBPerHour"`
+}
+
 type VolumeSetSpecAutoscaling struct {
-	MaxCapacity       float32 `json:"maxCapacity"`
-	MinFreePercentage float32 `json:"minFreePercentage"`
-	ScalingFactor     float32 `json:"scalingFactor"`
+	MaxCapacity       float32                             `json:"maxCapacity"`
+	MinFreePercentage float32                             `json:"minFreePercentage"`
+	ScalingFactor     float32                             `json:"scalingFactor"`
+	Predictive        *VolumeSetSpecAutoscalingPredictive `json:"predictive,omitempty"`
 }
 
 type VolumeSetSpecMountOptionsResources struct {
@@ -136,15 +145,17 @@ type VolumeSetSpecMountOptions struct {
 }
 
 type VolumeSetSpec struct {
-	InitialCapacity    float32                       `json:"initialCapacity"`
-	PerformanceClass   PerformanceClassName          `json:"performanceClass,omitempty"`
-	StorageClassSuffix string                        `json:"storageClassSuffix,omitempty"`
-	FileSystemType     FileSystemType                `json:"fileSystemType,omitempty"`
-	CustomEncryption   VolumeSetSpecCustomEncryption `json:"customEncryption,omitempty"`
-	Snapshots          SnapshotSpec                  `json:"snapshots,omitempty"`
-	Autoscaling        VolumeSetSpecAutoscaling      `json:"autoscaling,omitempty"`
-	MountOptions       VolumeSetSpecMountOptions     `json:"mountOptions,omitempty"`
+	InitialCapacity    float32                        `json:"initialCapacity"`
+	PerformanceClass   PerformanceClassName           `json:"performanceClass,omitempty"`
+	StorageClassSuffix string                         `json:"storageClassSuffix,omitempty"`
+	FileSystemType     FileSystemType                 `json:"fileSystemType,omitempty"`
+	CustomEncryption   *VolumeSetSpecCustomEncryption `json:"customEncryption,omitempty"`
+	Snapshots          *SnapshotSpec                  `json:"snapshots,omitempty"`
+	Autoscaling        *VolumeSetSpecAutoscaling      `json:"autoscaling,omitempty"`
+	MountOptions       *VolumeSetSpecMountOptions     `json:"mountOptions,omitempty"`
 }
+
+type VolumeSetTags map[string]any
 
 type VolumeSet struct {
 	Id           string          `json:"id,omitempty"`
@@ -152,11 +163,11 @@ type VolumeSet struct {
 	Kind         base.Kind       `json:"kind,omitempty"`
 	Version      float32         `json:"version"`
 	Description  string          `json:"description,omitempty"`
-	Tags         base.Tags       `json:"tags,omitempty"`
+	Tags         VolumeSetTags   `json:"tags,omitempty"`
 	Created      string          `json:"created,omitempty"`
 	LastModified string          `json:"lastModified,omitempty"`
 	Links        base.Links      `json:"links,omitempty"`
-	Spec         VolumeSetSpec   `json:"spec,omitempty"`
+	Spec         VolumeSetSpec   `json:"spec"`
 	Status       VolumeSetStatus `json:"status,omitempty"`
 	Gvc          any             `json:"gvc,omitempty"`
 }

@@ -59,7 +59,7 @@ const (
 )
 
 type PaperspacePool struct {
-	Name         string                     `json:"name,omitempty"`
+	Name         string                     `json:"name"`
 	Labels       mk8sCommon.Labels          `json:"labels,omitempty"`
 	Taints       mk8sCommon.Taints          `json:"taints,omitempty"`
 	MinSize      float32                    `json:"minSize"`
@@ -79,20 +79,20 @@ const (
 
 type PaperspaceProvider struct {
 	Region             PaperspaceProviderRegion    `json:"region,omitempty"`
-	TokenSecretLink    string                      `json:"tokenSecretLink,omitempty"`
+	TokenSecretLink    string                      `json:"tokenSecretLink"`
 	SharedDrives       []string                    `json:"sharedDrives,omitempty"`
 	NodePools          []PaperspacePool            `json:"nodePools,omitempty"`
 	Autoscaler         mk8sCommon.AutoscalerConfig `json:"autoscaler,omitempty"`
 	UnmanagedNodePools []mk8sCommon.UnmanagedPool  `json:"unmanagedNodePools,omitempty"`
 	PreInstallScript   mk8sCommon.PreInstallScript `json:"preInstallScript,omitempty"`
 	UserIds            []string                    `json:"userIds,omitempty"`
-	NetworkId          string                      `json:"networkId,omitempty"`
+	NetworkId          string                      `json:"networkId"`
 }
 
 type PaperspaceProviderStatus map[string]any
 
 type PaperspaceJoinParams struct {
-	NodePoolName string `json:"nodePoolName,omitempty"`
+	NodePoolName string `json:"nodePoolName"`
 
 	/* WARNING!! Arbitrary properties are being ignored! */
 }

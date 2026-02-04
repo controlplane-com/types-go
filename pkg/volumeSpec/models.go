@@ -10,7 +10,7 @@ const (
 )
 
 type VolumeSpec struct {
-	Uri            string                   `json:"uri,omitempty"`
+	Uri            string                   `json:"uri"`
 	RecoveryPolicy VolumeSpecRecoveryPolicy `json:"recoveryPolicy,omitempty"`
-	Path           string                   `json:"path,omitempty"`
+	Path           string                   `json:"path"`
 }

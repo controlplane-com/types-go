@@ -5,16 +5,16 @@ package mk8sHetzner
 import "github.com/controlplane-com/types-go/pkg/mk8sCommon"
 
 type DedicatedServerHetznerPool struct {
-	Name   string            `json:"name,omitempty"`
+	Name   string            `json:"name"`
 	Labels mk8sCommon.Labels `json:"labels,omitempty"`
 	Taints mk8sCommon.Taints `json:"taints,omitempty"`
 }
 
 type HetznerPool struct {
-	Name          string            `json:"name,omitempty"`
+	Name          string            `json:"name"`
 	Labels        mk8sCommon.Labels `json:"labels,omitempty"`
 	Taints        mk8sCommon.Taints `json:"taints,omitempty"`
-	ServerType    string            `json:"serverType,omitempty"`
+	ServerType    string            `json:"serverType"`
 	OverrideImage string            `json:"overrideImage,omitempty"`
 	MinSize       float32           `json:"minSize"`
 	MaxSize       float32           `json:"maxSize"`
@@ -66,12 +66,12 @@ type HetznerProvider struct {
 	HetznerLabels            HetznerProviderHetznerLabels      `json:"hetznerLabels,omitempty"`
 	Networking               NetworkingConfig                  `json:"networking,omitempty"`
 	PreInstallScript         mk8sCommon.PreInstallScript       `json:"preInstallScript,omitempty"`
-	TokenSecretLink          string                            `json:"tokenSecretLink,omitempty"`
-	NetworkId                string                            `json:"networkId,omitempty"`
+	TokenSecretLink          string                            `json:"tokenSecretLink"`
+	NetworkId                string                            `json:"networkId"`
 	FirewallId               string                            `json:"firewallId,omitempty"`
 	NodePools                []HetznerPool                     `json:"nodePools,omitempty"`
 	DedicatedServerNodePools []DedicatedServerHetznerPool      `json:"dedicatedServerNodePools,omitempty"`
-	Image                    string                            `json:"image,omitempty"`
+	Image                    string                            `json:"image"`
 	SshKey                   string                            `json:"sshKey,omitempty"`
 	Autoscaler               mk8sCommon.AutoscalerConfig       `json:"autoscaler,omitempty"`
 	FloatingIPSelector       HetznerProviderFloatingIpSelector `json:"floatingIPSelector,omitempty"`
@@ -81,7 +81,7 @@ type HetznerProviderStatus map[string]any
 
 type HetznerJoinParams struct {
 	IpAddress    string `json:"ipAddress,omitempty"`
-	NodePoolName string `json:"nodePoolName,omitempty"`
+	NodePoolName string `json:"nodePoolName"`
 
 	/* WARNING!! Arbitrary properties are being ignored! */
 }

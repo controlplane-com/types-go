@@ -21,6 +21,8 @@ type ClusterStatus struct {
 	/* WARNING!! Arbitrary properties are being ignored! */
 }
 
+type SpicedbClusterTags map[string]any
+
 type SpicedbClusterSpecVersion string
 
 const (
@@ -38,11 +40,11 @@ type SpicedbCluster struct {
 	Kind         base.Kind          `json:"kind,omitempty"`
 	Version      float32            `json:"version"`
 	Description  string             `json:"description,omitempty"`
-	Tags         base.Tags          `json:"tags,omitempty"`
+	Tags         SpicedbClusterTags `json:"tags,omitempty"`
 	Created      string             `json:"created,omitempty"`
 	LastModified string             `json:"lastModified,omitempty"`
 	Links        base.Links         `json:"links,omitempty"`
-	Spec         SpicedbClusterSpec `json:"spec,omitempty"`
+	Spec         SpicedbClusterSpec `json:"spec"`
 	Alias        string             `json:"alias,omitempty"`
 	Status       ClusterStatus      `json:"status,omitempty"`
 }

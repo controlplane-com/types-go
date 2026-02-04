@@ -12,11 +12,11 @@ const (
 )
 
 type IpAddress struct {
-	Name    string         `json:"name,omitempty"`
-	Ip      string         `json:"ip,omitempty"`
-	Id      string         `json:"id,omitempty"`
+	Name    string         `json:"name"`
+	Ip      string         `json:"ip"`
+	Id      string         `json:"id"`
 	State   IpAddressState `json:"state,omitempty"`
-	Created string         `json:"created,omitempty"`
+	Created string         `json:"created"`
 }
 
 type IpSetStatus struct {
@@ -33,7 +33,7 @@ const (
 )
 
 type IpSetLocation struct {
-	Name            string                       `json:"name,omitempty"`
+	Name            string                       `json:"name"`
 	RetentionPolicy IpSetLocationRetentionPolicy `json:"retentionPolicy,omitempty"`
 }
 
@@ -42,16 +42,18 @@ type IpSetSpec struct {
 	Locations []IpSetLocation `json:"locations,omitempty"`
 }
 
+type IpSetTags map[string]any
+
 type IpSet struct {
 	Id           string      `json:"id,omitempty"`
 	Name         base.Name   `json:"name,omitempty"`
 	Kind         base.Kind   `json:"kind,omitempty"`
 	Version      float32     `json:"version"`
 	Description  string      `json:"description,omitempty"`
-	Tags         base.Tags   `json:"tags,omitempty"`
+	Tags         IpSetTags   `json:"tags,omitempty"`
 	Created      string      `json:"created,omitempty"`
 	LastModified string      `json:"lastModified,omitempty"`
 	Links        base.Links  `json:"links,omitempty"`
-	Spec         IpSetSpec   `json:"spec,omitempty"`
+	Spec         IpSetSpec   `json:"spec"`
 	Status       IpSetStatus `json:"status,omitempty"`
 }

@@ -6,6 +6,8 @@ import "github.com/controlplane-com/types-go/pkg/base"
 
 type AuditContextStatus map[string]any
 
+type AuditContextTags map[string]any
+
 type AuditContextOrigin string
 
 const (
@@ -19,7 +21,7 @@ type AuditContext struct {
 	Kind         base.Kind          `json:"kind,omitempty"`
 	Version      float32            `json:"version"`
 	Description  string             `json:"description,omitempty"`
-	Tags         base.Tags          `json:"tags,omitempty"`
+	Tags         AuditContextTags   `json:"tags,omitempty"`
 	Created      string             `json:"created,omitempty"`
 	LastModified string             `json:"lastModified,omitempty"`
 	Links        base.Links         `json:"links,omitempty"`

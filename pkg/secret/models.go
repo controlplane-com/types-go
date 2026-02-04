@@ -17,18 +17,18 @@ type Opaque struct {
 }
 
 type AwsKey struct {
-	AccessKey  string `json:"accessKey,omitempty"`
-	SecretKey  string `json:"secretKey,omitempty"`
+	AccessKey  string `json:"accessKey"`
+	SecretKey  string `json:"secretKey"`
 	RoleArn    string `json:"roleArn,omitempty"`
 	ExternalId string `json:"externalId,omitempty"`
 }
 
 type EcrPull struct {
-	AccessKey  string   `json:"accessKey,omitempty"`
-	SecretKey  string   `json:"secretKey,omitempty"`
-	RoleArn    string   `json:"roleArn,omitempty"`
-	ExternalId string   `json:"externalId,omitempty"`
-	Repos      []string `json:"repos,omitempty"`
+	AccessKey  string       `json:"accessKey"`
+	SecretKey  string       `json:"secretKey"`
+	RoleArn    string       `json:"roleArn,omitempty"`
+	ExternalId string       `json:"externalId,omitempty"`
+	Repos      []base.Regex `json:"repos,omitempty"`
 }
 
 type UsernamePasswordEncoding string
@@ -39,24 +39,24 @@ const (
 )
 
 type UsernamePassword struct {
-	Username string                   `json:"username,omitempty"`
-	Password string                   `json:"password,omitempty"`
+	Username string                   `json:"username"`
+	Password string                   `json:"password"`
 	Encoding UsernamePasswordEncoding `json:"encoding,omitempty"`
 }
 
 type AzureConnector struct {
-	Url  string `json:"url,omitempty"`
-	Code string `json:"code,omitempty"`
+	Url  string `json:"url"`
+	Code string `json:"code"`
 }
 
 type Tls struct {
 	Key   string `json:"key,omitempty"`
-	Cert  string `json:"cert,omitempty"`
+	Cert  string `json:"cert"`
 	Chain string `json:"chain,omitempty"`
 }
 
 type KeyPair struct {
-	SecretKey  string `json:"secretKey,omitempty"`
+	SecretKey  string `json:"secretKey"`
 	PublicKey  string `json:"publicKey,omitempty"`
 	Passphrase string `json:"passphrase,omitempty"`
 }
@@ -64,11 +64,13 @@ type KeyPair struct {
 type Dictionary map[string]string
 
 type NatsAccount struct {
-	AccountId  string `json:"accountId,omitempty"`
-	PrivateKey string `json:"privateKey,omitempty"`
+	AccountId  string `json:"accountId"`
+	PrivateKey string `json:"privateKey"`
 }
 
 type SecretData any /* TODO: [object Object]*/
+
+type SecretTags map[string]any
 
 type SecretType string
 
@@ -93,7 +95,7 @@ type Secret struct {
 	Kind         base.Kind  `json:"kind,omitempty"`
 	Version      float32    `json:"version"`
 	Description  string     `json:"description,omitempty"`
-	Tags         base.Tags  `json:"tags,omitempty"`
+	Tags         SecretTags `json:"tags,omitempty"`
 	Created      string     `json:"created,omitempty"`
 	LastModified string     `json:"lastModified,omitempty"`
 	Links        base.Links `json:"links,omitempty"`

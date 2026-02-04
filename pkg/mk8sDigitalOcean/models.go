@@ -7,10 +7,10 @@ import "github.com/controlplane-com/types-go/pkg/mk8sCommon"
 type ValidTag string
 
 type DigitalOceanPool struct {
-	Name          string            `json:"name,omitempty"`
+	Name          string            `json:"name"`
 	Labels        mk8sCommon.Labels `json:"labels,omitempty"`
 	Taints        mk8sCommon.Taints `json:"taints,omitempty"`
-	DropletSize   string            `json:"dropletSize,omitempty"`
+	DropletSize   string            `json:"dropletSize"`
 	OverrideImage string            `json:"overrideImage,omitempty"`
 	MinSize       float32           `json:"minSize"`
 	MaxSize       float32           `json:"maxSize"`
@@ -65,11 +65,11 @@ type DigitalOceanProvider struct {
 	DigitalOceanTags []ValidTag                     `json:"digitalOceanTags,omitempty"`
 	Networking       DigitalOceanProviderNetworking `json:"networking,omitempty"`
 	PreInstallScript mk8sCommon.PreInstallScript    `json:"preInstallScript,omitempty"`
-	TokenSecretLink  string                         `json:"tokenSecretLink,omitempty"`
-	VpcId            string                         `json:"vpcId,omitempty"`
+	TokenSecretLink  string                         `json:"tokenSecretLink"`
+	VpcId            string                         `json:"vpcId"`
 	NodePools        []DigitalOceanPool             `json:"nodePools,omitempty"`
-	Image            string                         `json:"image,omitempty"`
-	SshKeys          []string                       `json:"sshKeys,omitempty"`
+	Image            string                         `json:"image"`
+	SshKeys          []string                       `json:"sshKeys"`
 	ExtraSshKeys     []mk8sCommon.SshPublicKey      `json:"extraSshKeys,omitempty"`
 	Autoscaler       mk8sCommon.AutoscalerConfig    `json:"autoscaler,omitempty"`
 	ReservedIPs      []string                       `json:"reservedIPs,omitempty"`

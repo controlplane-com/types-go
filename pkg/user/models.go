@@ -10,12 +10,14 @@ const (
 	UserKindUser UserKind = "user"
 )
 
+type UserTags map[string]any
+
 type User struct {
 	Id           string     `json:"id,omitempty"`
 	Name         string     `json:"name,omitempty"`
 	Kind         UserKind   `json:"kind,omitempty"`
 	Version      float32    `json:"version"`
-	Tags         base.Tags  `json:"tags,omitempty"`
+	Tags         UserTags   `json:"tags,omitempty"`
 	Created      string     `json:"created,omitempty"`
 	LastModified string     `json:"lastModified,omitempty"`
 	Links        base.Links `json:"links,omitempty"`

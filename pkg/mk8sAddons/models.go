@@ -16,7 +16,7 @@ type AzureAddonConfig struct {
 }
 
 type AwsEFSAddonConfig struct {
-	RoleArn string `json:"roleArn,omitempty"`
+	RoleArn string `json:"roleArn"`
 }
 
 type MetricsAddonConfigScrapeAnnotated struct {
@@ -37,7 +37,7 @@ type MetricsAddonConfig struct {
 }
 
 type RegistryMirrorConfigMirrors struct {
-	Registry any/* TODO: [object Object]*/ `json:"registry,omitempty"`
+	Registry any/* TODO: [object Object]*/ `json:"registry"`
 	Mirrors  []string `json:"mirrors,omitempty"`
 }
 
@@ -100,8 +100,33 @@ type AwsELBAddonConfig struct {
 	RoleArn string `json:"roleArn,omitempty"`
 }
 
+type JuiceFsAddonConfigStorageType string
+
+const (
+	JuiceFsAddonConfigStorageTypeS3    JuiceFsAddonConfigStorageType = "s3"
+	JuiceFsAddonConfigStorageTypeGs    JuiceFsAddonConfigStorageType = "gs"
+	JuiceFsAddonConfigStorageTypeWasb  JuiceFsAddonConfigStorageType = "wasb"
+	JuiceFsAddonConfigStorageTypeMinio JuiceFsAddonConfigStorageType = "minio"
+)
+
+type JuiceFsAddonConfigRedis struct {
+	Replicas  float32 `json:"replicas"`
+	Storage   string  `json:"storage,omitempty"`
+	MinCpu    string  `json:"minCpu,omitempty"`
+	MaxCpu    string  `json:"maxCpu,omitempty"`
+	MinMemory string  `json:"minMemory,omitempty"`
+	MaxMemory string  `json:"maxMemory,omitempty"`
+}
+
+type JuiceFSAddonConfig struct {
+	StorageSecretLink string                        `json:"storageSecretLink"`
+	StorageType       JuiceFsAddonConfigStorageType `json:"storageType,omitempty"`
+	Bucket            string                        `json:"bucket"`
+	Redis             JuiceFsAddonConfigRedis       `json:"redis,omitempty"`
+}
+
 type AzureACRAddonConfig struct {
-	ClientId string `json:"clientId,omitempty"`
+	ClientId string `json:"clientId"`
 }
 
 type HttpHeaderValue struct {
@@ -118,15 +143,13 @@ const (
 	ByokAddonConfigConfigActuatorLogLevelError ByokAddonConfigConfigActuatorLogLevel = "error"
 )
 
-type ByokAddonConfigConfigActuatorEnv map[string]string
-
 type ByokAddonConfigConfigActuator struct {
 	MinCpu    workload.Cpu                          `json:"minCpu,omitempty"`
 	MaxCpu    workload.Cpu                          `json:"maxCpu,omitempty"`
 	MinMemory workload.Memory                       `json:"minMemory,omitempty"`
 	MaxMemory workload.Memory                       `json:"maxMemory,omitempty"`
 	LogLevel  ByokAddonConfigConfigActuatorLogLevel `json:"logLevel,omitempty"`
-	Env       ByokAddonConfigConfigActuatorEnv      `json:"env,omitempty"`
+	Env       FlexibleAddonConfig                   `json:"env,omitempty"`
 }
 
 type ByokAddonConfigConfigMiddlebox struct {
@@ -229,8 +252,6 @@ type ByokAddonConfigConfigMonitoringRemoteWriteProxyConnectHeader map[string][]s
 
 type ByokAddonConfigConfigMonitoringRemoteWriteHttpHeaders map[string]HttpHeaderValue
 
-type ByokAddonConfigConfigMonitoringRemoteWriteHeaders map[string]string
-
 type ByokAddonConfigConfigMonitoringRemoteWriteWriteRelabelConfigs map[string]any
 
 type ByokAddonConfigConfigMonitoringRemoteWriteSigv4 map[string]any
@@ -255,7 +276,7 @@ type ByokAddonConfigConfigMonitoringRemoteWrite struct {
 	Http_headers           ByokAddonConfigConfigMonitoringRemoteWriteHttpHeaders           `json:"http_headers,omitempty"`
 	Url                    string                                                          `json:"url,omitempty"`
 	Remote_timeout         string                                                          `json:"remote_timeout,omitempty"`
-	Headers                ByokAddonConfigConfigMonitoringRemoteWriteHeaders               `json:"headers,omitempty"`
+	Headers                FlexibleAddonConfig                                             `json:"headers,omitempty"`
 	Write_relabel_configs  []ByokAddonConfigConfigMonitoringRemoteWriteWriteRelabelConfigs `json:"write_relabel_configs,omitempty"`
 	Name                   string                                                          `json:"name,omitempty"`
 	Send_exemplars         bool                                                            `json:"send_exemplars,omitempty"`
@@ -266,15 +287,13 @@ type ByokAddonConfigConfigMonitoringRemoteWrite struct {
 	Queue_config           ByokAddonConfigConfigMonitoringRemoteWriteQueueConfig           `json:"queue_config,omitempty"`
 }
 
-type ByokAddonConfigConfigMonitoringExternalLabels map[string]string
-
 type ByokAddonConfigConfigMonitoring struct {
 	MinMemory        workload.Memory                                 `json:"minMemory,omitempty"`
 	MaxMemory        workload.Memory                                 `json:"maxMemory,omitempty"`
 	KubeStateMetrics ByokAddonConfigConfigMonitoringKubeStateMetrics `json:"kubeStateMetrics,omitempty"`
 	Prometheus       ByokAddonConfigConfigMonitoringPrometheus       `json:"prometheus,omitempty"`
 	RemoteWrite      []ByokAddonConfigConfigMonitoringRemoteWrite    `json:"remoteWrite,omitempty"`
-	ExternalLabels   ByokAddonConfigConfigMonitoringExternalLabels   `json:"externalLabels,omitempty"`
+	ExternalLabels   FlexibleAddonConfig                             `json:"externalLabels,omitempty"`
 }
 
 type ByokAddonConfigConfigRedis struct {
@@ -332,6 +351,6 @@ type ByokAddonConfigConfig struct {
 
 type ByokAddonConfig struct {
 	IgnoreUpdates bool                  `json:"ignoreUpdates,omitempty"`
-	Location      string                `json:"location,omitempty"`
+	Location      string                `json:"location"`
 	Config        ByokAddonConfigConfig `json:"config,omitempty"`
 }

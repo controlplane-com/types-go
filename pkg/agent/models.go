@@ -5,15 +5,17 @@ package agent
 import "github.com/controlplane-com/types-go/pkg/base"
 
 type BootstrapConfig struct {
-	RegistrationToken string `json:"registrationToken,omitempty"`
-	AgentId           string `json:"agentId,omitempty"`
-	AgentLink         string `json:"agentLink,omitempty"`
-	HubEndpoint       string `json:"hubEndpoint,omitempty"`
+	RegistrationToken string `json:"registrationToken"`
+	AgentId           string `json:"agentId"`
+	AgentLink         string `json:"agentLink"`
+	HubEndpoint       string `json:"hubEndpoint"`
 }
 
 type AgentStatus struct {
 	BootstrapConfig BootstrapConfig `json:"bootstrapConfig,omitempty"`
 }
+
+type AgentTags map[string]any
 
 type Agent struct {
 	Id           string      `json:"id,omitempty"`
@@ -21,7 +23,7 @@ type Agent struct {
 	Kind         base.Kind   `json:"kind,omitempty"`
 	Version      float32     `json:"version"`
 	Description  string      `json:"description,omitempty"`
-	Tags         base.Tags   `json:"tags,omitempty"`
+	Tags         AgentTags   `json:"tags,omitempty"`
 	Created      string      `json:"created,omitempty"`
 	LastModified string      `json:"lastModified,omitempty"`
 	Links        base.Links  `json:"links,omitempty"`

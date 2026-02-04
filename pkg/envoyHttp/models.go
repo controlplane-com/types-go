@@ -5,14 +5,14 @@ package envoyHttp
 import "github.com/controlplane-com/types-go/pkg/envoyCommon"
 
 type HttpUri struct {
-	Uri     string `json:"uri,omitempty"`
-	Cluster string `json:"cluster,omitempty"`
-	Timeout any/* TODO: [object Object]*/ `json:"timeout,omitempty"`
+	Uri     string `json:"uri"`
+	Cluster string `json:"cluster"`
+	Timeout any/* TODO: [object Object]*/ `json:"timeout"`
 }
 
 type HttpUriRestricted struct {
-	Uri     string                         `json:"uri,omitempty"`
-	Cluster string                         `json:"cluster,omitempty"`
+	Uri     string                         `json:"uri"`
+	Cluster string                         `json:"cluster"`
 	Timeout envoyCommon.DurationRestricted `json:"timeout,omitempty"`
 }
 
@@ -23,8 +23,8 @@ type BufferSettings struct {
 }
 
 type JwtProviderClaimToHeaders struct {
-	Header_name string `json:"header_name,omitempty"`
-	Claim_name  string `json:"claim_name,omitempty"`
+	Header_name string `json:"header_name"`
+	Claim_name  string `json:"claim_name"`
 }
 
 type JwtProviderRemoteJwksAsyncFetch struct {
@@ -47,8 +47,8 @@ type JwtProvider struct {
 }
 
 type JwtProviderUiRestrictedClaimToHeaders struct {
-	Header_name string `json:"header_name,omitempty"`
-	Claim_name  string `json:"claim_name,omitempty"`
+	Header_name string `json:"header_name"`
+	Claim_name  string `json:"claim_name"`
 }
 
 type JwtProviderUiRestrictedRemoteJwks struct {
@@ -103,7 +103,7 @@ type JwtRequirementRuleRestricted struct {
 type JwtRequirementMap map[string]JwtRequirement
 
 type RateLimitServiceGrpcServiceEnvoyGrpc struct {
-	Cluster_name string                  `json:"cluster_name,omitempty"`
+	Cluster_name string                  `json:"cluster_name"`
 	Authority    string                  `json:"authority,omitempty"`
 	Retry_policy envoyCommon.RetryPolicy `json:"retry_policy,omitempty"`
 }
@@ -120,10 +120,10 @@ type RateLimitServiceGrpcServiceGoogleGrpcChannelCredentials struct {
 }
 
 type RateLimitServiceGrpcServiceGoogleGrpc struct {
-	Target_uri               string                                                  `json:"target_uri,omitempty"`
+	Target_uri               string                                                  `json:"target_uri"`
 	Channel_credentials      RateLimitServiceGrpcServiceGoogleGrpcChannelCredentials `json:"channel_credentials,omitempty"`
 	Call_credentials         []envoyCommon.GoogleCallCredentials                     `json:"call_credentials,omitempty"`
-	Stat_prefix              string                                                  `json:"stat_prefix,omitempty"`
+	Stat_prefix              string                                                  `json:"stat_prefix"`
 	Credentials_factory_name string                                                  `json:"credentials_factory_name,omitempty"`
 	Config                   envoyCommon.Struct                                      `json:"config,omitempty"`
 }
@@ -136,7 +136,7 @@ type RateLimitServiceGrpcService struct {
 }
 
 type RateLimitService struct {
-	Grpc_service          RateLimitServiceGrpcService `json:"grpc_service,omitempty"`
+	Grpc_service          RateLimitServiceGrpcService `json:"grpc_service"`
 	Transport_api_version envoyCommon.ApiVersion      `json:"transport_api_version,omitempty"`
 }
 
@@ -161,7 +161,7 @@ type DescriptorRateLimit struct {
 }
 
 type Descriptor struct {
-	Key             string              `json:"key,omitempty"`
+	Key             string              `json:"key"`
 	Value           string              `json:"value,omitempty"`
 	Rate_limit      DescriptorRateLimit `json:"rate_limit,omitempty"`
 	Shadow_mode     string              `json:"shadow_mode,omitempty"`
@@ -240,7 +240,7 @@ const (
 type JwtAuthnTypedConfigProviders map[string]JwtProvider
 
 type JwtAuthnTypedConfigFilterStateRules struct {
-	Name     string            `json:"name,omitempty"`
+	Name     string            `json:"name"`
 	Requires JwtRequirementMap `json:"requires,omitempty"`
 }
 
@@ -412,7 +412,7 @@ const (
 )
 
 type RateLimitTypedConfig struct {
-	Domain                             string                                      `json:"domain,omitempty"`
+	Domain                             string                                      `json:"domain"`
 	Stage                              float32                                     `json:"stage"`
 	Request_type                       RateLimitTypedConfigRequestType             `json:"request_type,omitempty"`
 	Timeout                            envoyCommon.Duration                        `json:"timeout,omitempty"`
