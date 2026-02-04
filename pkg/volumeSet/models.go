@@ -124,6 +124,7 @@ type VolumeSetSpecAutoscalingPredictive struct {
 	ProjectionHours        float32 `json:"projectionHours"`
 	MinDataPoints          float32 `json:"minDataPoints"`
 	MinGrowthRateGBPerHour float32 `json:"minGrowthRateGBPerHour"`
+	ScalingFactor          float32 `json:"scalingFactor"`
 }
 
 type VolumeSetSpecAutoscaling struct {
