@@ -2,13 +2,6 @@
 
 package containerstatus
 
-type DeploymentResources struct {
-	Replicas      float32 `json:"replicas"`
-	ReplicasReady float32 `json:"replicasReady"`
-	Cpu           float32 `json:"cpu"`
-	Memory        float32 `json:"memory"`
-}
-
 type ContainerStatusRestarts struct {
 	LastRestartTime string  `json:"lastRestartTime,omitempty"`
 	ExitCode        float32 `json:"exitCode"`
@@ -23,4 +16,11 @@ type ContainerStatus struct {
 	Resources DeploymentResources     `json:"resources,omitempty"`
 	Message   string                  `json:"message,omitempty"`
 	Restarts  ContainerStatusRestarts `json:"restarts,omitempty"`
+}
+
+type DeploymentResources struct {
+	Replicas      float32 `json:"replicas"`
+	ReplicasReady float32 `json:"replicasReady"`
+	Cpu           float32 `json:"cpu"`
+	Memory        float32 `json:"memory"`
 }

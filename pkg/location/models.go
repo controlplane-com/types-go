@@ -4,23 +4,7 @@ package location
 
 import "github.com/controlplane-com/types-go/pkg/base"
 
-type LocationSpec struct {
-	Enabled bool `json:"enabled,omitempty"`
-}
-
-type LocationStatusGeo struct {
-	Lat       float32 `json:"lat"`
-	Lon       float32 `json:"lon"`
-	Country   string  `json:"country,omitempty"`
-	State     string  `json:"state,omitempty"`
-	City      string  `json:"city,omitempty"`
-	Continent string  `json:"continent,omitempty"`
-}
-
-type LocationStatus struct {
-	Geo      LocationStatusGeo `json:"geo,omitempty"`
-	IpRanges []string          `json:"ipRanges,omitempty"`
-}
+type LocationTags map[string]any
 
 type LocationOrigin string
 
@@ -40,6 +24,7 @@ const (
 	LocationProviderLinode  LocationProvider = "linode"
 	LocationProviderVultr   LocationProvider = "vultr"
 	LocationProviderEquinix LocationProvider = "equinix"
+	LocationProviderOci     LocationProvider = "oci"
 )
 
 type Location struct {
@@ -48,7 +33,7 @@ type Location struct {
 	Kind         base.Kind        `json:"kind,omitempty"`
 	Version      float32          `json:"version"`
 	Description  string           `json:"description,omitempty"`
-	Tags         base.Tags        `json:"tags,omitempty"`
+	Tags         LocationTags     `json:"tags,omitempty"`
 	Created      string           `json:"created,omitempty"`
 	LastModified string           `json:"lastModified,omitempty"`
 	Links        base.Links       `json:"links,omitempty"`
@@ -57,4 +42,22 @@ type Location struct {
 	Region       string           `json:"region,omitempty"`
 	Spec         LocationSpec     `json:"spec,omitempty"`
 	Status       LocationStatus   `json:"status,omitempty"`
+}
+
+type LocationSpec struct {
+	Enabled bool `json:"enabled,omitempty"`
+}
+
+type LocationStatusGeo struct {
+	Lat       float32 `json:"lat"`
+	Lon       float32 `json:"lon"`
+	Country   string  `json:"country,omitempty"`
+	State     string  `json:"state,omitempty"`
+	City      string  `json:"city,omitempty"`
+	Continent string  `json:"continent,omitempty"`
+}
+
+type LocationStatus struct {
+	Geo      LocationStatusGeo `json:"geo,omitempty"`
+	IpRanges []string          `json:"ipRanges,omitempty"`
 }

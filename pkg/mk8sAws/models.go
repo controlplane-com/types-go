@@ -4,14 +4,6 @@ package mk8sAws
 
 import "github.com/controlplane-com/types-go/pkg/mk8sCommon"
 
-type PolicyArn string
-
-type AssumeRoleLink struct {
-	RoleArn           string `json:"roleArn,omitempty"`
-	ExternalId        string `json:"externalId,omitempty"`
-	SessionNamePrefix string `json:"sessionNamePrefix,omitempty"`
-}
-
 type AmiRecommended string
 
 const (
@@ -31,6 +23,12 @@ type Ami struct {
 	Exact       string         `json:"exact,omitempty"`
 }
 
+type AssumeRoleLink struct {
+	RoleArn           string `json:"roleArn"`
+	ExternalId        string `json:"externalId,omitempty"`
+	SessionNamePrefix string `json:"sessionNamePrefix,omitempty"`
+}
+
 type AwsPoolSpotAllocationStrategy string
 
 const (
@@ -41,10 +39,10 @@ const (
 )
 
 type AwsPool struct {
-	Name                                string                        `json:"name,omitempty"`
+	Name                                string                        `json:"name"`
 	Labels                              mk8sCommon.Labels             `json:"labels,omitempty"`
 	Taints                              mk8sCommon.Taints             `json:"taints,omitempty"`
-	InstanceTypes                       []string                      `json:"instanceTypes,omitempty"`
+	InstanceTypes                       []string                      `json:"instanceTypes"`
 	OverrideImage                       Ami                           `json:"overrideImage,omitempty"`
 	BootDiskSize                        float32                       `json:"bootDiskSize"`
 	MinSize                             float32                       `json:"minSize"`
@@ -52,7 +50,7 @@ type AwsPool struct {
 	OnDemandBaseCapacity                float32                       `json:"onDemandBaseCapacity"`
 	OnDemandPercentageAboveBaseCapacity float32                       `json:"onDemandPercentageAboveBaseCapacity"`
 	SpotAllocationStrategy              AwsPoolSpotAllocationStrategy `json:"spotAllocationStrategy,omitempty"`
-	SubnetIds                           []string                      `json:"subnetIds,omitempty"`
+	SubnetIds                           []string                      `json:"subnetIds"`
 	ExtraSecurityGroupIds               []string                      `json:"extraSecurityGroupIds,omitempty"`
 }
 
@@ -143,10 +141,10 @@ type AwsProvider struct {
 	SkipCreateRoles      bool                        `json:"skipCreateRoles,omitempty"`
 	Networking           AwsProviderNetworking       `json:"networking,omitempty"`
 	PreInstallScript     string                      `json:"preInstallScript,omitempty"`
-	Image                AwsProviderImage            `json:"image,omitempty"`
-	DeployRoleArn        string                      `json:"deployRoleArn,omitempty"`
+	Image                AwsProviderImage            `json:"image"`
+	DeployRoleArn        string                      `json:"deployRoleArn"`
 	DeployRoleChain      []AssumeRoleLink            `json:"deployRoleChain,omitempty"`
-	VpcId                string                      `json:"vpcId,omitempty"`
+	VpcId                string                      `json:"vpcId"`
 	KeyPair              string                      `json:"keyPair,omitempty"`
 	DiskEncryptionKeyArn string                      `json:"diskEncryptionKeyArn,omitempty"`
 	SecurityGroupIds     []string                    `json:"securityGroupIds,omitempty"`
@@ -156,3 +154,5 @@ type AwsProvider struct {
 }
 
 type AwsProviderStatus map[string]any
+
+type PolicyArn string

@@ -4,13 +4,6 @@ package memcache
 
 import "github.com/controlplane-com/types-go/pkg/base"
 
-type MemcacheOptions struct {
-	EvictionsDisabled  bool    `json:"evictionsDisabled,omitempty"`
-	IdleTimeoutSeconds float32 `json:"idleTimeoutSeconds"`
-	MaxItemSizeKiB     float32 `json:"maxItemSizeKiB"`
-	MaxConnections     float32 `json:"maxConnections"`
-}
-
 type ClusterSpecVersion string
 
 const (
@@ -34,6 +27,8 @@ type ClusterSpec struct {
 }
 
 type ClusterStatus map[string]any
+
+type MemcacheClusterTags map[string]any
 
 type MemcacheClusterSpecVersion string
 
@@ -63,10 +58,17 @@ type MemcacheCluster struct {
 	Kind         base.Kind           `json:"kind,omitempty"`
 	Version      float32             `json:"version"`
 	Description  string              `json:"description,omitempty"`
-	Tags         base.Tags           `json:"tags,omitempty"`
+	Tags         MemcacheClusterTags `json:"tags,omitempty"`
 	Created      string              `json:"created,omitempty"`
 	LastModified string              `json:"lastModified,omitempty"`
 	Links        base.Links          `json:"links,omitempty"`
-	Spec         MemcacheClusterSpec `json:"spec,omitempty"`
+	Spec         MemcacheClusterSpec `json:"spec"`
 	Status       ClusterStatus       `json:"status,omitempty"`
+}
+
+type MemcacheOptions struct {
+	EvictionsDisabled  bool    `json:"evictionsDisabled,omitempty"`
+	IdleTimeoutSeconds float32 `json:"idleTimeoutSeconds"`
+	MaxItemSizeKiB     float32 `json:"maxItemSizeKiB"`
+	MaxConnections     float32 `json:"maxConnections"`
 }

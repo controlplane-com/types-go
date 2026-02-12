@@ -5,7 +5,7 @@ package resourcePolicy
 import "github.com/controlplane-com/types-go/pkg/base"
 
 type ResourcePolicyBindings struct {
-	Permissions    []string `json:"permissions,omitempty"`
+	Permissions    []string `json:"permissions"`
 	PrincipalLinks []string `json:"principalLinks,omitempty"`
 }
 

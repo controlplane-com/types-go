@@ -5,20 +5,14 @@ package cloudaccount
 import "github.com/controlplane-com/types-go/pkg/base"
 
 type AwsConfig struct {
-	RoleArn string `json:"roleArn,omitempty"`
-}
-
-type GcpConfig struct {
-	ProjectId string `json:"projectId,omitempty"`
-}
-
-type NgsConfig struct {
-	SecretLink string `json:"secretLink,omitempty"`
+	RoleArn string `json:"roleArn"`
 }
 
 type AzureConfig struct {
-	SecretLink string `json:"secretLink,omitempty"`
+	SecretLink string `json:"secretLink"`
 }
+
+type CloudAccountTags map[string]any
 
 type CloudAccountStatus struct {
 	Usable      bool   `json:"usable,omitempty"`
@@ -32,7 +26,7 @@ type CloudAccount struct {
 	Kind         base.Kind          `json:"kind,omitempty"`
 	Version      float32            `json:"version"`
 	Description  string             `json:"description,omitempty"`
-	Tags         base.Tags          `json:"tags,omitempty"`
+	Tags         CloudAccountTags   `json:"tags,omitempty"`
 	Created      string             `json:"created,omitempty"`
 	LastModified string             `json:"lastModified,omitempty"`
 	Links        base.Links         `json:"links,omitempty"`
@@ -41,9 +35,17 @@ type CloudAccount struct {
 	Status       CloudAccountStatus `json:"status,omitempty"`
 }
 
+type GcpConfig struct {
+	ProjectId string `json:"projectId"`
+}
+
 type InstructionsData map[string]any
 
 type Instructions struct {
 	Message string           `json:"message,omitempty"`
 	Data    InstructionsData `json:"data,omitempty"`
+}
+
+type NgsConfig struct {
+	SecretLink string `json:"secretLink"`
 }

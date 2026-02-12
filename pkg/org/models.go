@@ -2,15 +2,9 @@
 
 package org
 
+import "github.com/controlplane-com/types-go/pkg/base"
 import "github.com/controlplane-com/types-go/pkg/orgLogging"
 import "github.com/controlplane-com/types-go/pkg/tracing"
-import "github.com/controlplane-com/types-go/pkg/base"
-
-type OrgStatus struct {
-	AccountLink    string `json:"accountLink,omitempty"`
-	Active         bool   `json:"active,omitempty"`
-	EndpointPrefix string `json:"endpointPrefix,omitempty"`
-}
 
 type AuthConfig struct {
 	DomainAutoMembers []string `json:"domainAutoMembers,omitempty"`
@@ -24,31 +18,26 @@ type ObservabilityConfig struct {
 	DefaultAlertEmails   []string `json:"defaultAlertEmails,omitempty"`
 }
 
-type ThreatDetectionMinimumSeverity string
+type OrgTags map[string]any
 
-const (
-	ThreatDetectionMinimumSeverityWarning  ThreatDetectionMinimumSeverity = "warning"
-	ThreatDetectionMinimumSeverityError    ThreatDetectionMinimumSeverity = "error"
-	ThreatDetectionMinimumSeverityCritical ThreatDetectionMinimumSeverity = "critical"
-)
-
-type ThreatDetectionSyslogTransport string
-
-const (
-	ThreatDetectionSyslogTransportTcp ThreatDetectionSyslogTransport = "tcp"
-	ThreatDetectionSyslogTransportUdp ThreatDetectionSyslogTransport = "udp"
-)
-
-type ThreatDetectionSyslog struct {
-	Transport ThreatDetectionSyslogTransport `json:"transport,omitempty"`
-	Host      string                         `json:"host,omitempty"`
-	Port      float32                        `json:"port"`
+type Org struct {
+	Id           string     `json:"id,omitempty"`
+	Kind         base.Kind  `json:"kind,omitempty"`
+	Version      float32    `json:"version"`
+	Description  string     `json:"description,omitempty"`
+	Tags         OrgTags    `json:"tags,omitempty"`
+	Created      string     `json:"created,omitempty"`
+	LastModified string     `json:"lastModified,omitempty"`
+	Links        base.Links `json:"links,omitempty"`
+	Name         string     `json:"name,omitempty"`
+	Spec         OrgSpec    `json:"spec,omitempty"`
+	Status       OrgStatus  `json:"status,omitempty"`
 }
 
-type ThreatDetection struct {
-	Enabled         bool                           `json:"enabled,omitempty"`
-	MinimumSeverity ThreatDetectionMinimumSeverity `json:"minimumSeverity,omitempty"`
-	Syslog          ThreatDetectionSyslog          `json:"syslog,omitempty"`
+type OrgConfig struct {
+	AwsPrivateLinks    []string        `json:"awsPrivateLinks,omitempty"`
+	GcpServiceConnects []string        `json:"gcpServiceConnects,omitempty"`
+	QuotaOverrides     []QuotaOverride `json:"quotaOverrides,omitempty"`
 }
 
 type OrgSpecLogging struct {
@@ -98,27 +87,40 @@ type OrgSpec struct {
 	Security              OrgSpecSecurity       `json:"security,omitempty"`
 }
 
-type Org struct {
-	Id           string     `json:"id,omitempty"`
-	Kind         base.Kind  `json:"kind,omitempty"`
-	Version      float32    `json:"version"`
-	Description  string     `json:"description,omitempty"`
-	Tags         base.Tags  `json:"tags,omitempty"`
-	Created      string     `json:"created,omitempty"`
-	LastModified string     `json:"lastModified,omitempty"`
-	Links        base.Links `json:"links,omitempty"`
-	Name         string     `json:"name,omitempty"`
-	Spec         OrgSpec    `json:"spec,omitempty"`
-	Status       OrgStatus  `json:"status,omitempty"`
+type OrgStatus struct {
+	AccountLink    string `json:"accountLink,omitempty"`
+	Active         bool   `json:"active,omitempty"`
+	EndpointPrefix string `json:"endpointPrefix,omitempty"`
 }
 
 type QuotaOverride struct {
-	Name string  `json:"name,omitempty"`
+	Name string  `json:"name"`
 	Max  float32 `json:"max"`
 }
 
-type OrgConfig struct {
-	AwsPrivateLinks    []string        `json:"awsPrivateLinks,omitempty"`
-	GcpServiceConnects []string        `json:"gcpServiceConnects,omitempty"`
-	QuotaOverrides     []QuotaOverride `json:"quotaOverrides,omitempty"`
+type ThreatDetectionMinimumSeverity string
+
+const (
+	ThreatDetectionMinimumSeverityWarning  ThreatDetectionMinimumSeverity = "warning"
+	ThreatDetectionMinimumSeverityError    ThreatDetectionMinimumSeverity = "error"
+	ThreatDetectionMinimumSeverityCritical ThreatDetectionMinimumSeverity = "critical"
+)
+
+type ThreatDetectionSyslogTransport string
+
+const (
+	ThreatDetectionSyslogTransportTcp ThreatDetectionSyslogTransport = "tcp"
+	ThreatDetectionSyslogTransportUdp ThreatDetectionSyslogTransport = "udp"
+)
+
+type ThreatDetectionSyslog struct {
+	Transport ThreatDetectionSyslogTransport `json:"transport,omitempty"`
+	Host      string                         `json:"host"`
+	Port      float32                        `json:"port"`
+}
+
+type ThreatDetection struct {
+	Enabled         bool                           `json:"enabled"`
+	MinimumSeverity ThreatDetectionMinimumSeverity `json:"minimumSeverity,omitempty"`
+	Syslog          ThreatDetectionSyslog          `json:"syslog,omitempty"`
 }

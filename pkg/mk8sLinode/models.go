@@ -4,13 +4,20 @@ package mk8sLinode
 
 import "github.com/controlplane-com/types-go/pkg/mk8sCommon"
 
+type LinodeJoinParams struct {
+	IpAddress    string `json:"ipAddress,omitempty"`
+	NodePoolName string `json:"nodePoolName"`
+
+	/* WARNING!! Arbitrary properties are being ignored! */
+}
+
 type LinodePool struct {
-	Name          string            `json:"name,omitempty"`
+	Name          string            `json:"name"`
 	Labels        mk8sCommon.Labels `json:"labels,omitempty"`
 	Taints        mk8sCommon.Taints `json:"taints,omitempty"`
-	ServerType    string            `json:"serverType,omitempty"`
+	ServerType    string            `json:"serverType"`
 	OverrideImage string            `json:"overrideImage,omitempty"`
-	SubnetId      string            `json:"subnetId,omitempty"`
+	SubnetId      string            `json:"subnetId"`
 	MinSize       float32           `json:"minSize"`
 	MaxSize       float32           `json:"maxSize"`
 }
@@ -43,24 +50,17 @@ type LinodeProviderNetworking struct {
 }
 
 type LinodeProvider struct {
-	Region           string                      `json:"region,omitempty"`
-	TokenSecretLink  string                      `json:"tokenSecretLink,omitempty"`
+	Region           string                      `json:"region"`
+	TokenSecretLink  string                      `json:"tokenSecretLink"`
 	FirewallId       string                      `json:"firewallId,omitempty"`
 	NodePools        []LinodePool                `json:"nodePools,omitempty"`
-	Image            string                      `json:"image,omitempty"`
+	Image            string                      `json:"image"`
 	AuthorizedUsers  []string                    `json:"authorizedUsers,omitempty"`
 	AuthorizedKeys   []string                    `json:"authorizedKeys,omitempty"`
-	VpcId            string                      `json:"vpcId,omitempty"`
+	VpcId            string                      `json:"vpcId"`
 	PreInstallScript mk8sCommon.PreInstallScript `json:"preInstallScript,omitempty"`
 	Networking       LinodeProviderNetworking    `json:"networking,omitempty"`
 	Autoscaler       mk8sCommon.AutoscalerConfig `json:"autoscaler,omitempty"`
 }
 
 type LinodeProviderStatus map[string]any
-
-type LinodeJoinParams struct {
-	IpAddress    string `json:"ipAddress,omitempty"`
-	NodePoolName string `json:"nodePoolName,omitempty"`
-
-	/* WARNING!! Arbitrary properties are being ignored! */
-}

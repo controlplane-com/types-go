@@ -4,6 +4,12 @@ package mk8sOblivus
 
 import "github.com/controlplane-com/types-go/pkg/mk8sCommon"
 
+type OblivusJoinParams struct {
+	NodePoolName string `json:"nodePoolName"`
+
+	/* WARNING!! Arbitrary properties are being ignored! */
+}
+
 type OblivusPoolFlavor string
 
 const (
@@ -39,7 +45,7 @@ const (
 )
 
 type OblivusPool struct {
-	Name    string            `json:"name,omitempty"`
+	Name    string            `json:"name"`
 	Labels  mk8sCommon.Labels `json:"labels,omitempty"`
 	Taints  mk8sCommon.Taints `json:"taints,omitempty"`
 	MinSize float32           `json:"minSize"`
@@ -56,7 +62,7 @@ const (
 
 type OblivusProvider struct {
 	Datacenter         OblivusProviderDatacenter   `json:"datacenter,omitempty"`
-	TokenSecretLink    string                      `json:"tokenSecretLink,omitempty"`
+	TokenSecretLink    string                      `json:"tokenSecretLink"`
 	NodePools          []OblivusPool               `json:"nodePools,omitempty"`
 	SshKeys            []string                    `json:"sshKeys,omitempty"`
 	UnmanagedNodePools []mk8sCommon.UnmanagedPool  `json:"unmanagedNodePools,omitempty"`
@@ -65,9 +71,3 @@ type OblivusProvider struct {
 }
 
 type OblivusProviderStatus map[string]any
-
-type OblivusJoinParams struct {
-	NodePoolName string `json:"nodePoolName,omitempty"`
-
-	/* WARNING!! Arbitrary properties are being ignored! */
-}

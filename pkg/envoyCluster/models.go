@@ -4,15 +4,6 @@ package envoyCluster
 
 import "github.com/controlplane-com/types-go/pkg/envoyCommon"
 
-type MetadataFilterMetadata map[string]envoyCommon.Struct
-
-type MetadataTypedFilterMetadata map[string]any
-
-type Metadata struct {
-	Filter_metadata       MetadataFilterMetadata      `json:"filter_metadata,omitempty"`
-	Typed_filter_metadata MetadataTypedFilterMetadata `json:"typed_filter_metadata,omitempty"`
-}
-
 type ClusterType string
 
 const (
@@ -24,13 +15,13 @@ const (
 )
 
 type ClusterLoadAssignment struct {
-	Cluster_name string `json:"cluster_name,omitempty"`
+	Cluster_name string `json:"cluster_name"`
 	Endpoints    any    `json:"endpoints,omitempty"`
 	Policy       any    `json:"policy,omitempty"`
 }
 
 type Cluster struct {
-	Name                                      string                `json:"name,omitempty"`
+	Name                                      string                `json:"name"`
 	ExcludedWorkloads                         []string              `json:"excludedWorkloads,omitempty"`
 	Transport_socket_matches                  any                   `json:"transport_socket_matches,omitempty"`
 	Alt_stat_name                             any                   `json:"alt_stat_name,omitempty"`
@@ -79,4 +70,13 @@ type Cluster struct {
 	Track_cluster_stats                       any                   `json:"track_cluster_stats,omitempty"`
 	Preconnect_policy                         any                   `json:"preconnect_policy,omitempty"`
 	Connection_pool_per_downstream_connection any                   `json:"connection_pool_per_downstream_connection,omitempty"`
+}
+
+type MetadataFilterMetadata map[string]envoyCommon.Struct
+
+type MetadataTypedFilterMetadata map[string]any
+
+type Metadata struct {
+	Filter_metadata       MetadataFilterMetadata      `json:"filter_metadata,omitempty"`
+	Typed_filter_metadata MetadataTypedFilterMetadata `json:"typed_filter_metadata,omitempty"`
 }

@@ -4,140 +4,65 @@ package envoyHttp
 
 import "github.com/controlplane-com/types-go/pkg/envoyCommon"
 
-type HttpUri struct {
-	Uri     string `json:"uri,omitempty"`
-	Cluster string `json:"cluster,omitempty"`
-	Timeout any/* TODO: [object Object]*/ `json:"timeout,omitempty"`
-}
-
-type HttpUriRestricted struct {
-	Uri     string                         `json:"uri,omitempty"`
-	Cluster string                         `json:"cluster,omitempty"`
-	Timeout envoyCommon.DurationRestricted `json:"timeout,omitempty"`
-}
-
 type BufferSettings struct {
 	Max_request_bytes     float32 `json:"max_request_bytes"`
 	Allow_partial_message bool    `json:"allow_partial_message,omitempty"`
 	Pack_as_bytes         bool    `json:"pack_as_bytes,omitempty"`
 }
 
-type JwtProviderClaimToHeaders struct {
-	Header_name string `json:"header_name,omitempty"`
-	Claim_name  string `json:"claim_name,omitempty"`
+type ConnectRpcName string
+
+const (
+	ConnectRpcNameEnvoyFiltersHttpConnectGrpcBridge ConnectRpcName = "envoy.filters.http.connect_grpc_bridge"
+)
+
+type ConnectRpcTypedConfigType string
+
+const (
+	ConnectRpcTypedConfigTypeTypeGoogleapisComEnvoyExtensionsFiltersHttpConnectGrpcBridgeV3FilterConfig ConnectRpcTypedConfigType = "type.googleapis.com/envoy.extensions.filters.http.connect_grpc_bridge.v3.FilterConfig"
+)
+
+type ConnectRpcTypedConfig struct {
+	Type ConnectRpcTypedConfigType `json:"@type,omitempty"`
 }
 
-type JwtProviderRemoteJwksAsyncFetch struct {
-	Fast_listener           bool                 `json:"fast_listener,omitempty"`
-	Failed_refetch_duration envoyCommon.Duration `json:"failed_refetch_duration,omitempty"`
+type ConnectRpc struct {
+	Priority          envoyCommon.Priority  `json:"priority,omitempty"`
+	ExcludedWorkloads []string              `json:"excludedWorkloads,omitempty"`
+	Name              ConnectRpcName        `json:"name,omitempty"`
+	Typed_config      ConnectRpcTypedConfig `json:"typed_config,omitempty"`
 }
 
-type JwtProviderRemoteJwks struct {
-	Http_uri       HttpUri                         `json:"http_uri,omitempty"`
-	Cache_duration envoyCommon.Duration            `json:"cache_duration,omitempty"`
-	Async_fetch    JwtProviderRemoteJwksAsyncFetch `json:"async_fetch,omitempty"`
-	Retry_policy   envoyCommon.RetryPolicy         `json:"retry_policy,omitempty"`
+type CorsName string
+
+const (
+	CorsNameEnvoyFiltersHttpCors CorsName = "envoy.filters.http.cors"
+)
+
+type CorsTypedConfigType string
+
+const (
+	CorsTypedConfigTypeTypeGoogleapisComEnvoyExtensionsFiltersHttpCorsV3Cors CorsTypedConfigType = "type.googleapis.com/envoy.extensions.filters.http.cors.v3.Cors"
+)
+
+type CorsTypedConfig struct {
+	Allow_origin_string_match    []envoyCommon.StringMatcher          `json:"allow_origin_string_match,omitempty"`
+	Allow_methods                string                               `json:"allow_methods,omitempty"`
+	Allow_headers                string                               `json:"allow_headers,omitempty"`
+	Expose_headers               string                               `json:"expose_headers,omitempty"`
+	Max_age                      string                               `json:"max_age,omitempty"`
+	Allow_credentials            bool                                 `json:"allow_credentials,omitempty"`
+	Filter_enabled               envoyCommon.RuntimeFractionalPercent `json:"filter_enabled,omitempty"`
+	Shadow_enabled               envoyCommon.RuntimeFractionalPercent `json:"shadow_enabled,omitempty"`
+	Allow_private_network_access bool                                 `json:"allow_private_network_access,omitempty"`
+	Type                         CorsTypedConfigType                  `json:"@type,omitempty"`
 }
 
-type JwtProvider struct {
-	Issuer           string                      `json:"issuer,omitempty"`
-	Audiences        []string                    `json:"audiences,omitempty"`
-	Claim_to_headers []JwtProviderClaimToHeaders `json:"claim_to_headers,omitempty"`
-	Remote_jwks      JwtProviderRemoteJwks       `json:"remote_jwks,omitempty"`
-}
-
-type JwtProviderUiRestrictedClaimToHeaders struct {
-	Header_name string `json:"header_name,omitempty"`
-	Claim_name  string `json:"claim_name,omitempty"`
-}
-
-type JwtProviderUiRestrictedRemoteJwks struct {
-	Http_uri       HttpUriRestricted              `json:"http_uri,omitempty"`
-	Cache_duration envoyCommon.DurationRestricted `json:"cache_duration,omitempty"`
-}
-
-type JwtProviderUIRestricted struct {
-	Issuer           string                                  `json:"issuer,omitempty"`
-	Audiences        []string                                `json:"audiences,omitempty"`
-	Claim_to_headers []JwtProviderUiRestrictedClaimToHeaders `json:"claim_to_headers,omitempty"`
-	Remote_jwks      JwtProviderUiRestrictedRemoteJwks       `json:"remote_jwks,omitempty"`
-}
-
-type JwtRequirementProviderAndAudiences struct {
-	Provider_name string   `json:"provider_name,omitempty"`
-	Audiences     []string `json:"audiences,omitempty"`
-}
-
-type JwtRequirementRequiresAny struct {
-	Requirements []any `json:"requirements,omitempty"`
-}
-
-type JwtRequirementRequiresAll struct {
-	Requirements []any `json:"requirements,omitempty"`
-}
-
-type JwtRequirement struct {
-	Provider_name           string                             `json:"provider_name,omitempty"`
-	Provider_and_audiences  JwtRequirementProviderAndAudiences `json:"provider_and_audiences,omitempty"`
-	Requires_any            JwtRequirementRequiresAny          `json:"requires_any,omitempty"`
-	Requires_all            JwtRequirementRequiresAll          `json:"requires_all,omitempty"`
-	Allow_missing_or_failed envoyCommon.Empty                  `json:"allow_missing_or_failed,omitempty"`
-	Allow_missing           envoyCommon.Empty                  `json:"allow_missing,omitempty"`
-}
-
-type JwtRequirementRestricted struct {
-	Provider_name string `json:"provider_name,omitempty"`
-}
-
-type JwtRequirementRule struct {
-	Match            envoyCommon.RouteMatch `json:"match,omitempty"`
-	Requires         JwtRequirement         `json:"requires,omitempty"`
-	Requirement_name string                 `json:"requirement_name,omitempty"`
-}
-
-type JwtRequirementRuleRestricted struct {
-	Match    envoyCommon.RouteMatchRestricted `json:"match,omitempty"`
-	Requires JwtRequirementRestricted         `json:"requires,omitempty"`
-}
-
-type JwtRequirementMap map[string]JwtRequirement
-
-type RateLimitServiceGrpcServiceEnvoyGrpc struct {
-	Cluster_name string                  `json:"cluster_name,omitempty"`
-	Authority    string                  `json:"authority,omitempty"`
-	Retry_policy envoyCommon.RetryPolicy `json:"retry_policy,omitempty"`
-}
-
-type RateLimitServiceGrpcServiceGoogleGrpcChannelCredentialsSslCredentials struct {
-	Root_certs  envoyCommon.DataSource `json:"root_certs,omitempty"`
-	Private_key envoyCommon.DataSource `json:"private_key,omitempty"`
-	Cert_chain  envoyCommon.DataSource `json:"cert_chain,omitempty"`
-}
-
-type RateLimitServiceGrpcServiceGoogleGrpcChannelCredentials struct {
-	Ssl_credentials RateLimitServiceGrpcServiceGoogleGrpcChannelCredentialsSslCredentials `json:"ssl_credentials,omitempty"`
-	Google_default  envoyCommon.Empty                                                     `json:"google_default,omitempty"`
-}
-
-type RateLimitServiceGrpcServiceGoogleGrpc struct {
-	Target_uri               string                                                  `json:"target_uri,omitempty"`
-	Channel_credentials      RateLimitServiceGrpcServiceGoogleGrpcChannelCredentials `json:"channel_credentials,omitempty"`
-	Call_credentials         []envoyCommon.GoogleCallCredentials                     `json:"call_credentials,omitempty"`
-	Stat_prefix              string                                                  `json:"stat_prefix,omitempty"`
-	Credentials_factory_name string                                                  `json:"credentials_factory_name,omitempty"`
-	Config                   envoyCommon.Struct                                      `json:"config,omitempty"`
-}
-
-type RateLimitServiceGrpcService struct {
-	Envoy_grpc       RateLimitServiceGrpcServiceEnvoyGrpc  `json:"envoy_grpc,omitempty"`
-	Google_grpc      RateLimitServiceGrpcServiceGoogleGrpc `json:"google_grpc,omitempty"`
-	Timeout          any/* TODO: [object Object]*/ `json:"timeout,omitempty"`
-	Initial_metadata []envoyCommon.HeaderValue `json:"initial_metadata,omitempty"`
-}
-
-type RateLimitService struct {
-	Grpc_service          RateLimitServiceGrpcService `json:"grpc_service,omitempty"`
-	Transport_api_version envoyCommon.ApiVersion      `json:"transport_api_version,omitempty"`
+type Cors struct {
+	Priority          envoyCommon.Priority `json:"priority,omitempty"`
+	ExcludedWorkloads []string             `json:"excludedWorkloads,omitempty"`
+	Name              CorsName             `json:"name,omitempty"`
+	Typed_config      CorsTypedConfig      `json:"typed_config,omitempty"`
 }
 
 type DescriptorRateLimitReplaces struct {
@@ -161,7 +86,7 @@ type DescriptorRateLimit struct {
 }
 
 type Descriptor struct {
-	Key             string              `json:"key,omitempty"`
+	Key             string              `json:"key"`
 	Value           string              `json:"value,omitempty"`
 	Rate_limit      DescriptorRateLimit `json:"rate_limit,omitempty"`
 	Shadow_mode     string              `json:"shadow_mode,omitempty"`
@@ -231,66 +156,6 @@ type ExtAuthz struct {
 	Typed_config      ExtAuthzTypedConfig  `json:"typed_config,omitempty"`
 }
 
-type JwtAuthnName string
-
-const (
-	JwtAuthnNameEnvoyFiltersHttpJwtAuthn JwtAuthnName = "envoy.filters.http.jwt_authn"
-)
-
-type JwtAuthnTypedConfigProviders map[string]JwtProvider
-
-type JwtAuthnTypedConfigFilterStateRules struct {
-	Name     string            `json:"name,omitempty"`
-	Requires JwtRequirementMap `json:"requires,omitempty"`
-}
-
-type JwtAuthnTypedConfigRequirementMap map[string]JwtRequirement
-
-type JwtAuthnTypedConfigType string
-
-const (
-	JwtAuthnTypedConfigTypeTypeGoogleapisComEnvoyExtensionsFiltersHttpJwtAuthnV3JwtAuthentication JwtAuthnTypedConfigType = "type.googleapis.com/envoy.extensions.filters.http.jwt_authn.v3.JwtAuthentication"
-)
-
-type JwtAuthnTypedConfig struct {
-	Providers             JwtAuthnTypedConfigProviders        `json:"providers,omitempty"`
-	Rules                 []JwtRequirementRuleRestricted      `json:"rules,omitempty"`
-	Filter_state_rules    JwtAuthnTypedConfigFilterStateRules `json:"filter_state_rules,omitempty"`
-	Bypass_cors_preflight bool                                `json:"bypass_cors_preflight,omitempty"`
-	Requirement_map       JwtAuthnTypedConfigRequirementMap   `json:"requirement_map,omitempty"`
-	Type                  JwtAuthnTypedConfigType             `json:"@type,omitempty"`
-}
-
-type JwtAuthn struct {
-	Priority          envoyCommon.Priority `json:"priority,omitempty"`
-	ExcludedWorkloads []string             `json:"excludedWorkloads,omitempty"`
-	Name              JwtAuthnName         `json:"name,omitempty"`
-	Typed_config      JwtAuthnTypedConfig  `json:"typed_config,omitempty"`
-}
-
-type GrpcWebName string
-
-const (
-	GrpcWebNameEnvoyFiltersHttpGrpcWeb GrpcWebName = "envoy.filters.http.grpc_web"
-)
-
-type GrpcWebTypedConfigType string
-
-const (
-	GrpcWebTypedConfigTypeTypeGoogleapisComEnvoyExtensionsFiltersHttpGrpcWebV3GrpcWeb GrpcWebTypedConfigType = "type.googleapis.com/envoy.extensions.filters.http.grpc_web.v3.GrpcWeb"
-)
-
-type GrpcWebTypedConfig struct {
-	Type GrpcWebTypedConfigType `json:"@type,omitempty"`
-}
-
-type GrpcWeb struct {
-	Priority          envoyCommon.Priority `json:"priority,omitempty"`
-	ExcludedWorkloads []string             `json:"excludedWorkloads,omitempty"`
-	Name              GrpcWebName          `json:"name,omitempty"`
-	Typed_config      GrpcWebTypedConfig   `json:"typed_config,omitempty"`
-}
-
 type GrpcJsonTranscoderName string
 
 const (
@@ -352,36 +217,158 @@ type GrpcJsonTranscoder struct {
 	Typed_config      GrpcJsonTranscoderTypedConfig `json:"typed_config,omitempty"`
 }
 
-type CorsName string
+type GrpcWebName string
 
 const (
-	CorsNameEnvoyFiltersHttpCors CorsName = "envoy.filters.http.cors"
+	GrpcWebNameEnvoyFiltersHttpGrpcWeb GrpcWebName = "envoy.filters.http.grpc_web"
 )
 
-type CorsTypedConfigType string
+type GrpcWebTypedConfigType string
 
 const (
-	CorsTypedConfigTypeTypeGoogleapisComEnvoyExtensionsFiltersHttpCorsV3Cors CorsTypedConfigType = "type.googleapis.com/envoy.extensions.filters.http.cors.v3.Cors"
+	GrpcWebTypedConfigTypeTypeGoogleapisComEnvoyExtensionsFiltersHttpGrpcWebV3GrpcWeb GrpcWebTypedConfigType = "type.googleapis.com/envoy.extensions.filters.http.grpc_web.v3.GrpcWeb"
 )
 
-type CorsTypedConfig struct {
-	Allow_origin_string_match    []envoyCommon.StringMatcher          `json:"allow_origin_string_match,omitempty"`
-	Allow_methods                string                               `json:"allow_methods,omitempty"`
-	Allow_headers                string                               `json:"allow_headers,omitempty"`
-	Expose_headers               string                               `json:"expose_headers,omitempty"`
-	Max_age                      string                               `json:"max_age,omitempty"`
-	Allow_credentials            bool                                 `json:"allow_credentials,omitempty"`
-	Filter_enabled               envoyCommon.RuntimeFractionalPercent `json:"filter_enabled,omitempty"`
-	Shadow_enabled               envoyCommon.RuntimeFractionalPercent `json:"shadow_enabled,omitempty"`
-	Allow_private_network_access bool                                 `json:"allow_private_network_access,omitempty"`
-	Type                         CorsTypedConfigType                  `json:"@type,omitempty"`
+type GrpcWebTypedConfig struct {
+	Type GrpcWebTypedConfigType `json:"@type,omitempty"`
 }
 
-type Cors struct {
+type GrpcWeb struct {
 	Priority          envoyCommon.Priority `json:"priority,omitempty"`
 	ExcludedWorkloads []string             `json:"excludedWorkloads,omitempty"`
-	Name              CorsName             `json:"name,omitempty"`
-	Typed_config      CorsTypedConfig      `json:"typed_config,omitempty"`
+	Name              GrpcWebName          `json:"name,omitempty"`
+	Typed_config      GrpcWebTypedConfig   `json:"typed_config,omitempty"`
+}
+
+type HttpFilter any /* TODO: [object Object]*/
+
+type HttpUri struct {
+	Uri     string `json:"uri"`
+	Cluster string `json:"cluster"`
+	Timeout any/* TODO: [object Object]*/ `json:"timeout"`
+}
+
+type HttpUriRestricted struct {
+	Uri     string                         `json:"uri"`
+	Cluster string                         `json:"cluster"`
+	Timeout envoyCommon.DurationRestricted `json:"timeout,omitempty"`
+}
+
+type JwtAuthnName string
+
+const (
+	JwtAuthnNameEnvoyFiltersHttpJwtAuthn JwtAuthnName = "envoy.filters.http.jwt_authn"
+)
+
+type JwtAuthnTypedConfigProviders map[string]JwtProvider
+
+type JwtAuthnTypedConfigFilterStateRules struct {
+	Name     string            `json:"name"`
+	Requires JwtRequirementMap `json:"requires,omitempty"`
+}
+
+type JwtAuthnTypedConfigRequirementMap map[string]JwtRequirement
+
+type JwtAuthnTypedConfigType string
+
+const (
+	JwtAuthnTypedConfigTypeTypeGoogleapisComEnvoyExtensionsFiltersHttpJwtAuthnV3JwtAuthentication JwtAuthnTypedConfigType = "type.googleapis.com/envoy.extensions.filters.http.jwt_authn.v3.JwtAuthentication"
+)
+
+type JwtAuthnTypedConfig struct {
+	Providers             JwtAuthnTypedConfigProviders        `json:"providers,omitempty"`
+	Rules                 []JwtRequirementRuleRestricted      `json:"rules,omitempty"`
+	Filter_state_rules    JwtAuthnTypedConfigFilterStateRules `json:"filter_state_rules,omitempty"`
+	Bypass_cors_preflight bool                                `json:"bypass_cors_preflight,omitempty"`
+	Requirement_map       JwtAuthnTypedConfigRequirementMap   `json:"requirement_map,omitempty"`
+	Type                  JwtAuthnTypedConfigType             `json:"@type,omitempty"`
+}
+
+type JwtAuthn struct {
+	Priority          envoyCommon.Priority `json:"priority,omitempty"`
+	ExcludedWorkloads []string             `json:"excludedWorkloads,omitempty"`
+	Name              JwtAuthnName         `json:"name,omitempty"`
+	Typed_config      JwtAuthnTypedConfig  `json:"typed_config,omitempty"`
+}
+
+type JwtProviderClaimToHeaders struct {
+	Header_name string `json:"header_name"`
+	Claim_name  string `json:"claim_name"`
+}
+
+type JwtProviderRemoteJwksAsyncFetch struct {
+	Fast_listener           bool                 `json:"fast_listener,omitempty"`
+	Failed_refetch_duration envoyCommon.Duration `json:"failed_refetch_duration,omitempty"`
+}
+
+type JwtProviderRemoteJwks struct {
+	Http_uri       HttpUri                         `json:"http_uri,omitempty"`
+	Cache_duration envoyCommon.Duration            `json:"cache_duration,omitempty"`
+	Async_fetch    JwtProviderRemoteJwksAsyncFetch `json:"async_fetch,omitempty"`
+	Retry_policy   envoyCommon.RetryPolicy         `json:"retry_policy,omitempty"`
+}
+
+type JwtProvider struct {
+	Issuer           string                      `json:"issuer,omitempty"`
+	Audiences        []string                    `json:"audiences,omitempty"`
+	Claim_to_headers []JwtProviderClaimToHeaders `json:"claim_to_headers,omitempty"`
+	Remote_jwks      JwtProviderRemoteJwks       `json:"remote_jwks,omitempty"`
+}
+
+type JwtProviderUiRestrictedClaimToHeaders struct {
+	Header_name string `json:"header_name"`
+	Claim_name  string `json:"claim_name"`
+}
+
+type JwtProviderUiRestrictedRemoteJwks struct {
+	Http_uri       HttpUriRestricted              `json:"http_uri,omitempty"`
+	Cache_duration envoyCommon.DurationRestricted `json:"cache_duration,omitempty"`
+}
+
+type JwtProviderUIRestricted struct {
+	Issuer           string                                  `json:"issuer,omitempty"`
+	Audiences        []string                                `json:"audiences,omitempty"`
+	Claim_to_headers []JwtProviderUiRestrictedClaimToHeaders `json:"claim_to_headers,omitempty"`
+	Remote_jwks      JwtProviderUiRestrictedRemoteJwks       `json:"remote_jwks,omitempty"`
+}
+
+type JwtRequirementProviderAndAudiences struct {
+	Provider_name string   `json:"provider_name,omitempty"`
+	Audiences     []string `json:"audiences,omitempty"`
+}
+
+type JwtRequirementRequiresAny struct {
+	Requirements []any `json:"requirements,omitempty"`
+}
+
+type JwtRequirementRequiresAll struct {
+	Requirements []any `json:"requirements,omitempty"`
+}
+
+type JwtRequirement struct {
+	Provider_name           string                             `json:"provider_name,omitempty"`
+	Provider_and_audiences  JwtRequirementProviderAndAudiences `json:"provider_and_audiences,omitempty"`
+	Requires_any            JwtRequirementRequiresAny          `json:"requires_any,omitempty"`
+	Requires_all            JwtRequirementRequiresAll          `json:"requires_all,omitempty"`
+	Allow_missing_or_failed envoyCommon.Empty                  `json:"allow_missing_or_failed,omitempty"`
+	Allow_missing           envoyCommon.Empty                  `json:"allow_missing,omitempty"`
+}
+
+type JwtRequirementMap map[string]JwtRequirement
+
+type JwtRequirementRestricted struct {
+	Provider_name string `json:"provider_name,omitempty"`
+}
+
+type JwtRequirementRule struct {
+	Match            envoyCommon.RouteMatch `json:"match,omitempty"`
+	Requires         JwtRequirement         `json:"requires,omitempty"`
+	Requirement_name string                 `json:"requirement_name,omitempty"`
+}
+
+type JwtRequirementRuleRestricted struct {
+	Match    envoyCommon.RouteMatchRestricted `json:"match,omitempty"`
+	Requires JwtRequirementRestricted         `json:"requires,omitempty"`
 }
 
 type RateLimitName string
@@ -412,7 +399,7 @@ const (
 )
 
 type RateLimitTypedConfig struct {
-	Domain                             string                                      `json:"domain,omitempty"`
+	Domain                             string                                      `json:"domain"`
 	Stage                              float32                                     `json:"stage"`
 	Request_type                       RateLimitTypedConfigRequestType             `json:"request_type,omitempty"`
 	Timeout                            envoyCommon.Duration                        `json:"timeout,omitempty"`
@@ -435,27 +422,40 @@ type RateLimit struct {
 	Typed_config      RateLimitTypedConfig `json:"typed_config,omitempty"`
 }
 
-type ConnectRpcName string
-
-const (
-	ConnectRpcNameEnvoyFiltersHttpConnectGrpcBridge ConnectRpcName = "envoy.filters.http.connect_grpc_bridge"
-)
-
-type ConnectRpcTypedConfigType string
-
-const (
-	ConnectRpcTypedConfigTypeTypeGoogleapisComEnvoyExtensionsFiltersHttpConnectGrpcBridgeV3FilterConfig ConnectRpcTypedConfigType = "type.googleapis.com/envoy.extensions.filters.http.connect_grpc_bridge.v3.FilterConfig"
-)
-
-type ConnectRpcTypedConfig struct {
-	Type ConnectRpcTypedConfigType `json:"@type,omitempty"`
+type RateLimitServiceGrpcServiceEnvoyGrpc struct {
+	Cluster_name string                  `json:"cluster_name"`
+	Authority    string                  `json:"authority,omitempty"`
+	Retry_policy envoyCommon.RetryPolicy `json:"retry_policy,omitempty"`
 }
 
-type ConnectRpc struct {
-	Priority          envoyCommon.Priority  `json:"priority,omitempty"`
-	ExcludedWorkloads []string              `json:"excludedWorkloads,omitempty"`
-	Name              ConnectRpcName        `json:"name,omitempty"`
-	Typed_config      ConnectRpcTypedConfig `json:"typed_config,omitempty"`
+type RateLimitServiceGrpcServiceGoogleGrpcChannelCredentialsSslCredentials struct {
+	Root_certs  envoyCommon.DataSource `json:"root_certs,omitempty"`
+	Private_key envoyCommon.DataSource `json:"private_key,omitempty"`
+	Cert_chain  envoyCommon.DataSource `json:"cert_chain,omitempty"`
 }
 
-type HttpFilter any /* TODO: [object Object]*/
+type RateLimitServiceGrpcServiceGoogleGrpcChannelCredentials struct {
+	Ssl_credentials RateLimitServiceGrpcServiceGoogleGrpcChannelCredentialsSslCredentials `json:"ssl_credentials,omitempty"`
+	Google_default  envoyCommon.Empty                                                     `json:"google_default,omitempty"`
+}
+
+type RateLimitServiceGrpcServiceGoogleGrpc struct {
+	Target_uri               string                                                  `json:"target_uri"`
+	Channel_credentials      RateLimitServiceGrpcServiceGoogleGrpcChannelCredentials `json:"channel_credentials,omitempty"`
+	Call_credentials         []envoyCommon.GoogleCallCredentials                     `json:"call_credentials,omitempty"`
+	Stat_prefix              string                                                  `json:"stat_prefix"`
+	Credentials_factory_name string                                                  `json:"credentials_factory_name,omitempty"`
+	Config                   envoyCommon.Struct                                      `json:"config,omitempty"`
+}
+
+type RateLimitServiceGrpcService struct {
+	Envoy_grpc       RateLimitServiceGrpcServiceEnvoyGrpc  `json:"envoy_grpc,omitempty"`
+	Google_grpc      RateLimitServiceGrpcServiceGoogleGrpc `json:"google_grpc,omitempty"`
+	Timeout          any/* TODO: [object Object]*/ `json:"timeout,omitempty"`
+	Initial_metadata []envoyCommon.HeaderValue `json:"initial_metadata,omitempty"`
+}
+
+type RateLimitService struct {
+	Grpc_service          RateLimitServiceGrpcService `json:"grpc_service"`
+	Transport_api_version envoyCommon.ApiVersion      `json:"transport_api_version,omitempty"`
+}

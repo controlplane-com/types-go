@@ -52,7 +52,7 @@ type ClusterSpecPostgres struct {
 
 type ClusterSpec struct {
 	ExternalAccessEnabled bool                `json:"externalAccessEnabled,omitempty"`
-	Postgres              ClusterSpecPostgres `json:"postgres,omitempty"`
+	Postgres              ClusterSpecPostgres `json:"postgres"`
 }
 
 type ClusterStatus struct {
@@ -62,13 +62,15 @@ type ClusterStatus struct {
 	/* WARNING!! Arbitrary properties are being ignored! */
 }
 
+type DbClusterTags map[string]any
+
 type DbCluster struct {
 	Id           string        `json:"id,omitempty"`
 	Name         base.Name     `json:"name,omitempty"`
 	Kind         base.Kind     `json:"kind,omitempty"`
 	Version      float32       `json:"version"`
 	Description  string        `json:"description,omitempty"`
-	Tags         base.Tags     `json:"tags,omitempty"`
+	Tags         DbClusterTags `json:"tags,omitempty"`
 	Created      string        `json:"created,omitempty"`
 	LastModified string        `json:"lastModified,omitempty"`
 	Links        base.Links    `json:"links,omitempty"`

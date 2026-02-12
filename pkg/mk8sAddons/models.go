@@ -4,70 +4,22 @@ package mk8sAddons
 
 import "github.com/controlplane-com/types-go/pkg/workload"
 
-type RegularExpression string
-
-type FlexibleAddonConfig map[string]string
-
-type NonCustomizableAddonConfig struct {
-}
-
-type AzureAddonConfig struct {
-	TenantId string `json:"tenantId,omitempty"`
-}
-
-type AwsEFSAddonConfig struct {
+type AwsECRAddonConfig struct {
 	RoleArn string `json:"roleArn,omitempty"`
 }
 
-type MetricsAddonConfigScrapeAnnotated struct {
-	IntervalSeconds   float32           `json:"intervalSeconds"`
-	IncludeNamespaces RegularExpression `json:"includeNamespaces,omitempty"`
-	ExcludeNamespaces RegularExpression `json:"excludeNamespaces,omitempty"`
-	RetainLabels      RegularExpression `json:"retainLabels,omitempty"`
+type AwsEFSAddonConfig struct {
+	RoleArn string `json:"roleArn"`
 }
 
-type MetricsAddonConfig struct {
-	KubeState       bool                              `json:"kubeState,omitempty"`
-	CoreDns         bool                              `json:"coreDns,omitempty"`
-	Kubelet         bool                              `json:"kubelet,omitempty"`
-	Apiserver       bool                              `json:"apiserver,omitempty"`
-	NodeExporter    bool                              `json:"nodeExporter,omitempty"`
-	Cadvisor        bool                              `json:"cadvisor,omitempty"`
-	ScrapeAnnotated MetricsAddonConfigScrapeAnnotated `json:"scrapeAnnotated,omitempty"`
+type AwsELBAddonConfig struct {
+	RoleArn string `json:"roleArn,omitempty"`
 }
 
-type RegistryMirrorConfigMirrors struct {
-	Registry any/* TODO: [object Object]*/ `json:"registry,omitempty"`
-	Mirrors  []string `json:"mirrors,omitempty"`
-}
+type AwsTrustPolicyConfigTrustPolicy map[string]any
 
-type RegistryMirrorConfig struct {
-	Mirrors []RegistryMirrorConfigMirrors `json:"mirrors,omitempty"`
-}
-
-type MetricsAddonStatusRemoteWriteConfig map[string]any
-
-type MetricsAddonStatus struct {
-	PrometheusEndpoint string                              `json:"prometheusEndpoint,omitempty"`
-	RemoteWriteConfig  MetricsAddonStatusRemoteWriteConfig `json:"remoteWriteConfig,omitempty"`
-}
-
-type LogsAddonConfig struct {
-	AuditEnabled      bool              `json:"auditEnabled,omitempty"`
-	IncludeNamespaces RegularExpression `json:"includeNamespaces,omitempty"`
-	ExcludeNamespaces RegularExpression `json:"excludeNamespaces,omitempty"`
-	Docker            bool              `json:"docker,omitempty"`
-	Kubelet           bool              `json:"kubelet,omitempty"`
-	Kernel            bool              `json:"kernel,omitempty"`
-	Events            bool              `json:"events,omitempty"`
-}
-
-type LogsAddonStatus struct {
-	LokiAddress string `json:"lokiAddress,omitempty"`
-}
-
-type DashboardAddonStatus struct {
-	Url string `json:"url,omitempty"`
+type AwsTrustPolicyConfig struct {
+	TrustPolicy AwsTrustPolicyConfigTrustPolicy `json:"trustPolicy,omitempty"`
 }
 
 type AwsWorkloadIdentityAddonStatusOidcProviderConfig struct {
@@ -82,32 +34,12 @@ type AwsWorkloadIdentityAddonStatus struct {
 	TrustPolicy        AwsWorkloadIdentityAddonStatusTrustPolicy        `json:"trustPolicy,omitempty"`
 }
 
-type AwsTrustPolicyConfigTrustPolicy map[string]any
-
-type AwsTrustPolicyConfig struct {
-	TrustPolicy AwsTrustPolicyConfigTrustPolicy `json:"trustPolicy,omitempty"`
-}
-
-type NvidiaAddonConfig struct {
-	TaintGPUNodes bool `json:"taintGPUNodes,omitempty"`
-}
-
-type AwsECRAddonConfig struct {
-	RoleArn string `json:"roleArn,omitempty"`
-}
-
-type AwsELBAddonConfig struct {
-	RoleArn string `json:"roleArn,omitempty"`
-}
-
 type AzureACRAddonConfig struct {
-	ClientId string `json:"clientId,omitempty"`
+	ClientId string `json:"clientId"`
 }
 
-type HttpHeaderValue struct {
-	Values  []string `json:"values,omitempty"`
-	Secrets []string `json:"secrets,omitempty"`
-	Files   []string `json:"files,omitempty"`
+type AzureAddonConfig struct {
+	TenantId string `json:"tenantId,omitempty"`
 }
 
 type ByokAddonConfigConfigActuatorLogLevel string
@@ -118,15 +50,13 @@ const (
 	ByokAddonConfigConfigActuatorLogLevelError ByokAddonConfigConfigActuatorLogLevel = "error"
 )
 
-type ByokAddonConfigConfigActuatorEnv map[string]string
-
 type ByokAddonConfigConfigActuator struct {
 	MinCpu    workload.Cpu                          `json:"minCpu,omitempty"`
 	MaxCpu    workload.Cpu                          `json:"maxCpu,omitempty"`
 	MinMemory workload.Memory                       `json:"minMemory,omitempty"`
 	MaxMemory workload.Memory                       `json:"maxMemory,omitempty"`
 	LogLevel  ByokAddonConfigConfigActuatorLogLevel `json:"logLevel,omitempty"`
-	Env       ByokAddonConfigConfigActuatorEnv      `json:"env,omitempty"`
+	Env       FlexibleAddonConfig                   `json:"env,omitempty"`
 }
 
 type ByokAddonConfigConfigMiddlebox struct {
@@ -229,8 +159,6 @@ type ByokAddonConfigConfigMonitoringRemoteWriteProxyConnectHeader map[string][]s
 
 type ByokAddonConfigConfigMonitoringRemoteWriteHttpHeaders map[string]HttpHeaderValue
 
-type ByokAddonConfigConfigMonitoringRemoteWriteHeaders map[string]string
-
 type ByokAddonConfigConfigMonitoringRemoteWriteWriteRelabelConfigs map[string]any
 
 type ByokAddonConfigConfigMonitoringRemoteWriteSigv4 map[string]any
@@ -255,7 +183,7 @@ type ByokAddonConfigConfigMonitoringRemoteWrite struct {
 	Http_headers           ByokAddonConfigConfigMonitoringRemoteWriteHttpHeaders           `json:"http_headers,omitempty"`
 	Url                    string                                                          `json:"url,omitempty"`
 	Remote_timeout         string                                                          `json:"remote_timeout,omitempty"`
-	Headers                ByokAddonConfigConfigMonitoringRemoteWriteHeaders               `json:"headers,omitempty"`
+	Headers                FlexibleAddonConfig                                             `json:"headers,omitempty"`
 	Write_relabel_configs  []ByokAddonConfigConfigMonitoringRemoteWriteWriteRelabelConfigs `json:"write_relabel_configs,omitempty"`
 	Name                   string                                                          `json:"name,omitempty"`
 	Send_exemplars         bool                                                            `json:"send_exemplars,omitempty"`
@@ -266,15 +194,13 @@ type ByokAddonConfigConfigMonitoringRemoteWrite struct {
 	Queue_config           ByokAddonConfigConfigMonitoringRemoteWriteQueueConfig           `json:"queue_config,omitempty"`
 }
 
-type ByokAddonConfigConfigMonitoringExternalLabels map[string]string
-
 type ByokAddonConfigConfigMonitoring struct {
 	MinMemory        workload.Memory                                 `json:"minMemory,omitempty"`
 	MaxMemory        workload.Memory                                 `json:"maxMemory,omitempty"`
 	KubeStateMetrics ByokAddonConfigConfigMonitoringKubeStateMetrics `json:"kubeStateMetrics,omitempty"`
 	Prometheus       ByokAddonConfigConfigMonitoringPrometheus       `json:"prometheus,omitempty"`
 	RemoteWrite      []ByokAddonConfigConfigMonitoringRemoteWrite    `json:"remoteWrite,omitempty"`
-	ExternalLabels   ByokAddonConfigConfigMonitoringExternalLabels   `json:"externalLabels,omitempty"`
+	ExternalLabels   FlexibleAddonConfig                             `json:"externalLabels,omitempty"`
 }
 
 type ByokAddonConfigConfigRedis struct {
@@ -332,6 +258,74 @@ type ByokAddonConfigConfig struct {
 
 type ByokAddonConfig struct {
 	IgnoreUpdates bool                  `json:"ignoreUpdates,omitempty"`
-	Location      string                `json:"location,omitempty"`
+	Location      string                `json:"location"`
 	Config        ByokAddonConfigConfig `json:"config,omitempty"`
 }
+
+type DashboardAddonStatus struct {
+	Url string `json:"url,omitempty"`
+}
+
+type FlexibleAddonConfig map[string]string
+
+type HttpHeaderValue struct {
+	Values  []string `json:"values,omitempty"`
+	Secrets []string `json:"secrets,omitempty"`
+	Files   []string `json:"files,omitempty"`
+}
+
+type LogsAddonConfig struct {
+	AuditEnabled      bool              `json:"auditEnabled,omitempty"`
+	IncludeNamespaces RegularExpression `json:"includeNamespaces,omitempty"`
+	ExcludeNamespaces RegularExpression `json:"excludeNamespaces,omitempty"`
+	Docker            bool              `json:"docker,omitempty"`
+	Kubelet           bool              `json:"kubelet,omitempty"`
+	Kernel            bool              `json:"kernel,omitempty"`
+	Events            bool              `json:"events,omitempty"`
+}
+
+type LogsAddonStatus struct {
+	LokiAddress string `json:"lokiAddress,omitempty"`
+}
+
+type MetricsAddonConfigScrapeAnnotated struct {
+	IntervalSeconds   float32           `json:"intervalSeconds"`
+	IncludeNamespaces RegularExpression `json:"includeNamespaces,omitempty"`
+	ExcludeNamespaces RegularExpression `json:"excludeNamespaces,omitempty"`
+	RetainLabels      RegularExpression `json:"retainLabels,omitempty"`
+}
+
+type MetricsAddonConfig struct {
+	KubeState       bool                              `json:"kubeState,omitempty"`
+	CoreDns         bool                              `json:"coreDns,omitempty"`
+	Kubelet         bool                              `json:"kubelet,omitempty"`
+	Apiserver       bool                              `json:"apiserver,omitempty"`
+	NodeExporter    bool                              `json:"nodeExporter,omitempty"`
+	Cadvisor        bool                              `json:"cadvisor,omitempty"`
+	ScrapeAnnotated MetricsAddonConfigScrapeAnnotated `json:"scrapeAnnotated,omitempty"`
+}
+
+type MetricsAddonStatusRemoteWriteConfig map[string]any
+
+type MetricsAddonStatus struct {
+	PrometheusEndpoint string                              `json:"prometheusEndpoint,omitempty"`
+	RemoteWriteConfig  MetricsAddonStatusRemoteWriteConfig `json:"remoteWriteConfig,omitempty"`
+}
+
+type NonCustomizableAddonConfig struct {
+}
+
+type NvidiaAddonConfig struct {
+	TaintGPUNodes bool `json:"taintGPUNodes,omitempty"`
+}
+
+type RegistryMirrorConfigMirrors struct {
+	Registry any/* TODO: [object Object]*/ `json:"registry"`
+	Mirrors  []string `json:"mirrors,omitempty"`
+}
+
+type RegistryMirrorConfig struct {
+	Mirrors []RegistryMirrorConfigMirrors `json:"mirrors,omitempty"`
+}
+
+type RegularExpression string

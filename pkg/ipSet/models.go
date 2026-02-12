@@ -12,30 +12,14 @@ const (
 )
 
 type IpAddress struct {
-	Name    string         `json:"name,omitempty"`
-	Ip      string         `json:"ip,omitempty"`
-	Id      string         `json:"id,omitempty"`
+	Name    string         `json:"name"`
+	Ip      string         `json:"ip"`
+	Id      string         `json:"id"`
 	State   IpAddressState `json:"state,omitempty"`
-	Created string         `json:"created,omitempty"`
+	Created string         `json:"created"`
 }
 
-type IpSetStatus struct {
-	IpAddresses []IpAddress `json:"ipAddresses,omitempty"`
-	Error       string      `json:"error,omitempty"`
-	Warning     string      `json:"warning,omitempty"`
-}
-
-type IpSetLocationRetentionPolicy string
-
-const (
-	IpSetLocationRetentionPolicyKeep IpSetLocationRetentionPolicy = "keep"
-	IpSetLocationRetentionPolicyFree IpSetLocationRetentionPolicy = "free"
-)
-
-type IpSetLocation struct {
-	Name            string                       `json:"name,omitempty"`
-	RetentionPolicy IpSetLocationRetentionPolicy `json:"retentionPolicy,omitempty"`
-}
+type IpSetTags map[string]any
 
 type IpSetSpec struct {
 	Link      string          `json:"link,omitempty"`
@@ -48,10 +32,28 @@ type IpSet struct {
 	Kind         base.Kind   `json:"kind,omitempty"`
 	Version      float32     `json:"version"`
 	Description  string      `json:"description,omitempty"`
-	Tags         base.Tags   `json:"tags,omitempty"`
+	Tags         IpSetTags   `json:"tags,omitempty"`
 	Created      string      `json:"created,omitempty"`
 	LastModified string      `json:"lastModified,omitempty"`
 	Links        base.Links  `json:"links,omitempty"`
-	Spec         IpSetSpec   `json:"spec,omitempty"`
+	Spec         IpSetSpec   `json:"spec"`
 	Status       IpSetStatus `json:"status,omitempty"`
+}
+
+type IpSetLocationRetentionPolicy string
+
+const (
+	IpSetLocationRetentionPolicyKeep IpSetLocationRetentionPolicy = "keep"
+	IpSetLocationRetentionPolicyFree IpSetLocationRetentionPolicy = "free"
+)
+
+type IpSetLocation struct {
+	Name            string                       `json:"name"`
+	RetentionPolicy IpSetLocationRetentionPolicy `json:"retentionPolicy,omitempty"`
+}
+
+type IpSetStatus struct {
+	IpAddresses []IpAddress `json:"ipAddresses,omitempty"`
+	Error       string      `json:"error,omitempty"`
+	Warning     string      `json:"warning,omitempty"`
 }

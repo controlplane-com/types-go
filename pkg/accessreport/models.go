@@ -4,6 +4,25 @@ package accessreport
 
 import "github.com/controlplane-com/types-go/pkg/base"
 
+type AccessReportKind string
+
+const (
+	AccessReportKindAccessreport AccessReportKind = "accessreport"
+)
+
+type AccessReport struct {
+	Kind        AccessReportKind    `json:"kind,omitempty"`
+	Permissions []GrantedPermission `json:"permissions,omitempty"`
+	Created     string              `json:"created,omitempty"`
+	Links       base.Links          `json:"links,omitempty"`
+}
+
+type GrantedPermission struct {
+	Name        string             `json:"name,omitempty"`
+	Description string             `json:"description,omitempty"`
+	Bindings    []PrincipalBinding `json:"bindings,omitempty"`
+}
+
 type PrincipalBindingMatch string
 
 const (
@@ -17,23 +36,4 @@ type PrincipalBinding struct {
 	GrantingPolicyLink string                `json:"grantingPolicyLink,omitempty"`
 	GrantedPermissions []string              `json:"grantedPermissions,omitempty"`
 	Match              PrincipalBindingMatch `json:"match,omitempty"`
-}
-
-type GrantedPermission struct {
-	Name        string             `json:"name,omitempty"`
-	Description string             `json:"description,omitempty"`
-	Bindings    []PrincipalBinding `json:"bindings,omitempty"`
-}
-
-type AccessReportKind string
-
-const (
-	AccessReportKindAccessreport AccessReportKind = "accessreport"
-)
-
-type AccessReport struct {
-	Kind        AccessReportKind    `json:"kind,omitempty"`
-	Permissions []GrantedPermission `json:"permissions,omitempty"`
-	Created     string              `json:"created,omitempty"`
-	Links       base.Links          `json:"links,omitempty"`
 }

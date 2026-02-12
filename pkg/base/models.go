@@ -2,7 +2,36 @@
 
 package base
 
-type LocalLink string
+type ApiError struct {
+	Status  float32 `json:"status"`
+	Message string  `json:"message,omitempty"`
+	Code    string  `json:"code,omitempty"`
+	Details any     `json:"details,omitempty"`
+	Id      string  `json:"id,omitempty"`
+}
+
+type BaseTags map[string]any
+
+type Base struct {
+	Id           string   `json:"id,omitempty"`
+	Name         Name     `json:"name,omitempty"`
+	Kind         Kind     `json:"kind,omitempty"`
+	Version      float32  `json:"version"`
+	Description  string   `json:"description,omitempty"`
+	Tags         BaseTags `json:"tags,omitempty"`
+	Created      string   `json:"created,omitempty"`
+	LastModified string   `json:"lastModified,omitempty"`
+	Links        Links    `json:"links,omitempty"`
+}
+
+type CloudProvider string
+
+const (
+	CloudProviderAws   CloudProvider = "aws"
+	CloudProviderGcp   CloudProvider = "gcp"
+	CloudProviderAzure CloudProvider = "azure"
+	CloudProviderNgs   CloudProvider = "ngs"
+)
 
 type ImageLink string
 
@@ -44,37 +73,12 @@ const (
 	KindVolumeset        Kind = "volumeset"
 )
 
-type CloudProvider string
-
-const (
-	CloudProviderAws   CloudProvider = "aws"
-	CloudProviderGcp   CloudProvider = "gcp"
-	CloudProviderAzure CloudProvider = "azure"
-	CloudProviderNgs   CloudProvider = "ngs"
-)
-
-type Name string
-
-type Tags map[string]any
-
 type Link struct {
-	Rel  string `json:"rel,omitempty"`
-	Href string `json:"href,omitempty"`
+	Rel  string `json:"rel"`
+	Href string `json:"href"`
 }
 
 type Links []Link
-
-type Base struct {
-	Id           string  `json:"id,omitempty"`
-	Name         Name    `json:"name,omitempty"`
-	Kind         Kind    `json:"kind,omitempty"`
-	Version      float32 `json:"version"`
-	Description  string  `json:"description,omitempty"`
-	Tags         Tags    `json:"tags,omitempty"`
-	Created      string  `json:"created,omitempty"`
-	LastModified string  `json:"lastModified,omitempty"`
-	Links        Links   `json:"links,omitempty"`
-}
 
 type ListKind string
 
@@ -127,20 +131,18 @@ const (
 type List struct {
 	Kind     ListKind     `json:"kind,omitempty"`
 	ItemKind ListItemKind `json:"itemKind,omitempty"`
-	Items    []any        `json:"items,omitempty"`
-	Links    []Link       `json:"links,omitempty"`
+	Items    []any        `json:"items"`
+	Links    []Link       `json:"links"`
 }
 
-type Regex string
-
-type ApiError struct {
-	Status  float32 `json:"status"`
-	Message string  `json:"message,omitempty"`
-	Code    string  `json:"code,omitempty"`
-	Details any     `json:"details,omitempty"`
-	Id      string  `json:"id,omitempty"`
-}
+type LocalLink string
 
 type MultiZoneOptions struct {
 	Enabled bool `json:"enabled,omitempty"`
 }
+
+type Name string
+
+type Regex string
+
+type Tags map[string]any
